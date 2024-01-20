@@ -5,7 +5,7 @@ public class Admin
 {
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-    [MaxLength(36)] // Ustaw maksymalną długość identyfikatora
+    [MaxLength(36)] 
     public string Id { get; set; }
     public byte[] Password { get; set; }
     public byte[] PasswordSalt { get; set; }

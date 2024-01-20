@@ -7,11 +7,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
-namespace api._Data.Migrations
+namespace api.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20240120171255_LocalMigrations")]
-    partial class LocalMigrations
+    [Migration("20240120211024_initialCreate")]
+    partial class initialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -55,6 +55,10 @@ namespace api._Data.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("PhoneNumber")
                         .IsRequired()
                         .HasColumnType("text");
 
