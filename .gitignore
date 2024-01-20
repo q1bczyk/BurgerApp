@@ -435,3 +435,6 @@ ehthumbs.db
 Desktop.ini
 
 # Rec
+
+/api/bin
+/api/obj
