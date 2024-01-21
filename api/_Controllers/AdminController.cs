@@ -1,11 +1,14 @@
+using System.Net;
+using System.Net.Mail;
 using System.Security.Cryptography;
 using System.Text;
 using api._DTOs.AdminDTOs;
-using api._DTOs.LocalDTOs;
 using api._Interfaces;
 using api.Controllers;
 using AutoMapper;
+
 using Microsoft.AspNetCore.Mvc;
+
 
 public class AdminController : BaseApiController
 {
@@ -56,9 +59,26 @@ public class AdminController : BaseApiController
         if(contact == null)
             return NotFound();
 
-        EmailService emailService = new EmailService(contact.Email);
-        
-        await emailService.SendMail();
+        ServicePointManager.ServerCertificateValidationCallback = (sender, certificate, chain, sslPolicyErrors) => true;
+
+        string senderEmail = "bartekkubik7@gmail.com";
+        string senderPassword = "";
+        string recipientEmail = contact.Email;
+        string link = "xdddd";
+
+        var smtpClient = new SmtpClient("smtp.gmail.com")
+        {
+            Port = 587 ,
+            UseDefaultCredentials = false,
+            Credentials = new NetworkCredential(senderEmail, senderPassword),
+            EnableSsl = true,
+        };
+
+        MailMessage mailMessage = new MailMessage(senderEmail, recipientEmail);
+            mailMessage.Subject = "ItBurger - Resetowanie hasła";
+            mailMessage.Body = "Link do resetowania hasła:" + link;
+
+        smtpClient.Send(mailMessage); 
 
         return Ok("Succes!");
 
