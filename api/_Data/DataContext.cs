@@ -19,22 +19,12 @@ public class DataContext : DbContext
         modelBuilder.Entity<Local>()
             .HasOne(l => l.Admin)
             .WithOne(a => a.Local)
-            .HasForeignKey<Admin>(a => a.Id);
-
-        modelBuilder.Entity<Admin>()
-            .HasOne(a => a.Local)
-            .WithOne(l => l.Admin)
-            .HasForeignKey<Local>(l => l.Id);
+            .HasForeignKey<Admin>(a => a.LocalId);
             
         modelBuilder.Entity<Local>()
             .HasOne(l => l.Contact)
             .WithOne(c => c.Local)
-            .HasForeignKey<Contact>(c => c.Id);    
-        
-        modelBuilder.Entity<Contact>()
-            .HasOne(a => a.Local)
-            .WithOne(l => l.Contact)
-            .HasForeignKey<Local>(l => l.Id);
+            .HasForeignKey<Contact>(c => c.LocalId);    
         
         modelBuilder.Entity<Local>()
             .HasMany(l => l.OpeningHours)

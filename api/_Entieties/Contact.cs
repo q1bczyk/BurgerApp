@@ -13,5 +13,6 @@ public class Contact
     public string StreetNumber { get; set; }
     public string Email { get; set; }
     public string PhoneNumber { get; set; }
-    public Local Local { get; set; }
+    public string LocalId { get; set; }
+    public Local Local { get; set; } = null!;
 }

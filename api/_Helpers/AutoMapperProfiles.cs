@@ -1,3 +1,6 @@
+using api._DTOs.AdminDTOs;
+using api._DTOs.ContactDTOs;
+using api._DTOs.LocalDTOs;
 using AutoMapper;
 
 namespace api._Helpers
@@ -6,7 +9,9 @@ namespace api._Helpers
     {
         public AutoMapperProfiles()
         {
-     
+            CreateMap<Admin, AdminGetDTO>();
+            CreateMap<Contact, ContactGetDTO>();
+            CreateMap<Local, LocalGetDTO>();
         }
     }
 }

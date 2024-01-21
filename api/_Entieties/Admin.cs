@@ -9,5 +9,6 @@ public class Admin
     public string Id { get; set; }
     public byte[] Password { get; set; }
     public byte[] PasswordSalt { get; set; }
-    public Local Local { get; set; }
+    public string LocalId { get; set; }
+    public Local Local { get; set; } = null!;
 }
