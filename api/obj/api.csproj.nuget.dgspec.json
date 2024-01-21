@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Bartus Kubiczek\\Documents\\GitHub\\Burger\\code\\api\\api.csproj": {}
+    "C:\\Users\\Bartus Kubiczek\\Documents\\GitHub\\BurgerApp\\api\\api.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Bartus Kubiczek\\Documents\\GitHub\\Burger\\code\\api\\api.csproj": {
+    "C:\\Users\\Bartus Kubiczek\\Documents\\GitHub\\BurgerApp\\api\\api.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Bartus Kubiczek\\Documents\\GitHub\\Burger\\code\\api\\api.csproj",
+        "projectUniqueName": "C:\\Users\\Bartus Kubiczek\\Documents\\GitHub\\BurgerApp\\api\\api.csproj",
         "projectName": "api",
-        "projectPath": "C:\\Users\\Bartus Kubiczek\\Documents\\GitHub\\Burger\\code\\api\\api.csproj",
+        "projectPath": "C:\\Users\\Bartus Kubiczek\\Documents\\GitHub\\BurgerApp\\api\\api.csproj",
         "packagesPath": "C:\\Users\\Bartus Kubiczek\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Bartus Kubiczek\\Documents\\GitHub\\Burger\\code\\api\\obj\\",
+        "outputPath": "C:\\Users\\Bartus Kubiczek\\Documents\\GitHub\\BurgerApp\\api\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Bartus Kubiczek\\AppData\\Roaming\\NuGet\\NuGet.Config",

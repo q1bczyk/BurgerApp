@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "TJ8oTmKFOl/uixivw/oDOM1aLbxOL3ZqoVi8AMwZigRnxwh6TtkEMU/hScyuYqVWc93WCJDZvrSuj6HwGe29lg==",
+  "dgSpecHash": "2ZMmFBIQx8qQPnZjBNRltH+Ahv8uS8lWYPC412U+ecYlkItGmz+qS7zrDnEWOg3ko5VYD+J5Cv6Ggj9eYWZ1HA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Bartus Kubiczek\\Documents\\GitHub\\Burger\\code\\api\\api.csproj",
+  "projectFilePath": "C:\\Users\\Bartus Kubiczek\\Documents\\GitHub\\BurgerApp\\api\\api.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Bartus Kubiczek\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
     "C:\\Users\\Bartus Kubiczek\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\12.0.1\\automapper.extensions.microsoft.dependencyinjection.12.0.1.nupkg.sha512",
