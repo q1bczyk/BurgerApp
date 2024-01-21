@@ -10,46 +10,57 @@ using Microsoft.AspNetCore.Mvc;
 public class AdminController : BaseApiController
 {
     private readonly ILocalRepository localRepository;
+    private readonly IContactRepository contactRepository;
+    private readonly IAdminRepository adminRepository;
     private readonly IMapper mapper;
     private readonly ITokenservice tokenService;
 
-    public AdminController(ILocalRepository localRepository, IMapper mapper, ITokenservice tokenService)
+    public AdminController(ILocalRepository localRepository, IContactRepository contactRepository, IAdminRepository adminRepository, IMapper mapper, ITokenservice tokenService)
     {
         this.localRepository = localRepository;
+        this.contactRepository = contactRepository;
+        this.adminRepository = adminRepository;
         this.mapper = mapper;
         this.tokenService = tokenService;
     }
 
-    [HttpPost("register")]
-    public async Task<ActionResult<LocalGetDTO>> Register(AdminPostDTO adminPostDTO)
+    [HttpPost("login")]
+    public async Task<ActionResult<AdminLoggedDTO>> Login(AdminLoginDTO adminLoginDTO)
     {
-        using var hmac = new HMACSHA512();
+        var contact = await contactRepository.FindContactByEmail(adminLoginDTO.Email);
         
-        var contact = new Contact
-        {
-            City = adminPostDTO.ContactPostDTO.City,
-            PostalCode = adminPostDTO.ContactPostDTO.PostalCode,
-            Street = adminPostDTO.ContactPostDTO.Street,
-            StreetNumber = adminPostDTO.ContactPostDTO.StreetNumber,
-            Email = adminPostDTO.ContactPostDTO.Email,
-            PhoneNumber = adminPostDTO.ContactPostDTO.PhoneNumber,
-        };
+        if(contact == null)
+            return Unauthorized("Wrong email or password!");
+        
+        var admin = await adminRepository.FindAdminByLocalId(contact.LocalId);
 
-        var admin = new Admin
-        {
-            Password = hmac.ComputeHash(Encoding.UTF8.GetBytes(adminPostDTO.Password)),
-            PasswordSalt = hmac.Key,
-        };
+        using var hmac = new HMACSHA512(admin.PasswordSalt);
+        var computeHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(adminLoginDTO.Password));
 
-        var local = new Local
-        {
-            Name = adminPostDTO.LocalPostDTO.Name,
-            Admin = admin,
-            Contact = contact,
-        };
+        for(int i = 0; i < computeHash.Length; i++)
+                if(computeHash[i] != admin.Password[i])
+                    return Unauthorized("Wrong email or password!");
 
-        await localRepository.AddLocalAsync(local);
-        return Ok(mapper.Map<LocalGetDTO>(local));
+        return new AdminLoggedDTO
+        {
+            Token = tokenService.CreateToken(admin)
+        };
+            
+    }
+
+    [HttpPost("password-reset")]
+    public async Task<ActionResult<string>> PasswordReset(PasswordResetDTO passwordResetDTO)
+    {
+        var contact = await contactRepository.FindContactByEmail(passwordResetDTO.Email);
+        
+        if(contact == null)
+            return NotFound();
+
+        EmailService emailService = new EmailService(contact.Email);
+        
+        await emailService.SendMail();
+
+        return Ok("Succes!");
 
     }
 }

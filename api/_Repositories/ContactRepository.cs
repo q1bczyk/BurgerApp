@@ -1,4 +1,3 @@
-
 using Microsoft.EntityFrameworkCore;
 
 namespace api._Repositories
@@ -12,11 +11,10 @@ namespace api._Repositories
             this.context = context;
         }
 
-        public async Task<Contact> AddContactAsync(Contact contact)
+        public Task<Contact> FindContactByEmail(string email)
         {
-            context.Contacts.Add(contact);
-            await SaveAllAsync();
-            return contact;
+            return context.Contacts
+                .FirstOrDefaultAsync(x => x.Email == email.ToLower());
         }
 
         public async Task<bool> SaveAllAsync()

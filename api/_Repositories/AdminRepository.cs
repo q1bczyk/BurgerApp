@@ -1,4 +1,3 @@
-
 using Microsoft.EntityFrameworkCore;
 
 public class AdminRepository : IAdminRepository
@@ -10,11 +9,10 @@ public class AdminRepository : IAdminRepository
         this.context = context;
     }
 
-    public async Task<Admin> CreateAdminAsync(Admin admin)
+    public async Task<Admin> FindAdminByLocalId(string localId)
     {
-        context.Admins.Add(admin);
-        await SaveAllAsync();
-        return admin;
+        return await context.Admins
+            .FirstOrDefaultAsync(x => x.LocalId == localId);
     }
 
     public async Task<bool> SaveAllAsync()

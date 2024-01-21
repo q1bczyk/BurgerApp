@@ -9,7 +9,6 @@ namespace api._Helpers
     {
         public AutoMapperProfiles()
         {
-            CreateMap<Admin, AdminGetDTO>();
             CreateMap<Contact, ContactGetDTO>();
             CreateMap<Local, LocalGetDTO>();
         }
