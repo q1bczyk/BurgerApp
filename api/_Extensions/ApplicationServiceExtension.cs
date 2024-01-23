@@ -1,6 +1,7 @@
 using api._Interfaces;
 using api._Repositories;
 using api._Services;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace api._Extensions
@@ -13,6 +14,10 @@ namespace api._Extensions
             {
                  opt.UseNpgsql(config.GetConnectionString("DefaultConnection"));
             });
+            services.Configure<DataProtectionTokenProviderOptions>(opt => opt.TokenLifespan = TimeSpan.FromHours(1));
+            services.AddIdentity<Admin, IdentityRole>()
+                .AddEntityFrameworkStores<DataContext>()
+                .AddDefaultTokenProviders();
             services.AddCors();
             services.AddScoped<ITokenservice, TokenService>();
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());

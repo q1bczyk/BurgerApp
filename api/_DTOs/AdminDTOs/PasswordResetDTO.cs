@@ -2,9 +2,13 @@ using System.ComponentModel.DataAnnotations;
 
 namespace api._DTOs.AdminDTOs
 {
-    public class PasswordResetDTO
+    public class PasswordResetDTO : PasswordForgotDTO
     {
-        [Required, EmailAddress]
-        public string Email { get; set; }
+        [Required]
+        public string Token { get; set; }
+        [Required, MinLength(8)]
+        public string Password { get; set; }
+        [Required, MinLength(8)]
+        public string RepetedPassword { get; set; }
     }
 }
