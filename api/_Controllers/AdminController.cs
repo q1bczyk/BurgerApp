@@ -1,7 +1,5 @@
 using System.Net;
 using System.Net.Mail;
-using System.Security.Cryptography;
-using System.Text;
 using api._DTOs.AdminDTOs;
 using api._Extensions;
 using api._Interfaces;
@@ -47,7 +45,7 @@ public class AdminController : BaseApiController
 
         return new AdminLoggedDTO
         {
-            Token = tokenService.CreateToken(admin)
+            Token = tokenService.CreateToken(admin.LocalId)
         };
             
     }
@@ -113,11 +111,11 @@ public class AdminController : BaseApiController
 
         var resetPasswordResult = await userMenager.ResetPasswordAsync(admin, passwordResetDTO.Token, passwordResetDTO.Password);
 
-        // if(!resetPasswordResult.Succeeded)
-        // {
-        //     var errors = resetPasswordResult.Errors;
-        //     return BadRequest("Password reset failed: " + string.Join(", ", errors.Select(e => e.Description)));
-        // }
+        if(!resetPasswordResult.Succeeded)
+        {
+            var errors = resetPasswordResult.Errors;
+            return BadRequest("Password reset failed: " + string.Join(", ", errors.Select(e => e.Description)));
+        }
 
         if(passwordResetDTO.Password != passwordResetDTO.RepetedPassword)
             return UnprocessableEntity("Password and repeted password is diffrent!");
@@ -126,6 +124,7 @@ public class AdminController : BaseApiController
 
         admin.Password = newPassword.HashedPassword;
         admin.PasswordSalt = newPassword.Key;
+        
         adminRepository.Update(admin);
         await adminRepository.SaveAllAsync();
 
