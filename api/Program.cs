@@ -1,4 +1,5 @@
 using api._Extensions;
+using api._Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,11 +16,11 @@ app.UseCors(builder => builder
     .AllowAnyMethod()
     .WithOrigins("http://localhost:4200"));
 
+app.UseMiddleware<ExceptionMiddleware>();
 app.UseHttpsRedirection();
 
 app.UseAuthentication();
 app.UseAuthorization();
-
 app.MapControllers();
 
 app.Run();

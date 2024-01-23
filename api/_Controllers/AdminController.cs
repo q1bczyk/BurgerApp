@@ -1,7 +1,5 @@
 using System.Net;
 using System.Net.Mail;
-using System.Security.Cryptography;
-using System.Text;
 using api._DTOs.AdminDTOs;
 using api._Extensions;
 using api._Interfaces;
