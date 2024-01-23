@@ -446,4 +446,8 @@ api/obj/Debug/net8.0/api.AssemblyInfoInputs.cache
 api/obj/Debug/net8.0/api.AssemblyInfo.cs
 api/obj/api.csproj.nuget.dgspec.json
 api/obj/Debug/net8.0/api.AssemblyInfo.cs
+<<<<<<< Updated upstream
 api/obj/Debug/net8.0/api.AssemblyInfo.cs
+=======
+api/obj/Debug/net8.0/api.AssemblyInfoInputs.cache
+>>>>>>> Stashed changes
