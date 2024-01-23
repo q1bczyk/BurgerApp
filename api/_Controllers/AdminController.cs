@@ -1,11 +1,14 @@
+using System.IdentityModel.Tokens.Jwt;
 using System.Net;
 using System.Net.Mail;
 using api._DTOs.AdminDTOs;
+using api._DTOs.ContactDTOs;
 using api._Extensions;
 using api._Interfaces;
 using api._Models;
 using api.Controllers;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.AspNetCore.Mvc;
@@ -130,4 +133,43 @@ public class AdminController : BaseApiController
 
         return Ok("Password reset succes!");
     }
+
+    [Authorize]
+    [HttpGet("contact")]
+    public async Task<ActionResult<ContactGetDTO>> GetContact()
+    {
+        var localId = HttpContext.User.FindFirst(JwtRegisteredClaimNames.Name)?.Value;
+
+        var contact = await contactRepository.FindContactByLocalIdAsync(localId);
+
+        if(contact == null)
+            return NotFound();
+
+        return Ok(mapper.Map<ContactGetDTO>(contact));
+    }
+
+    [Authorize]
+    [HttpPut("contact")]
+    public async Task<ActionResult<ContactGetDTO>> EditContact(ContactPostDTO contactPostDTO)
+    {
+        var localId = HttpContext.User.FindFirst(JwtRegisteredClaimNames.Name)?.Value;
+
+        var contact = await contactRepository.FindContactByLocalIdAsync(localId);
+
+        if(contact == null)
+            return NotFound();
+
+        contact.Email = contactPostDTO.Email;
+        contact.City = contactPostDTO.City;
+        contact.PostalCode = contactPostDTO.PostalCode;
+        contact.Street = contactPostDTO.Street;
+        contact.StreetNumber = contactPostDTO.StreetNumber;
+        contact.PhoneNumber = contactPostDTO.PhoneNumber;
+
+        contactRepository.Update(contact);
+        await contactRepository.SaveAllAsync();
+
+        return Ok(mapper.Map<ContactGetDTO>(contact));
+    }
+
 }

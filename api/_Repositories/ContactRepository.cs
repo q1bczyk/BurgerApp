@@ -17,6 +17,12 @@ namespace api._Repositories
                 .FirstOrDefaultAsync(x => x.Email == email.ToLower());
         }
 
+        public async Task<Contact> FindContactByLocalIdAsync(string localId)
+        {
+            return await context.Contacts
+                .FirstOrDefaultAsync(c => c.LocalId == localId);
+        }
+
         public async Task<bool> SaveAllAsync()
         {
             return await context.SaveChangesAsync() > 0;
