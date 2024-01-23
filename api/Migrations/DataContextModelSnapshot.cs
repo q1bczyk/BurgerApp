@@ -215,13 +215,7 @@ namespace api.Migrations
                     b.Property<string>("OpeningHourId")
                         .HasColumnType("character varying(36)");
 
-                    b.Property<string>("DayOffsId")
-                        .IsRequired()
-                        .HasColumnType("character varying(36)");
-
                     b.HasKey("LocalId", "OpeningHourId");
-
-                    b.HasIndex("DayOffsId");
 
                     b.HasIndex("OpeningHourId");
 
@@ -271,12 +265,6 @@ namespace api.Migrations
 
             modelBuilder.Entity("OpeningHourLocal", b =>
                 {
-                    b.HasOne("DayOff", null)
-                        .WithMany()
-                        .HasForeignKey("DayOffsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("Local", "Local")
                         .WithMany("OpeningHourLocals")
                         .HasForeignKey("LocalId")

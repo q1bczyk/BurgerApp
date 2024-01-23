@@ -45,7 +45,7 @@ public class AdminController : BaseApiController
 
         return new AdminLoggedDTO
         {
-            Token = tokenService.CreateToken(admin)
+            Token = tokenService.CreateToken(admin.LocalId)
         };
             
     }

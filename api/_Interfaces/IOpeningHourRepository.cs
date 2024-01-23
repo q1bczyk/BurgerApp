@@ -4,6 +4,7 @@ namespace api._Interfaces
     {
         void Update(OpeningHour openingHour);
         Task<OpeningHour> AddOpeningHourAsync(OpeningHour openingHour);
+        Task<OpeningHour> GetOpeningHourById(string id);
         Task<bool> SaveAllAsync();
     }
 }

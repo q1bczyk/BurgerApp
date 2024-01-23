@@ -5,7 +5,7 @@ public class OpeningHour
 {
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-    [MaxLength(36)] // Ustaw maksymalną długość identyfikatora
+    [MaxLength(36)] 
     public string Id { get; set; }
     public string Day { get; set; }
     public string Opened { get; set; }

@@ -19,6 +19,15 @@ namespace api._Repositories
             return openingHourLocal;
         }
 
+        public async Task<OpeningHour> GetOpeningHourLocalByIdAsync(string openingHourId, string localId)
+        {
+            return await context.OpeningHourLocals
+                .Where(o => o.LocalId == localId && o.OpeningHourId == openingHourId)
+                .Include(o => o.OpeningHour)
+                .Select(o => o.OpeningHour)  
+                .FirstOrDefaultAsync();
+        }
+
         public async Task<bool> SaveAllAsync()
         {
             return await context.SaveChangesAsync() > 0;

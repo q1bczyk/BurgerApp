@@ -19,6 +19,11 @@ namespace api._Repositories
             return openingHour;
         }
 
+        public async Task<OpeningHour> GetOpeningHourById(string id)
+        {
+            return await context.OpeningHours.SingleOrDefaultAsync();
+        }
+
         public async Task<bool> SaveAllAsync()
         {
             return await context.SaveChangesAsync() > 0;

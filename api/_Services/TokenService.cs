@@ -13,11 +13,11 @@ namespace api._Services
         {
             key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["TokenKey"]));
         }
-        public string CreateToken(Admin admin)
+        public string CreateToken(string localId)
         {
             var claims = new List<Claim>
             {
-                new Claim(JwtRegisteredClaimNames.Name, admin.Id),
+                new Claim(JwtRegisteredClaimNames.Name, localId),
             };
 
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);

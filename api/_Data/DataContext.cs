@@ -44,7 +44,7 @@ public class DataContext : DbContext
         modelBuilder.Entity<DayOff>()
             .HasMany(d => d.Locals)
             .WithMany(l => l.DayOffs)
-            .UsingEntity<OpeningHourLocal>();    
+            .UsingEntity<DayOffLocal>();    
 
     }
 }
