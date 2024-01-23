@@ -25,7 +25,7 @@ namespace api._Extensions
             services.AddScoped<IContactRepository, ContactRepository>();
             services.AddScoped<ILocalRepository, LocalRepository>();
             services.AddScoped<IOpeningHourRepository, OpeningHourRepository>();
-            services.AddScoped<IOpeningHourLocalRepository, OpeninghourLocalRepository>();
+            services.AddScoped<IOpeningHourLocalRepository, OpeningHourLocalRepository>();
             
             return services;
         }

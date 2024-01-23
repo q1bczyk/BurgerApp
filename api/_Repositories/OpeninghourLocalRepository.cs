@@ -3,11 +3,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace api._Repositories
 {
-    public class OpeninghourLocalRepository : IOpeningHourLocalRepository
+    public class OpeningHourLocalRepository : IOpeningHourLocalRepository
     {
         private readonly DataContext context;
 
-        public OpeninghourLocalRepository(DataContext context)
+        public OpeningHourLocalRepository(DataContext context)
         {
             this.context = context;
         }
