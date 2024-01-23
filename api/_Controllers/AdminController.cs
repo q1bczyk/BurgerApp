@@ -113,11 +113,11 @@ public class AdminController : BaseApiController
 
         var resetPasswordResult = await userMenager.ResetPasswordAsync(admin, passwordResetDTO.Token, passwordResetDTO.Password);
 
-        // if(!resetPasswordResult.Succeeded)
-        // {
-        //     var errors = resetPasswordResult.Errors;
-        //     return BadRequest("Password reset failed: " + string.Join(", ", errors.Select(e => e.Description)));
-        // }
+        if(!resetPasswordResult.Succeeded)
+        {
+            var errors = resetPasswordResult.Errors;
+            return BadRequest("Password reset failed: " + string.Join(", ", errors.Select(e => e.Description)));
+        }
 
         if(passwordResetDTO.Password != passwordResetDTO.RepetedPassword)
             return UnprocessableEntity("Password and repeted password is diffrent!");
@@ -126,6 +126,7 @@ public class AdminController : BaseApiController
 
         admin.Password = newPassword.HashedPassword;
         admin.PasswordSalt = newPassword.Key;
+        
         adminRepository.Update(admin);
         await adminRepository.SaveAllAsync();
 
