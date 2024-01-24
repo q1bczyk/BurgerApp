@@ -1,7 +1,9 @@
+using System.Globalization;
 using System.IdentityModel.Tokens.Jwt;
 using api._DTOs.DayOffDTOs;
 using api._Extensions;
 using api._Interfaces;
+using api._Repositories;
 using api.Controllers;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
@@ -56,4 +58,41 @@ public class DayOffController : BaseApiController
         return Ok(mapper.Map<DayOffGetDTO>(dayOff));
         
     }
+
+    [HttpDelete("{dayOffId}")]
+    public async Task<ActionResult<List<DayOffGetDTO>>> DayOffDelete(string dayOffId)
+    {
+        var localId = HttpContext.User.FindFirst(JwtRegisteredClaimNames.Name)?.Value;
+
+        var dayOff = await dayOffRepository.GetDayOffById(dayOffId);
+
+        var dayOffsToDelete = await dayOffLocalRepository.GetDayOffsToDelete(dayOff.Date);
+
+        if(dayOffsToDelete.Count == 0)
+            return NotFound("Day offs with this id doesn't exist");
+
+        if(await dayOffLocalRepository.DeleteDayOffLocalAsync(dayOffId, localId) == false)
+            return NotFound("Day offs with this id doesn't exist");
+            
+        if(dayOffsToDelete.Count == 1)
+            await this.dayOffRepository.DeleteDayOffById(dayOffId);
+
+        return Ok("Day off deleted!");
+    }
+
+    [HttpGet]
+    public async Task<ActionResult<List<DayOffGetDTO>>> GetDayOffs()
+    {
+        var localId = HttpContext.User.FindFirst(JwtRegisteredClaimNames.Name)?.Value;
+
+        var dayOffs = await dayOffLocalRepository.GetDayOffs(localId);
+
+        var futureDayOffs = dayOffs
+            .Where(d => DateTime.ParseExact(d.Date, "dd/MM/yyyy", CultureInfo.InvariantCulture) >= DateTime.Now.Date)
+            .ToList();
+
+        return Ok(mapper.Map<List<DayOffGetDTO>>(futureDayOffs));
+    }
+
 }
+

@@ -27,6 +27,37 @@ namespace api._Repositories
                     
         }
 
+        public async Task<bool> DeleteDayOffLocalAsync(string id, string localId)
+        {
+            var dayOffLocal = await context.DayOffLocals
+                .FirstOrDefaultAsync(dl => dl.DayOffId == id && dl.LocalId == localId);
+
+            if(dayOffLocal == null)
+                return false;
+
+            context.DayOffLocals.Remove(dayOffLocal);
+
+            return await context.SaveChangesAsync() > 0;
+        }
+
+        public async Task<List<DayOff>> GetDayOffs(string localId)
+        {
+            return await context.DayOffLocals
+                .Where(dl => dl.LocalId == localId)
+                .Include(dl => dl.DayOff)
+                .Select(dl => dl.DayOff)
+                .ToListAsync();
+        }
+
+        public async Task<List<DayOff>> GetDayOffsToDelete(string date)
+        {
+            return await context.DayOffLocals
+                .Include(dl => dl.DayOff)
+                .Select(dl => dl.DayOff)
+                .Where(d => d.Date == date)
+                .ToListAsync();
+        }
+
         public async Task<bool> SaveAllAsync()
         {
             return await context.SaveChangesAsync() > 0;
