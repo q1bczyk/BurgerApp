@@ -1,4 +1,5 @@
 using api._DTOs.ContactDTOs;
+using api._DTOs.DayOffDTOs;
 using api._DTOs.LocalDTOs;
 using api._DTOs.OpeningHourDTOs;
 using AutoMapper;
@@ -12,6 +13,7 @@ namespace api._Helpers
             CreateMap<Contact, ContactGetDTO>();
             CreateMap<Local, LocalGetDTO>();
             CreateMap<OpeningHour, OpeningHourGetDTO>();
+            CreateMap<DayOff, DayOffGetDTO>();
         }
     }
 }

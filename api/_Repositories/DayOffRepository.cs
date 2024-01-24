@@ -19,11 +19,10 @@ namespace api._Repositories
             return dayOff;
         }
 
-        public async Task<List<DayOff>> CheckDayOffExist(string date)
+        public async Task<DayOff> GetDayOffByDate(string date)
         {
             return await context.DayOffs
-                    .Where(d => d.Date == date)
-                    .ToListAsync();
+                .FirstOrDefaultAsync(dayOff => dayOff.Date == date);
         }
 
         public async Task<bool> SaveAllAsync()

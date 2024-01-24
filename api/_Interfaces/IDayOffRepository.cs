@@ -4,7 +4,7 @@ namespace api._Interfaces
     {
         void Update(DayOff dayOff);
         Task<DayOff> AddDayOff(DayOff dayOff);
-        Task<List<DayOff>> CheckDayOffExist(string date);
+        Task<DayOff> GetDayOffByDate(string date);
         Task<bool> SaveAllAsync();
     }
 }
