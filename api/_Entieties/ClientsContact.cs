@@ -17,6 +17,5 @@ namespace api._Entieties
         public string OrderId { get; set; }
         public Order Order { get; set; } = null!;
 
-
     }
 }
