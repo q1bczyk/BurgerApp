@@ -13,6 +13,10 @@ namespace api._Entieties
         public string LastName { get; set; }
         public string Email { get; set; }
         public string PhoneNumber { get; set; }
-        public DeliveryDetail? DeliveryDetailId { get; set; }
+        public DeliveryDetail? DeliveryDetail { get; set; }
+        public string OrderId { get; set; }
+        public Order Order { get; set; } = null!;
+
+
     }
 }

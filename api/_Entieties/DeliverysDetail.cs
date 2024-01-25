@@ -14,6 +14,7 @@ namespace api._Entieties
         public string Street { get; set; }
         public string HouseNumber { get; set; }
         public string PaymentMethod { get; set; }
-        public ClientsContact? ClientsContactId { get; set; } 
+        public ClientsContact ClientsContactId { get; set; }
+        public ClientsContact ClientsContact { get; set; } = null!;  
     }
 }

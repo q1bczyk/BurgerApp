@@ -12,8 +12,9 @@ namespace api._Entieties
         public float Price { get; set; }
         public string OrderStatus { get; set; }
         public List<Product> Products { get; set; } = new();
-        public ClientsContact? ClientsContactId { get; set; }
-        public Local? LocalId { get; set; }
+        public ClientsContact ClientsContact { get; set; }
+        public string LocalId { get; set; }
+        public Local Local { get; set; }
 
     }
 }
