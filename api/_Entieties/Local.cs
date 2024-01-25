@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using api._Entieties;
 
 public class Local
 {
@@ -14,5 +15,6 @@ public class Local
     public List<OpeningHourLocal> OpeningHourLocals { get; set; } = new();
     public List<DayOff> DayOffs { get; set; } = new();
     public List<DayOffLocal> DayOffLocals { get; set; } = new();
+    public List<Order> Orders { get; set; } = new();
 
 }
