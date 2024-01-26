@@ -8,6 +8,7 @@ namespace api._Interfaces
         Task<Product> AddProductAsync(Product product);
         Task<List<Product>> GetProductsAsync();
         Task<Product> GetProductByIdAsync();
+        Task<bool> FingProductByNameAsync(string name);
         Task<bool> DeleteProductById(string id);
         Task<bool> SaveAllAsync();
     }

@@ -16,14 +16,20 @@ namespace api._Services
             this.filesContainer = new BlobContainerClient(blobConnection, config.Value.ContainerName);
         }
 
-        public async Task<int> UploadFileAsync(IFormFile file, string fileName)
+        public async Task<string> UploadFileAsync(IFormFile file, string fileName)
         {
                  string fileExtension = Path.GetExtension(file.FileName)?.TrimStart('.').ToLower();
 
                 using(Stream stream = file.OpenReadStream())
                 {
                     var response = await filesContainer.UploadBlobAsync($"{fileName}.{fileExtension}", stream);
-                    return response.GetRawResponse().Status;
+                    
+                    if (response.GetRawResponse().Status == 201 || response.GetRawResponse().Status == 200)
+                    {
+                        return filesContainer.GetBlobClient($"{fileName}.{fileExtension}").Uri.ToString();
+                    }
+
+                    return null;
                 }
         }
 

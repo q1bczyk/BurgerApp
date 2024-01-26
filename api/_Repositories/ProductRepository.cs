@@ -1,5 +1,6 @@
 using api._Entieties;
 using api._Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace api._Repositories
 {
@@ -22,6 +23,11 @@ namespace api._Repositories
         public async Task<bool> DeleteProductById(string id)
         {
             throw new NotImplementedException();
+        }
+
+        public Task<bool> FingProductByNameAsync(string name)
+        {
+            return context.Products.AnyAsync(p => p.Name == name);
         }
 
         public async Task<Product> GetProductByIdAsync()

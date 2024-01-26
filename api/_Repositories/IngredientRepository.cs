@@ -1,5 +1,6 @@
 using api._Entieties;
 using api._Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace api._Repositories
 {
@@ -11,7 +12,7 @@ namespace api._Repositories
         {
             this.context = context;
         }
-        public async Task<Ingredient> AddIngredientasync(Ingredient ingredient)
+        public async Task<Ingredient> AddIngredientAsync(Ingredient ingredient)
         {
             await context.Ingredients.AddAsync(ingredient);
             await SaveAllAsync();
@@ -21,6 +22,17 @@ namespace api._Repositories
         public async Task<bool> DeleteIngredientById(string id)
         {
             throw new NotImplementedException();
+        }
+
+        public async Task<string> GetIngredientIdByNameAsync(string name)
+        {
+            var ingredient = await context.Ingredients
+                .FirstOrDefaultAsync(i => i.Name == name);
+            
+            if(ingredient == null)
+                return null;
+            
+            else return ingredient.Id;
         }
 
         public async Task<List<Ingredient>> GetIngredientsAsync()
