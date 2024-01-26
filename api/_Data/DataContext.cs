@@ -14,6 +14,13 @@ public class DataContext : DbContext
     public DbSet<DayOffLocal> DayOffLocals { get; set; }
     public DbSet<OpeningHour> OpeningHours { get; set; }
     public DbSet<OpeningHourLocal> OpeningHourLocals { get; set; }
+    public DbSet<Order> Orders { get; set; }
+    public DbSet<ClientsContact> ClientsContacts { get; set; }
+    public DbSet<DeliveryDetail> DeliveryDetails { get; set; }
+    public DbSet<OrderProduct> OrderProducts { get; set; }
+    public DbSet<IngredientProduct> IngredientProducts { get; set; }
+    public DbSet<Ingredient> Ingredients { get; set; }
+    public DbSet<Product> Products { get; set; }
 
      protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
