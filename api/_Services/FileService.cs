@@ -15,9 +15,24 @@ namespace api._Services
 
             this.filesContainer = new BlobContainerClient(blobConnection, config.Value.ContainerName);
         }
-        Task IFileService.TestConnection()
+
+        public async Task<int> UploadFileAsync(IFormFile file, string fileName)
         {
-            throw new NotImplementedException();
+                 string fileExtension = Path.GetExtension(file.FileName)?.TrimStart('.').ToLower();
+
+                using(Stream stream = file.OpenReadStream())
+                {
+                    var response = await filesContainer.UploadBlobAsync($"{fileName}.{fileExtension}", stream);
+                    return response.GetRawResponse().Status;
+                }
         }
+
+         public bool IsFileExtensionAllowed(IFormFile file)
+        {
+            string[] allowedExtensions = { ".jpg", ".jpeg", ".png" };
+            var extension = Path.GetExtension(file.FileName)?.ToLower();
+            return allowedExtensions.Contains(extension);
+        }
+
     }
 }
