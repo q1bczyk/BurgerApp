@@ -38,6 +38,9 @@ namespace api._Extensions
             services.AddScoped<IDayOffLocalRepository, DayOffLocalRepository>();
             services.AddScoped<IDayOffRepository, DayOffRepository>();  
             services.AddScoped<IOpeningHourLocalRepository, OpeningHourLocalRepository>();
+            services.AddScoped<IProductRepository, ProductRepository>();
+            services.AddScoped<IIngredientRepository, IngredientRepository>();
+            services.AddScoped<IIngredientProductRepository, IngredientProductRepository>();
             
             return services;
         }
