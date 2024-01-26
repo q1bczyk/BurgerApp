@@ -3,11 +3,9 @@ using System.IdentityModel.Tokens.Jwt;
 using api._DTOs.DayOffDTOs;
 using api._Extensions;
 using api._Interfaces;
-using api._Repositories;
 using api.Controllers;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 
 [Authorize]

@@ -1,8 +1,7 @@
 using System.IdentityModel.Tokens.Jwt;
 using api._DTOs.OpeningHourDTOs;
-using api._Extensions;
 using api._Interfaces;
-using api._Repositories;
+using api._Services;
 using api.Controllers;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
@@ -16,14 +15,14 @@ namespace api._Controllers
         private readonly IOpeningHourRepository openingHourRepository;
         private readonly IOpeningHourLocalRepository openingHourLocalRepository;
         private readonly IMapper mapper;
-        private readonly ITokenservice tokenservice;
+        private readonly IFileService fileService;
 
-        public OpeningHourController(IOpeningHourRepository openingHourRepository, IOpeningHourLocalRepository openingHourLocalRepository, IMapper mapper, ITokenservice tokenservice)
+        public OpeningHourController(IOpeningHourRepository openingHourRepository, IOpeningHourLocalRepository openingHourLocalRepository, IMapper mapper, IFileService fileService)
         {
             this.openingHourRepository = openingHourRepository;
             this.openingHourLocalRepository = openingHourLocalRepository;
             this.mapper = mapper;
-            this.tokenservice = tokenservice;
+            this.fileService = fileService;
         }
 
         // [HttpPost]

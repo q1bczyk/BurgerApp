@@ -1,8 +1,11 @@
+using api._Helpers;
 using api._Interfaces;
 using api._Repositories;
 using api._Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Azure.Storage.Blobs;
 
 namespace api._Extensions
 {
@@ -14,13 +17,20 @@ namespace api._Extensions
             {
                  opt.UseNpgsql(config.GetConnectionString("DefaultConnection"));
             });
+            
+            services.Configure<BlobStorageSettings>(config.GetSection("BlobStorageSettings"));
+
             services.Configure<DataProtectionTokenProviderOptions>(opt => opt.TokenLifespan = TimeSpan.FromHours(1));
+            
             services.AddIdentity<Admin, IdentityRole>()
                 .AddEntityFrameworkStores<DataContext>()
                 .AddDefaultTokenProviders();
+
             services.AddCors();
-            services.AddScoped<ITokenservice, TokenService>();
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
+            services.AddScoped<ITokenservice, TokenService>();
+            services.AddScoped<IFileService, FileService>();
             services.AddScoped<IAdminRepository, AdminRepository>();
             services.AddScoped<IContactRepository, ContactRepository>();
             services.AddScoped<ILocalRepository, LocalRepository>();
