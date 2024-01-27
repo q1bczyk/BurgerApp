@@ -4,7 +4,7 @@ namespace api._DTOs.ProductDTOs
 {
     public class ProductGetDTO
     {
-        public string Id;
+        public string Id { get; set; }
         public float Price { get; set; }
         public string Name { get; set; }
         public string Type { get; set; }

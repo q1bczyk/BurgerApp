@@ -1,9 +1,11 @@
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 using api._DTOs.IngredientDTOs;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace api._DTOs.ProductDTOs
 {
-    public class ProductPostDTO
+    public class ProductPutDTO
     {
         [Required]
         public float Price { get; set; }
@@ -11,7 +13,6 @@ namespace api._DTOs.ProductDTOs
         public string Name { get; set; }
         [Required]
         public string Type { get; set; }
-        [Required]
         public IFormFile File { get; set; }
         [Required]
         public List<IngredientPostDTO> Ingredients { get; set; }

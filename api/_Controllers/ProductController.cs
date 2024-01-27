@@ -2,6 +2,7 @@ using api._DTOs.IngredientDTOs;
 using api._DTOs.ProductDTOs;
 using api._Entieties;
 using api._Interfaces;
+using api._Repositories;
 using api.Controllers;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
@@ -96,6 +97,85 @@ namespace api._Controllers
             await fileService.DeleteFileAsync(product.ImgUrl);
 
             return Ok("Deleted succesfull!");
+        }
+
+        [AllowAnonymous]
+        [HttpGet]
+        public async Task<ActionResult<List<ProductGetDTO>>> GetProducts([FromQuery] string searchTerm)
+        {
+            var products = await productRepository.GetProductsAsync(searchTerm);
+
+            return Ok(mapper.Map<List<ProductGetDTO>>(products));
+        }
+
+        [HttpGet("{productId}")]
+        public async Task<ActionResult<ProductGetDTO>> GetProduct(string productId)
+        {
+            var product = await productRepository.GetProductByIdAsync(productId);
+            
+            if(product == null)
+                return NotFound("Product doesn't exist!");
+
+            return Ok(mapper.Map<ProductGetDTO>(product));
+        }
+
+        [HttpPut("{productId}")]
+        public async Task<ActionResult<ProductGetDTO>> EditProduct(string productId, ProductPutDTO productPutDTO)
+        {
+            var product = await productRepository.GetProductByIdAsync(productId);
+
+            if(product == null)
+                return NotFound("Product doesn't exist!");
+
+            var imgUrl = product.ImgUrl;
+
+            if(productPutDTO.File != null)
+            {
+                await fileService.DeleteFileAsync(product.ImgUrl);
+                imgUrl = await fileService.UploadFileAsync(productPutDTO.File, productPutDTO.Name);
+            } 
+
+            await ingredientProductRepository.DeleteProductByIdAsync(productId);
+
+            product.Name = productPutDTO.Name;
+            product.Price = productPutDTO.Price;
+            product.Type = productPutDTO.Type;
+            product.ImgUrl = imgUrl;
+
+            productRepository.Update(product);
+            await productRepository.SaveAllAsync();
+
+            foreach(IngredientPostDTO ingredinentDTO in productPutDTO.Ingredients)
+            {
+                if(ingredinentDTO.Quantity > 1)
+                    ingredinentDTO.Name = ingredinentDTO.Name + 'x' + ingredinentDTO.Quantity;
+
+                var ingredientId = await ingredientRepository.GetIngredientIdByNameAsync(ingredinentDTO.Name);
+
+                if(ingredientId == null)
+                {
+                    var newIngredient = new Ingredient
+                    {
+                        Price = ingredinentDTO.Price,
+                        Name = ingredinentDTO.Name,
+                        Quantity = ingredinentDTO.Quantity,
+                    };
+
+                    await ingredientRepository.AddIngredientAsync(newIngredient);
+                    ingredientId = newIngredient.Id;
+                }
+                
+                var ingredientProduct = new IngredientProduct
+                {
+                    ProductId = product.Id,
+                    IngredientId = ingredientId,
+                };
+
+                await ingredientProductRepository.AddIngredientProductAsync(ingredientProduct);
+            }
+            
+            return Ok(mapper.Map<ProductGetDTO>(product));
+
         }
     }
 }

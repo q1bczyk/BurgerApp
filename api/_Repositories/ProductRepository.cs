@@ -36,19 +36,21 @@ namespace api._Repositories
             return context.Products.AnyAsync(p => p.Name == name);
         }
 
-        public async Task<Product> GetProductByIdAsync()
+        public async Task<Product> GetProductByIdAsync(string id)
         {
-            throw new NotImplementedException();
+            return await context.Products
+                        .Include(p => p.IngredientsProduct)
+                        .ThenInclude(ip => ip.Ingredient)
+                        .FirstOrDefaultAsync(p => p.Id == id);
         }
 
-        public Task<Product> GetProductByIdAsync(string id)
+        public async Task<List<Product>> GetProductsAsync(string type)
         {
-            throw new NotImplementedException();
-        }
-
-        public async Task<List<Product>> GetProductsAsync()
-        {
-            throw new NotImplementedException();
+            return await context.Products  
+                .Where(p => p.Type.ToLower() == type.ToLower())
+                .Include(p => p.IngredientsProduct)
+                .ThenInclude(ip => ip.Ingredient)
+                .ToListAsync();
         }
 
         public async Task<bool> SaveAllAsync()
@@ -58,7 +60,7 @@ namespace api._Repositories
 
         public void Update(Product product)
         {
-            throw new NotImplementedException();
+            context.Entry(product).State = EntityState.Modified;
         }
     }
 }
