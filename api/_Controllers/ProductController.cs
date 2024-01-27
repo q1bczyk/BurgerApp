@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace api._Controllers
 {
+    [Authorize]
     public class ProductController : BaseApiController
     {
         private readonly IProductRepository productRepository;
@@ -26,7 +27,6 @@ namespace api._Controllers
             this.mapper = mapper;
         }
 
-        [Authorize]
         [HttpPost]
         public async Task<ActionResult<ProductGetDTO>> AddProduct(ProductPostDTO productPostDTO)
         {
@@ -34,13 +34,13 @@ namespace api._Controllers
             if(await productRepository.FingProductByNameAsync(productPostDTO.Name) == true)
                 return UnprocessableEntity("Product with this name has already existed!");
 
-            // if (!fileService.IsFileExtensionAllowed(productPostDTO.File))
-            //     return BadRequest("Invalid file format. Only .jpg, .jpeg, .png are allowed.");
+            if (!fileService.IsFileExtensionAllowed(productPostDTO.File))
+                return BadRequest("Invalid file format. Only .jpg, .jpeg, .png are allowed.");
 
-            // string fileUrl = await fileService.UploadFileAsync(productPostDTO.File, productPostDTO.Name);
+            string fileUrl = await fileService.UploadFileAsync(productPostDTO.File, productPostDTO.Name);
 
-            // if(fileUrl == null)
-            //     return BadRequest("File upload failed!");
+            if(fileUrl == null)
+                return BadRequest("File upload failed!");
                             
             var product = new Product
             {
@@ -48,13 +48,16 @@ namespace api._Controllers
                 Name = productPostDTO.Name,
                 Type = productPostDTO.Type,
                 OrderCount = 0,
-                ImgUrl = "xd",
+                ImgUrl = fileUrl,
             };
 
             await productRepository.AddProductAsync(product);
         
             foreach(IngredientPostDTO ingredinentDTO in productPostDTO.Ingredients)
             {
+                if(ingredinentDTO.Quantity > 1)
+                    ingredinentDTO.Name = ingredinentDTO.Name + 'x' + ingredinentDTO.Quantity;
+
                 var ingredientId = await ingredientRepository.GetIngredientIdByNameAsync(ingredinentDTO.Name);
 
                 if(ingredientId == null)
@@ -77,10 +80,22 @@ namespace api._Controllers
                 };
 
                 await ingredientProductRepository.AddIngredientProductAsync(ingredientProduct);
-                return Ok("petla dziala");
             }
 
             return Ok(mapper.Map<ProductGetDTO>(product));
+        }
+
+        [HttpDelete("{productId}")]
+        public async Task<ActionResult<string>> DeleteProduct(string productId)
+        {
+            var product = await productRepository.DeleteProductById(productId);
+            if(product == null) 
+                return NotFound("Product with this id doesn't exist!");
+            
+            await ingredientProductRepository.DeleteProductByIdAsync(product.Id);
+            await fileService.DeleteFileAsync(product.ImgUrl);
+
+            return Ok("Deleted succesfull!");
         }
     }
 }

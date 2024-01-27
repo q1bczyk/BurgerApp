@@ -7,9 +7,9 @@ namespace api._Interfaces
         void Update(Product product);
         Task<Product> AddProductAsync(Product product);
         Task<List<Product>> GetProductsAsync();
-        Task<Product> GetProductByIdAsync();
+        Task<Product> GetProductByIdAsync(string id);
         Task<bool> FingProductByNameAsync(string name);
-        Task<bool> DeleteProductById(string id);
+        Task<Product> DeleteProductById(string productId);
         Task<bool> SaveAllAsync();
     }
 }

@@ -25,13 +25,29 @@ namespace api._Services
                     var response = await filesContainer.UploadBlobAsync($"{fileName}.{fileExtension}", stream);
                     
                     if (response.GetRawResponse().Status == 201 || response.GetRawResponse().Status == 200)
-                    {
                         return filesContainer.GetBlobClient($"{fileName}.{fileExtension}").Uri.ToString();
-                    }
 
                     return null;
                 }
         }
+
+        public async Task<bool> DeleteFileAsync(string imgUrl)
+        {
+            var uri = new Uri(imgUrl);
+            var blobPath = uri.LocalPath.TrimStart('/').Replace("burger-app/", "");
+            var fileToDelete = filesContainer.GetBlobClient(blobPath);
+
+            Console.WriteLine(fileToDelete.Uri.ToString());
+
+            if(await fileToDelete.ExistsAsync())
+            {
+                await fileToDelete.DeleteIfExistsAsync();
+                return true;
+            }
+
+            return false;
+                
+        }   
 
          public bool IsFileExtensionAllowed(IFormFile file)
         {

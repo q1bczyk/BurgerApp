@@ -20,9 +20,15 @@ namespace api._Repositories
             return product;
         }
 
-        public async Task<bool> DeleteProductById(string id)
+        public async Task<Product> DeleteProductById(string productId)
         {
-            throw new NotImplementedException();
+            var productToDelete = await context.Products
+                                        .FirstOrDefaultAsync(p => p.Id == productId);
+
+            context.Products.Remove(productToDelete);
+            await SaveAllAsync();
+
+            return productToDelete;
         }
 
         public Task<bool> FingProductByNameAsync(string name)
@@ -31,6 +37,11 @@ namespace api._Repositories
         }
 
         public async Task<Product> GetProductByIdAsync()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Product> GetProductByIdAsync(string id)
         {
             throw new NotImplementedException();
         }

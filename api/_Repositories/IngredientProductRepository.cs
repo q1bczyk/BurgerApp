@@ -1,5 +1,6 @@
 using api._Entieties;
 using api._Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace api._Repositories
 {
@@ -18,9 +19,19 @@ namespace api._Repositories
             return ingredientProduct;
         }
 
-        public async Task<bool> DeleteIngredientProductByIdAsync(string productId, string ingredientId)
+        public async Task<bool> DeleteProductByIdAsync(string productId)
         {
-            throw new NotImplementedException();
+            var productsToDelete = await context.IngredientProducts
+                                    .Where(ip => ip.ProductId == productId)
+                                    .ToListAsync();
+
+            if (productsToDelete == null || !productsToDelete.Any())
+                return false;
+        
+            
+            context.IngredientProducts.RemoveRange(productsToDelete);
+            
+            return await SaveAllAsync(); 
         }
 
         public async Task<bool> SaveAllAsync()
