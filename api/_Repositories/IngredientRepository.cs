@@ -19,9 +19,15 @@ namespace api._Repositories
             return ingredient;
         }
 
-        public async Task<bool> DeleteIngredientById(string id)
+        public async Task<string> DeleteIngredientById(string ingredientId)
         {
-            throw new NotImplementedException();
+             var ingredientToDelete = await context.Products
+                                        .FirstOrDefaultAsync(p => p.Id == ingredientId);
+
+            context.Products.Remove(ingredientToDelete);
+            await SaveAllAsync();
+
+            return ingredientToDelete.Id;
         }
 
         public async Task<string> GetIngredientIdByNameAsync(string name)

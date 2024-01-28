@@ -1,7 +1,5 @@
 using System.ComponentModel.DataAnnotations;
-using System.Text.Json.Serialization;
 using api._DTOs.IngredientDTOs;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace api._DTOs.ProductDTOs
 {
