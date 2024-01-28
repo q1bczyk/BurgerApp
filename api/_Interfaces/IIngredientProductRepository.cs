@@ -7,7 +7,7 @@ namespace api._Interfaces
          void Update(IngredientProduct ingredientProduct);
          Task<IngredientProduct> AddIngredientProductAsync(IngredientProduct ingredientProduct);
          Task<bool> DeleteProductByIdAsync(string productId);
-         Task<bool> DeleteIngredientById(string ingredientId);
+         Task<bool> DeleteIngredientByIdAsync(string ingredientId);
          Task<bool> SaveAllAsync();
     }
 }
