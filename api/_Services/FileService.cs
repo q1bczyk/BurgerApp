@@ -15,9 +15,46 @@ namespace api._Services
 
             this.filesContainer = new BlobContainerClient(blobConnection, config.Value.ContainerName);
         }
-        Task IFileService.TestConnection()
+
+        public async Task<string> UploadFileAsync(IFormFile file, string fileName)
         {
-            throw new NotImplementedException();
+                 string fileExtension = Path.GetExtension(file.FileName)?.TrimStart('.').ToLower();
+
+                using(Stream stream = file.OpenReadStream())
+                {
+                    var response = await filesContainer.UploadBlobAsync($"{fileName}.{fileExtension}", stream);
+                    
+                    if (response.GetRawResponse().Status == 201 || response.GetRawResponse().Status == 200)
+                        return filesContainer.GetBlobClient($"{fileName}.{fileExtension}").Uri.ToString();
+
+                    return null;
+                }
         }
+
+        public async Task<bool> DeleteFileAsync(string imgUrl)
+        {
+            var uri = new Uri(imgUrl);
+            var blobPath = uri.LocalPath.TrimStart('/').Replace("burger-app/", "");
+            var fileToDelete = filesContainer.GetBlobClient(blobPath);
+
+            Console.WriteLine(fileToDelete.Uri.ToString());
+
+            if(await fileToDelete.ExistsAsync())
+            {
+                await fileToDelete.DeleteIfExistsAsync();
+                return true;
+            }
+
+            return false;
+                
+        }   
+
+         public bool IsFileExtensionAllowed(IFormFile file)
+        {
+            string[] allowedExtensions = { ".jpg", ".jpeg", ".png" };
+            var extension = Path.GetExtension(file.FileName)?.ToLower();
+            return allowedExtensions.Contains(extension);
+        }
+
     }
 }
