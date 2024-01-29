@@ -19,15 +19,20 @@ namespace api._Repositories
             return ingredient;
         }
 
-        public async Task<string> DeleteIngredientById(string ingredientId)
+        public async Task<string> DeleteIngredientByIdAsync(string ingredientId)
         {
-             var ingredientToDelete = await context.Products
+             var ingredientToDelete = await context.Ingredients
                                         .FirstOrDefaultAsync(p => p.Id == ingredientId);
 
-            context.Products.Remove(ingredientToDelete);
+            context.Ingredients.Remove(ingredientToDelete);
             await SaveAllAsync();
 
             return ingredientToDelete.Id;
+        }
+
+        public async Task<Ingredient> GetIngredientByIdAsync(string ingredientId)
+        {
+            return await context.Ingredients.FirstOrDefaultAsync(p => p.Id == ingredientId);
         }
 
         public async Task<string> GetIngredientIdByNameAsync(string name)
@@ -41,11 +46,6 @@ namespace api._Repositories
             else return ingredient.Id;
         }
 
-        public async Task<List<Ingredient>> GetIngredientsAsync()
-        {
-            throw new NotImplementedException();
-        }
-
         public async Task<bool> SaveAllAsync()
         {
             return await context.SaveChangesAsync() > 0;
@@ -53,7 +53,7 @@ namespace api._Repositories
 
         public void Update(Ingredient ingredient)
         {
-            throw new NotImplementedException();
+            context.Entry(ingredient).State = EntityState.Modified;
         }
     }
 }

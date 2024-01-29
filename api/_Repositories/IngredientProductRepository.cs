@@ -19,7 +19,7 @@ namespace api._Repositories
             return ingredientProduct;
         }
 
-        public async Task<bool> DeleteIngredientById(string ingredientId)
+        public async Task<bool> DeleteIngredientByIdAsync(string ingredientId)
         {
             var ingredientsToDelete = await context.IngredientProducts
                                     .Where(ip => ip.IngredientId == ingredientId)
