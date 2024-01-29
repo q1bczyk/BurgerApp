@@ -45,5 +45,26 @@ namespace api._Controllers
             return Ok("Deleted succesful!");
 
         }
+
+        [HttpPut("{ingredientId}")]
+        public async Task<ActionResult<IngredientGetDTO>> EditIngredient(string ingredientId, IngredientPostDTO ingredientPostDTO)
+        {
+             var ingredient = await ingredientRepository.GetIngredientByIdAsync(ingredientId);
+
+            if(ingredient == null)
+                return NotFound("Ingredient with this id doesn't exist!");
+
+             if(ingredientPostDTO.Quantity > 1)
+                    ingredientPostDTO.Name = ingredientPostDTO.Name + 'x' + ingredientPostDTO.Quantity;
+
+            ingredient.Name = ingredientPostDTO.Name;
+            ingredient.Price = ingredientPostDTO.Price;
+            ingredient.Quantity = ingredientPostDTO.Quantity;
+
+            ingredientRepository.Update(ingredient);
+            await ingredientRepository.SaveAllAsync();
+
+            return Ok(mapper.Map<IngredientGetDTO>(ingredient));
+        }
     }
 }

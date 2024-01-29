@@ -53,7 +53,7 @@ namespace api._Repositories
 
         public void Update(Ingredient ingredient)
         {
-            throw new NotImplementedException();
+            context.Entry(ingredient).State = EntityState.Modified;
         }
     }
 }
