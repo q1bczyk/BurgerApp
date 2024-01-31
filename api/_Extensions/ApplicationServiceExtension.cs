@@ -41,6 +41,10 @@ namespace api._Extensions
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<IIngredientRepository, IngredientRepository>();
             services.AddScoped<IIngredientProductRepository, IngredientProductRepository>();
+            services.AddScoped<IOrderRepository, OrderRepository>();
+            services.AddScoped<IOrderProductRepository, OrderProductRepository>();
+            services.AddScoped<IClientContactRepository, ClientContactRepository>();
+            services.AddScoped<IDeliveryDetailsRepository, DeliveryDetailsRepository>();
             
             return services;
         }

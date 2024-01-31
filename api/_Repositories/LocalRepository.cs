@@ -19,6 +19,11 @@ namespace api._Repositories
             return local;
         }
 
+        public async Task<bool> IsLocalExists(string id)
+        {
+            return await context.Locals.AnyAsync(x => x.Id == id);
+        }
+
         public async Task<bool> SaveAllAsync()
         {
             return await context.SaveChangesAsync() > 0;
