@@ -35,26 +35,15 @@ namespace api._Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            Console.WriteLine(orderPostDTO.LocalId);
-
-            if(!await localRepository.IsLocalExists(orderPostDTO.LocalId))
-                return NotFound("Local with this id doesn't exist!");
-
-            DeliveryDetail deliveryDetails = null;
-
-            if(orderPostDTO.ClientsContact.DeliveryDetails != null)
+            
+             var order = new Order
             {
-                deliveryDetails = new DeliveryDetail
-                {
-                    City = orderPostDTO.ClientsContact.DeliveryDetails.City,
-                    PostalCode = orderPostDTO.ClientsContact.DeliveryDetails.PostalCode,
-                    Street = orderPostDTO.ClientsContact.DeliveryDetails.Street,
-                    HouseNumber = orderPostDTO.ClientsContact.DeliveryDetails.HouseNumber,
-                    PaymentMethod = orderPostDTO.ClientsContact.DeliveryDetails.PaymentMethod,
-                };
+                Price = orderPostDTO.Price,
+                OrderStatus = orderPostDTO.OrderStatus,
+                LocalId = orderPostDTO.LocalId,
+            };
 
-                await deliveryDetailsRepository.AddDeliveryDetailsAsync(deliveryDetails);
-            }
+            await orderRepository.AddOrderAsync(order);
 
             var clientsContact = new ClientsContact
             {
@@ -62,20 +51,26 @@ namespace api._Controllers
                 LastName = orderPostDTO.ClientsContact.Lastname,
                 Email = orderPostDTO.ClientsContact.Email,
                 PhoneNumber = orderPostDTO.ClientsContact.PhoneNumber,
-                DeliveryDetail = deliveryDetails
+                OrderId = order.Id,
             };
-
             await clientContactRepository.AddClientsContactAsync(clientsContact);
 
-            var order = new Order
-            {
-                Price = orderPostDTO.Price,
-                OrderStatus = orderPostDTO.OrderStatus,
-                ClientsContact = clientsContact,
-                LocalId = orderPostDTO.LocalId,
-            };
+            DeliveryDetail deliveryDetails = null;
 
-            await orderRepository.AddOrderAsync(order);
+            if(orderPostDTO.ClientsContact.DeliveryDetails != null)
+            {
+                 deliveryDetails = new DeliveryDetail
+                {
+                    City = orderPostDTO.ClientsContact.DeliveryDetails.City,
+                    PostalCode = orderPostDTO.ClientsContact.DeliveryDetails.PostalCode,
+                    Street = orderPostDTO.ClientsContact.DeliveryDetails.Street,
+                    HouseNumber = orderPostDTO.ClientsContact.DeliveryDetails.HouseNumber,
+                    PaymentMethod = orderPostDTO.ClientsContact.DeliveryDetails.PaymentMethod,
+                    ClientsContact = clientsContact,
+                };
+
+                await deliveryDetailsRepository.AddDeliveryDetailsAsync(deliveryDetails);
+            }
 
             foreach(string productId in orderPostDTO.ProductsId)
             {
