@@ -23,7 +23,8 @@ namespace api._Helpers
             CreateMap<Product, ProductGetDTO>();
             CreateMap<Ingredient, IngredientGetDTO>();
             CreateMap<Order, OrderGetDTO>();
-            CreateMap<ClientsContact, ClientsContactGetDTO>();
+            CreateMap<ClientsContact, ClientsContactGetDTO>()
+                .ForMember(dest => dest.DeliveryDetails, opt => opt.MapFrom(src => src.DeliveryDetail));
             CreateMap<DeliveryDetail, DeliveryDetailsGetDTO>();
         }
     }

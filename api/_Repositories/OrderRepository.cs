@@ -22,8 +22,11 @@ namespace api._Repositories
         {
             return await context.Orders
                                 .Where(o => o.LocalId == localId && o.OrderStatus == status)
+                                .Include(o => o.Products) 
+                                    .ThenInclude(p => p.Ingredients)
+                                .Include(o => o.ClientsContact)
+                                    .ThenInclude(c => c.DeliveryDetail)
                                 .ToListAsync();
-                            
         }
 
         public async Task<bool> SaveAllAsync()

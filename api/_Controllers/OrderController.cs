@@ -1,3 +1,4 @@
+using System.IdentityModel.Tokens.Jwt;
 using api._DTOs.OrderDTOs;
 using api._Entieties;
 using api._Interfaces;
@@ -85,6 +86,16 @@ namespace api._Controllers
 
             return Ok(mapper.Map<OrderPostDTO>(orderPostDTO));
 
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<List<OrderGetDTO>>> GetOrders([FromQuery] string orderStatus)
+        {
+            var localId = HttpContext.User.FindFirst(JwtRegisteredClaimNames.Name)?.Value;
+            
+            var orders = await orderRepository.GetOrdersByStatus(orderStatus, localId);
+
+            return Ok(mapper.Map<List<OrderGetDTO>>(orders));
         }
     }
 }
