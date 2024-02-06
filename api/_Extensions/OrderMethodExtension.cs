@@ -11,11 +11,15 @@ namespace api._Extensions
         private static string formatedDate = date.ToString("dd/MM/yyyy", CultureInfo.InvariantCulture);
         private static string dayOffWeek = date.ToString("dddd", polishCulture);
 
-        public async static Task<bool> CheckOrderPossiblity(IDayOffLocalRepository dayOffLocalRepository, IOpeningHourLocalRepository openingHourLocalRepository, string localId)
+        public async static Task<int> CheckOrderPossiblity(IDayOffLocalRepository dayOffLocalRepository, IOpeningHourLocalRepository openingHourLocalRepository, string localId)
         {
-            await IsDayOff(dayOffLocalRepository, openingHourLocalRepository, localId);
-            await CheckOpeningHours(openingHourLocalRepository, localId);
-            return true;
+            if(await IsDayOff(dayOffLocalRepository, openingHourLocalRepository, localId) == true)
+                return 1; // dzien wolny
+            
+            if(await CheckOpeningHours(openingHourLocalRepository, localId) == false)
+                return 2;
+
+            return 0;
         }
         private async static Task<bool> IsDayOff(IDayOffLocalRepository dayOffLocalRepository, IOpeningHourLocalRepository openingHourLocalRepository, string localId)
         {
@@ -42,10 +46,6 @@ namespace api._Extensions
 
             DateTime.TryParseExact(openingHour.Opened, inputFormat, CultureInfo.InvariantCulture, DateTimeStyles.None, out openedTime);
             DateTime.TryParseExact(openingHour.Closed, inputFormat, CultureInfo.InvariantCulture, DateTimeStyles.None, out closedTime);
-
-            Console.WriteLine("Godzina otwwarcia: " + openedTime);
-            Console.WriteLine("Godzina zamkniecia: " + closedTime);
-            Console.WriteLine("Godzina teraz: " + date);
 
              if (date <= openedTime || date >= closedTime.AddMinutes(-30))
                 return false;

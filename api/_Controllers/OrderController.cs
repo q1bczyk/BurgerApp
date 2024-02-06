@@ -43,6 +43,14 @@ namespace api._Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
+            int orderPossiblity = await OrderMethodExtension.CheckOrderPossiblity(dayOffLocalRepository, openingHourLocalRepository, orderPostDTO.LocalId);
+
+            if(orderPossiblity == 1)
+                return BadRequest("Today is dayoff!");
+            
+            else if(orderPossiblity == 2)
+                return BadRequest("Closed at this time!");
+
             
              var order = new Order
             {
@@ -101,8 +109,6 @@ namespace api._Controllers
         public async Task<ActionResult<List<OrderGetDTO>>> GetOrders([FromQuery] string orderStatus)
         {
             var localId = HttpContext.User.FindFirst(JwtRegisteredClaimNames.Name)?.Value;
-            
-            await OrderMethodExtension.CheckOrderPossiblity(dayOffLocalRepository, openingHourLocalRepository, localId);
 
             var orders = await orderRepository.GetOrdersByStatus(orderStatus, localId);
 
