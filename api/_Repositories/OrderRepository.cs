@@ -18,6 +18,26 @@ namespace api._Repositories
             return order;
         }
 
+        public async Task<Order> GetOrderByLocalId(string localId, string orderId)
+        {
+            return await context.Orders
+                        .Include(o => o.Products) 
+                            .ThenInclude(p => p.Ingredients)
+                        .Include(o => o.ClientsContact)
+                            .ThenInclude(c => c.DeliveryDetail)
+                        .FirstOrDefaultAsync(o => o.LocalId == localId && o.Id == orderId);
+        }
+
+        public async Task<Order> GetOrderByOrderId(string orderId)
+        {
+            return await context.Orders
+                        .Include(o => o.Products) 
+                            .ThenInclude(p => p.Ingredients)
+                        .Include(o => o.ClientsContact)
+                            .ThenInclude(c => c.DeliveryDetail)
+                        .FirstOrDefaultAsync(o => o.Id == orderId);
+        }
+
         public async Task<List<Order>> GetOrdersByStatus(string status, string localId)
         {
             return await context.Orders

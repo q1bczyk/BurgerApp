@@ -1,4 +1,6 @@
 using System.IdentityModel.Tokens.Jwt;
+using System.Net;
+using System.Net.Mail;
 using api._DTOs.OrderDTOs;
 using api._Entieties;
 using api._Interfaces;
@@ -40,7 +42,9 @@ namespace api._Controllers
              var order = new Order
             {
                 Price = orderPostDTO.Price,
-                OrderStatus = orderPostDTO.OrderStatus,
+                OrderStatus = "nowe",
+                WaitingTime = null,
+                RefusalReason = null,
                 LocalId = orderPostDTO.LocalId,
             };
 
@@ -96,6 +100,70 @@ namespace api._Controllers
             var orders = await orderRepository.GetOrdersByStatus(orderStatus, localId);
 
             return Ok(mapper.Map<List<OrderGetDTO>>(orders));
+        }
+
+        [AllowAnonymous]
+        [HttpGet("{orderId}")]
+        public async Task<ActionResult<OrderGetDTO>> GetOrder(string orderId)
+        {
+            var order = await orderRepository.GetOrderByOrderId(orderId);
+            
+            if(order == null)
+                return NotFound("Order doesn't exist!");
+
+            return Ok(mapper.Map<OrderGetDTO>(order));
+
+        }
+
+        [HttpPut("{orderId}")]
+        public async Task<ActionResult<string>> HandleOrder(string orderId, OrderPutDTO orderPutDTO)
+        {
+            var localId = HttpContext.User.FindFirst(JwtRegisteredClaimNames.Name)?.Value;
+
+            var order = await orderRepository.GetOrderByLocalId(localId, orderId);
+
+            if(order == null)
+                return NotFound("Order doesn't exists!");
+
+            if(orderPutDTO.OrderStatus == "realizowane" && orderPutDTO.WaitingTime == null)
+                return BadRequest("Waiting time is required!");
+
+            if(orderPutDTO.OrderStatus == "anulowane" && orderPutDTO.RefusalReason == null)
+                return BadRequest("Refusal reason is required!");
+
+            order.OrderStatus = orderPutDTO.OrderStatus;
+            order.RefusalReason = orderPutDTO.RefusalReason;
+            order.WaitingTime = orderPutDTO.WaitingTime;
+
+            orderRepository.Update(order);
+            await orderRepository.SaveAllAsync();
+
+           if(orderPutDTO.OrderStatus == "anulowane" || orderPutDTO.OrderStatus == "realizowane")
+           {
+                var link = $"{Request.Scheme}://{Request.Host}/api/order/{order.Id}";
+
+                string senderEmail = "bartekkubik7@gmail.com";
+                string senderPassword = "nbmw atok pztp wbjn";
+                string recipientEmail = order.ClientsContact.Email;
+
+                var smtpClient = new SmtpClient("smtp.gmail.com")
+                {
+                    Port = 587 ,
+                    UseDefaultCredentials = false,
+                    Credentials = new NetworkCredential(senderEmail, senderPassword),
+                    EnableSsl = true,
+                };
+
+                MailMessage mailMessage = new MailMessage(senderEmail, recipientEmail)
+                {
+                    Subject = "ItBurger - status zamówienia",
+                    Body = "Kliknij w link aby wejść na stronę ze swoim zamówieniem: " + link
+                };
+
+                smtpClient.Send(mailMessage); 
+           }
+
+            return Ok(mapper.Map<OrderGetDTO>(order));
         }
     }
 }

@@ -9,8 +9,6 @@ namespace api._DTOs.OrderDTOs
         [Required]
         public float Price { get; set; }
         [Required]
-        public string OrderStatus { get; set; }
-        [Required]
         public List<string> ProductsId { get; set; }
         [Required]
         public ClientsContactPostDTO ClientsContact { get; set; }
