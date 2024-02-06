@@ -102,7 +102,7 @@ namespace api._Controllers
         {
             var localId = HttpContext.User.FindFirst(JwtRegisteredClaimNames.Name)?.Value;
             
-            Console.WriteLine(await OrderMethodExtension.IsDayOff(dayOffLocalRepository, openingHourLocalRepository, localId));
+            await OrderMethodExtension.CheckOrderPossiblity(dayOffLocalRepository, openingHourLocalRepository, localId);
 
             var orders = await orderRepository.GetOrdersByStatus(orderStatus, localId);
 

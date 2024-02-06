@@ -6,6 +6,7 @@ namespace api._Interfaces
         Task<OpeningHourLocal> AddOpeningHourAsync(OpeningHourLocal openingHourLocal);
         Task<OpeningHour> GetOpeningHourLocalByIdAsync(string openingHourId, string localId);
         Task<bool> CheckIsDayOffByLocalId(string localId, string day);
+        Task<OpeningHour> GetOpeningHourByLocalIdAsync(string localId, string day);
         Task<bool> SaveAllAsync();
     }
 }

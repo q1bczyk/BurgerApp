@@ -31,6 +31,14 @@ namespace api._Repositories
                                                                         
         }
 
+        public async Task<OpeningHour> GetOpeningHourByLocalIdAsync(string localId, string day)
+        {
+            return await context.OpeningHourLocals
+                .Where(ol => ol.LocalId == localId)
+                .Select(ol => ol.OpeningHour)
+                .FirstOrDefaultAsync(oh => oh.Day == day);
+        }
+
         public async Task<OpeningHour> GetOpeningHourLocalByIdAsync(string openingHourId, string localId)
         {
             return await context.OpeningHourLocals

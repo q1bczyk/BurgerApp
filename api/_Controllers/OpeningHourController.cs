@@ -25,32 +25,6 @@ namespace api._Controllers
             this.fileService = fileService;
         }
 
-        // [HttpPost]
-        // public async Task<ActionResult<OpeningHour>> AddOpeningHour(OpeningHourPostDTO openingHourPostDTO)
-        // {
-        //     var localId = HttpContext.User.FindFirst(JwtRegisteredClaimNames.Name)?.Value;
-
-        //     var openingHour = new OpeningHour
-        //     {
-        //         Day = openingHourPostDTO.Day,
-        //         Opened = openingHourPostDTO.Opened,
-        //         Closed = openingHourPostDTO.Closed,
-        //         IsDayOff = openingHourPostDTO.IsDayOff,
-        //     };
-
-        //     await openingHourRepository.AddOpeningHourAsync(openingHour);
-
-        //     var openingHourLocal = new OpeningHourLocal
-        //     {
-        //         LocalId = localId,
-        //         OpeningHourId = openingHour.Id
-        //     };
-
-        //     await openingHourLocalRepository.AddOpeningHourAsync(openingHourLocal);
-
-        //     return Ok("Succes!");
-        // }
-
         [AllowAnonymous]
         [HttpGet("")]
 
