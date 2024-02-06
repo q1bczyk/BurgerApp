@@ -3,6 +3,7 @@ using System.Net;
 using System.Net.Mail;
 using api._DTOs.OrderDTOs;
 using api._Entieties;
+using api._Extensions;
 using api._Interfaces;
 using api.Controllers;
 using AutoMapper;
@@ -19,14 +20,18 @@ namespace api._Controllers
         private readonly IClientContactRepository clientContactRepository;
         private readonly IDeliveryDetailsRepository deliveryDetailsRepository;
         private readonly ILocalRepository localRepository;
+        private readonly IDayOffLocalRepository dayOffLocalRepository;
+        private readonly IOpeningHourLocalRepository openingHourLocalRepository;
         private readonly IMapper mapper;
 
-        public OrderController(IOrderRepository orderRepository, IOrderProductRepository orderProductRepository, IClientContactRepository clientContactRepository, IDeliveryDetailsRepository deliveryDetailsRepository, IMapper mapper)
+        public OrderController(IOrderRepository orderRepository, IOrderProductRepository orderProductRepository, IClientContactRepository clientContactRepository, IDeliveryDetailsRepository deliveryDetailsRepository, IDayOffLocalRepository dayOffLocalRepository, IOpeningHourLocalRepository openingHourLocalRepository, IMapper mapper)
         {
             this.orderRepository = orderRepository;
             this.orderProductRepository = orderProductRepository;
             this.clientContactRepository = clientContactRepository;
             this.deliveryDetailsRepository = deliveryDetailsRepository;
+            this.dayOffLocalRepository = dayOffLocalRepository;
+            this.openingHourLocalRepository = openingHourLocalRepository;
             this.mapper = mapper;
         }
 
@@ -97,6 +102,8 @@ namespace api._Controllers
         {
             var localId = HttpContext.User.FindFirst(JwtRegisteredClaimNames.Name)?.Value;
             
+            Console.WriteLine(await OrderMethodExtension.IsDayOff(dayOffLocalRepository, openingHourLocalRepository, localId));
+
             var orders = await orderRepository.GetOrdersByStatus(orderStatus, localId);
 
             return Ok(mapper.Map<List<OrderGetDTO>>(orders));
