@@ -19,6 +19,26 @@ namespace api._Repositories
             return openingHourLocal;
         }
 
+        public async Task<bool> CheckIsDayOffByLocalId(string localId, string day)
+        {
+            return await context.OpeningHourLocals
+                                            .Where(x => x.LocalId == localId)
+                                            .Include(x => x.OpeningHour)
+                                            .Select(x => x.OpeningHour)
+                                            .Where(x => x.Day == day)
+                                            .Select(x => x.IsDayOff)
+                                            .FirstOrDefaultAsync();
+                                                                        
+        }
+
+        public async Task<OpeningHour> GetOpeningHourByLocalIdAsync(string localId, string day)
+        {
+            return await context.OpeningHourLocals
+                .Where(ol => ol.LocalId == localId)
+                .Select(ol => ol.OpeningHour)
+                .FirstOrDefaultAsync(oh => oh.Day == day);
+        }
+
         public async Task<OpeningHour> GetOpeningHourLocalByIdAsync(string openingHourId, string localId)
         {
             return await context.OpeningHourLocals

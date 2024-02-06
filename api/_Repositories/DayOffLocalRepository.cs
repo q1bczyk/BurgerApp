@@ -22,9 +22,10 @@ namespace api._Repositories
         public async Task<bool> DayOffExist(string date, string localId)
         {
             return await context.DayOffLocals
-                .AnyAsync(dl => dl.LocalId == localId &&
-                    context.DayOffs.Any(d => d.Id == dl.DayOffId && d.Date == date));
-                    
+                .Where(x => x.LocalId == localId)
+                .Include(x => x.DayOff)
+                .Select(x => x.DayOff)
+                .AnyAsync(x => x.Date == date);
         }
 
         public async Task<bool> DeleteDayOffLocalAsync(string id, string localId)

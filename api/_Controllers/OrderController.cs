@@ -3,6 +3,7 @@ using System.Net;
 using System.Net.Mail;
 using api._DTOs.OrderDTOs;
 using api._Entieties;
+using api._Extensions;
 using api._Interfaces;
 using api.Controllers;
 using AutoMapper;
@@ -19,14 +20,18 @@ namespace api._Controllers
         private readonly IClientContactRepository clientContactRepository;
         private readonly IDeliveryDetailsRepository deliveryDetailsRepository;
         private readonly ILocalRepository localRepository;
+        private readonly IDayOffLocalRepository dayOffLocalRepository;
+        private readonly IOpeningHourLocalRepository openingHourLocalRepository;
         private readonly IMapper mapper;
 
-        public OrderController(IOrderRepository orderRepository, IOrderProductRepository orderProductRepository, IClientContactRepository clientContactRepository, IDeliveryDetailsRepository deliveryDetailsRepository, IMapper mapper)
+        public OrderController(IOrderRepository orderRepository, IOrderProductRepository orderProductRepository, IClientContactRepository clientContactRepository, IDeliveryDetailsRepository deliveryDetailsRepository, IDayOffLocalRepository dayOffLocalRepository, IOpeningHourLocalRepository openingHourLocalRepository, IMapper mapper)
         {
             this.orderRepository = orderRepository;
             this.orderProductRepository = orderProductRepository;
             this.clientContactRepository = clientContactRepository;
             this.deliveryDetailsRepository = deliveryDetailsRepository;
+            this.dayOffLocalRepository = dayOffLocalRepository;
+            this.openingHourLocalRepository = openingHourLocalRepository;
             this.mapper = mapper;
         }
 
@@ -37,6 +42,14 @@ namespace api._Controllers
         
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
+
+            int orderPossiblity = await OrderMethodExtension.CheckOrderPossiblity(dayOffLocalRepository, openingHourLocalRepository, orderPostDTO.LocalId);
+
+            if(orderPossiblity == 1)
+                return BadRequest("Today is dayoff!");
+            
+            else if(orderPossiblity == 2)
+                return BadRequest("Closed at this time!");
 
             
              var order = new Order
@@ -96,7 +109,7 @@ namespace api._Controllers
         public async Task<ActionResult<List<OrderGetDTO>>> GetOrders([FromQuery] string orderStatus)
         {
             var localId = HttpContext.User.FindFirst(JwtRegisteredClaimNames.Name)?.Value;
-            
+
             var orders = await orderRepository.GetOrdersByStatus(orderStatus, localId);
 
             return Ok(mapper.Map<List<OrderGetDTO>>(orders));
