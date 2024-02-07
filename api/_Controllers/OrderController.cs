@@ -22,9 +22,10 @@ namespace api._Controllers
         private readonly ILocalRepository localRepository;
         private readonly IDayOffLocalRepository dayOffLocalRepository;
         private readonly IOpeningHourLocalRepository openingHourLocalRepository;
+        private readonly IPaymentService paymentService;
         private readonly IMapper mapper;
 
-        public OrderController(IOrderRepository orderRepository, IOrderProductRepository orderProductRepository, IClientContactRepository clientContactRepository, IDeliveryDetailsRepository deliveryDetailsRepository, IDayOffLocalRepository dayOffLocalRepository, IOpeningHourLocalRepository openingHourLocalRepository, IMapper mapper)
+        public OrderController(IOrderRepository orderRepository, IOrderProductRepository orderProductRepository, IClientContactRepository clientContactRepository, IDeliveryDetailsRepository deliveryDetailsRepository, IDayOffLocalRepository dayOffLocalRepository, IOpeningHourLocalRepository openingHourLocalRepository, IPaymentService paymentService, IMapper mapper)
         {
             this.orderRepository = orderRepository;
             this.orderProductRepository = orderProductRepository;
@@ -32,6 +33,7 @@ namespace api._Controllers
             this.deliveryDetailsRepository = deliveryDetailsRepository;
             this.dayOffLocalRepository = dayOffLocalRepository;
             this.openingHourLocalRepository = openingHourLocalRepository;
+            this.paymentService = paymentService;
             this.mapper = mapper;
         }
 
@@ -51,7 +53,7 @@ namespace api._Controllers
             else if(orderPossiblity == 2)
                 return BadRequest("Closed at this time!");
 
-            string paymentToken = null;
+            int? sessionId = null;
             bool? paymentSuccess = null;
             
              var order = new Order
@@ -60,7 +62,7 @@ namespace api._Controllers
                 OrderStatus = "nowe",
                 WaitingTime = null,
                 RefusalReason = null,
-                PaymentToken = paymentToken,
+                SessionId = sessionId,
                 PaymentSuccess = paymentSuccess,
                 LocalId = orderPostDTO.LocalId,
             };
@@ -114,7 +116,6 @@ namespace api._Controllers
             var localId = HttpContext.User.FindFirst(JwtRegisteredClaimNames.Name)?.Value;
 
             var orders = await orderRepository.GetOrdersByStatus(orderStatus, localId);
-
             return Ok(mapper.Map<List<OrderGetDTO>>(orders));
         }
 

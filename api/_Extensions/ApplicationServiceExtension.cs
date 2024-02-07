@@ -4,8 +4,6 @@ using api._Repositories;
 using api._Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Azure.Storage.Blobs;
 
 namespace api._Extensions
 {
@@ -20,6 +18,8 @@ namespace api._Extensions
             
             services.Configure<BlobStorageSettings>(config.GetSection("BlobStorageSettings"));
 
+            services.Configure<PaymentsSettings>(config.GetSection("PaymentsSettings"));
+
             services.Configure<DataProtectionTokenProviderOptions>(opt => opt.TokenLifespan = TimeSpan.FromHours(1));
             
             services.AddIdentity<Admin, IdentityRole>()
@@ -31,6 +31,7 @@ namespace api._Extensions
 
             services.AddScoped<ITokenservice, TokenService>();
             services.AddScoped<IFileService, FileService>();
+            services.AddScoped<IPaymentService, PaymentService>();
             services.AddScoped<IAdminRepository, AdminRepository>();
             services.AddScoped<IContactRepository, ContactRepository>();
             services.AddScoped<ILocalRepository, LocalRepository>();

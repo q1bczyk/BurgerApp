@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "rxjic4qHFdAlRkD8SFAvHFpNaqt37/QI34g5O608qZEVpCxoslpYlWWsoLy90B0LsmSOMTmIqMp1XJNEhey8yw==",
+  "dgSpecHash": "j5p7nE7i5hPopzFR1unRFCbzp/lKceLBb1rRxqqRuSsAvRKYAkmmE6ALvw2RqLg+HcYP0mC+RWcgT6tgIDO/Hw==",
   "success": true,
   "projectFilePath": "C:\\Users\\Bartus Kubiczek\\Documents\\GitHub\\BurgerApp\\api\\api.csproj",
   "expectedPackageFiles": [
@@ -97,6 +97,7 @@
     "C:\\Users\\Bartus Kubiczek\\.nuget\\packages\\newtonsoft.json.bson\\1.0.1\\newtonsoft.json.bson.1.0.1.nupkg.sha512",
     "C:\\Users\\Bartus Kubiczek\\.nuget\\packages\\npgsql\\8.0.0\\npgsql.8.0.0.nupkg.sha512",
     "C:\\Users\\Bartus Kubiczek\\.nuget\\packages\\npgsql.entityframeworkcore.postgresql\\8.0.0\\npgsql.entityframeworkcore.postgresql.8.0.0.nupkg.sha512",
+    "C:\\Users\\Bartus Kubiczek\\.nuget\\packages\\restsharp\\110.2.0\\restsharp.110.2.0.nupkg.sha512",
     "C:\\Users\\Bartus Kubiczek\\.nuget\\packages\\runtime.debian.8-x64.runtime.native.system.security.cryptography.openssl\\4.3.0\\runtime.debian.8-x64.runtime.native.system.security.cryptography.openssl.4.3.0.nupkg.sha512",
     "C:\\Users\\Bartus Kubiczek\\.nuget\\packages\\runtime.fedora.23-x64.runtime.native.system.security.cryptography.openssl\\4.3.0\\runtime.fedora.23-x64.runtime.native.system.security.cryptography.openssl.4.3.0.nupkg.sha512",
     "C:\\Users\\Bartus Kubiczek\\.nuget\\packages\\runtime.fedora.24-x64.runtime.native.system.security.cryptography.openssl\\4.3.0\\runtime.fedora.24-x64.runtime.native.system.security.cryptography.openssl.4.3.0.nupkg.sha512",
