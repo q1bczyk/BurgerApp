@@ -2,6 +2,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Net;
 using System.Net.Mail;
 using api._DTOs.OrderDTOs;
+using api._DTOs.PaymentsDTOs;
 using api._Entieties;
 using api._Extensions;
 using api._Interfaces;
@@ -53,8 +54,23 @@ namespace api._Controllers
             else if(orderPossiblity == 2)
                 return BadRequest("Closed at this time!");
 
-            int? sessionId = null;
-            bool? paymentSuccess = null;
+            string? sessionId = null;
+
+            if(orderPostDTO.IsPaymentOnline == true)
+            {
+                int amount = Convert.ToInt32(orderPostDTO.Price * 100);
+                P24TransactionRequest p24TransactionRequest = new P24TransactionRequest(amount, "PLN", "Zamówienie", orderPostDTO.ClientsContact.Email, "PL", "pl", "https://localhost:5001/api/order", "https://localhost:5001/api/order/confirm-payment");
+
+                var paymentResponse = await paymentService.RegisterAsync(p24TransactionRequest);
+
+                if(paymentResponse.Code == 400)
+                    return BadRequest(paymentResponse.Error);
+
+                else if(paymentResponse.Code == 401)
+                    return Unauthorized("Incorrect authentication");
+
+                
+            }
             
              var order = new Order
             {
@@ -63,7 +79,7 @@ namespace api._Controllers
                 WaitingTime = null,
                 RefusalReason = null,
                 SessionId = sessionId,
-                PaymentSuccess = paymentSuccess,
+                PaymentSuccess = null,
                 LocalId = orderPostDTO.LocalId,
             };
 

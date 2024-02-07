@@ -13,7 +13,7 @@ namespace api._Entieties
         public string OrderStatus { get; set; }
         public string? WaitingTime { get; set; }
         public string? RefusalReason { get; set; }
-        public int? SessionId { get; set; }
+        public string? SessionId { get; set; }
         public bool? PaymentSuccess { get; set; }
         public List<Product> Products { get; set; } = new();
         public ClientsContact ClientsContact { get; set; }
