@@ -51,6 +51,8 @@ namespace api._Controllers
             else if(orderPossiblity == 2)
                 return BadRequest("Closed at this time!");
 
+            string paymentToken = null;
+            bool? paymentSuccess = null;
             
              var order = new Order
             {
@@ -58,6 +60,8 @@ namespace api._Controllers
                 OrderStatus = "nowe",
                 WaitingTime = null,
                 RefusalReason = null,
+                PaymentToken = paymentToken,
+                PaymentSuccess = paymentSuccess,
                 LocalId = orderPostDTO.LocalId,
             };
 
@@ -83,7 +87,6 @@ namespace api._Controllers
                     PostalCode = orderPostDTO.ClientsContact.DeliveryDetails.PostalCode,
                     Street = orderPostDTO.ClientsContact.DeliveryDetails.Street,
                     HouseNumber = orderPostDTO.ClientsContact.DeliveryDetails.HouseNumber,
-                    PaymentMethod = orderPostDTO.ClientsContact.DeliveryDetails.PaymentMethod,
                     ClientsContact = clientsContact,
                 };
 
