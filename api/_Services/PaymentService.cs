@@ -48,21 +48,6 @@ namespace api._Services
             return response.Data;
         }
 
-         public async Task<P24TransactionResponse> RegisterAsync(P24TransactionRequest data)
-        {
-            data.MerchantId = UserId;
-            data.PosId = UserId;
-            var signString = $"{{\"sessionId\":\"{data.SessionId}\",\"merchantId\":{data.MerchantId},\"amount\":{data.Amount},\"currency\":\"{data.Currency}\",\"crc\":\"{CRC}\"}}";
-            data.Sign = GenerateSign(signString);
-            var request = new RestRequest("transaction/register");
-            request.AddJsonBody(data);
-
-            var response = await Client.ExecuteAsync<P24TransactionResponse>(request, Method.Post);
-            Console.WriteLine("Request URL: " + Client.BuildUri(request));
-            Console.WriteLine("Response Content: " + response.Content);
-            return response.Data;
-        }
-
         private string GenerateSign(string signString)
         {
             using (SHA384 sha384Hash = SHA384.Create())
@@ -74,6 +59,31 @@ namespace api._Services
 
                 return hash.ToLower();
             }
+        }
+
+        public async Task<P24TransactionResponse> RegisterAsync(P24TransactionRequest data)
+        {
+            data.MerchantId = UserId;
+            data.PosId = UserId;
+            var signString = $"{{\"sessionId\":\"{data.SessionId}\",\"merchantId\":{data.MerchantId},\"amount\":{data.Amount},\"currency\":\"{data.Currency}\",\"crc\":\"{CRC}\"}}";
+            data.Sign = GenerateSign(signString);
+            var request = new RestRequest("transaction/register");
+            request.AddJsonBody(data);
+
+            var response = await Client.ExecuteAsync<P24TransactionResponse>(request, Method.Post);
+            return response.Data;
+        }
+
+         public async Task<P24TransactionVerifyResponse> TransactionVerifyAsync(P24TransactionVerifyRequest data)
+        {
+            var signString = $"{{\"sessionId\":\"{data.SessionId}\",\"orderId\":{data.OrderId},\"amount\":{data.Amount},\"currency\":\"{data.Currency}\",\"crc\":\"{CRC}\"}}";
+            data.Sign = GenerateSign(signString);
+            var request = new RestRequest("/api/v1/transaction/verify");
+            request.AddJsonBody(data);
+
+            
+            var response = await Client.ExecuteAsync<P24TransactionVerifyResponse>(request, Method.Put);
+            return response.Data;
         }
 
     }

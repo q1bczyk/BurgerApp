@@ -9,6 +9,7 @@ using api._Interfaces;
 using api.Controllers;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 
 namespace api._Controllers
@@ -51,10 +52,11 @@ namespace api._Controllers
             if(orderPossiblity == 1)
                 return BadRequest("Today is dayoff!");
             
-            else if(orderPossiblity == 2)
-                return BadRequest("Closed at this time!");
+            // else if(orderPossiblity == 2)
+            //     return BadRequest("Closed at this time!");
 
             string? sessionId = null;
+            bool? paymentSuccess = null;
 
             if(orderPostDTO.IsPaymentOnline == true)
             {
@@ -63,13 +65,11 @@ namespace api._Controllers
 
                 var paymentResponse = await paymentService.RegisterAsync(p24TransactionRequest);
 
-                if(paymentResponse.Code == 400)
-                    return BadRequest(paymentResponse.Error);
+                if(paymentResponse.Data.Token == null)
+                    return BadRequest("Error! Something went wrong!");
 
-                else if(paymentResponse.Code == 401)
-                    return Unauthorized("Incorrect authentication");
-
-                
+                sessionId = p24TransactionRequest.SessionId;
+                paymentSuccess = false;
             }
             
              var order = new Order
@@ -79,7 +79,7 @@ namespace api._Controllers
                 WaitingTime = null,
                 RefusalReason = null,
                 SessionId = sessionId,
-                PaymentSuccess = null,
+                PaymentSuccess = paymentSuccess,
                 LocalId = orderPostDTO.LocalId,
             };
 
@@ -198,5 +198,13 @@ namespace api._Controllers
 
             return Ok(mapper.Map<OrderGetDTO>(order));
         }
+
+        [HttpGet("confrim-payment")]
+        public async Task<ActionResult<string>> PaymentConfirm()
+        {   
+            Console.WriteLine("XXDXDXDXDXDX");
+            return Ok("xd");
+        }
+
     }
 }
