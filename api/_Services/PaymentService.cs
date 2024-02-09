@@ -1,5 +1,6 @@
 using System.Security.Cryptography;
 using System.Text;
+using api._DTOs.OrderDTOs;
 using api._DTOs.PaymentsDTOs;
 using api._Helpers;
 using api._Interfaces;
@@ -61,8 +62,12 @@ namespace api._Services
             }
         }
 
-        public async Task<P24TransactionResponse> RegisterAsync(P24TransactionRequest data)
+        public async Task<P24TransactionResponse> RegisterAsync(OrderPostDTO orderPostDTO)
         {
+
+            int amount = Convert.ToInt32(orderPostDTO.Price * 100);
+            P24TransactionRequest data = new P24TransactionRequest(amount, "PLN", "Zamówienie", orderPostDTO.ClientsContact.Email, "PL", "pl", "https://localhost:5001/api/order", "https://localhost:5001/api/order/confirm-payment");
+
             data.MerchantId = UserId;
             data.PosId = UserId;
             var signString = $"{{\"sessionId\":\"{data.SessionId}\",\"merchantId\":{data.MerchantId},\"amount\":{data.Amount},\"currency\":\"{data.Currency}\",\"crc\":\"{CRC}\"}}";
@@ -71,11 +76,15 @@ namespace api._Services
             request.AddJsonBody(data);
 
             var response = await Client.ExecuteAsync<P24TransactionResponse>(request, Method.Post);
+
+            response.Data.SessionId = data.SessionId;
             return response.Data;
         }
 
          public async Task<P24TransactionVerifyResponse> TransactionVerifyAsync(P24TransactionVerifyRequest data)
         {
+
+            
             var signString = $"{{\"sessionId\":\"{data.SessionId}\",\"orderId\":{data.OrderId},\"amount\":{data.Amount},\"currency\":\"{data.Currency}\",\"crc\":\"{CRC}\"}}";
             data.Sign = GenerateSign(signString);
             var request = new RestRequest("/api/v1/transaction/verify");

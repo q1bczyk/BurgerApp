@@ -41,7 +41,7 @@ namespace api._Repositories
         public async Task<List<Order>> GetOrdersByStatus(string status, string localId)
         {
             return await context.Orders
-                                .Where(o => o.LocalId == localId && o.OrderStatus == status)
+                                .Where(o => o.LocalId == localId && o.OrderStatus == status && o.PaymentsDetails.IsPaymentDone == true || o.PaymentsDetails.IsPaymentDone == null)
                                 .Include(o => o.Products) 
                                     .ThenInclude(p => p.Ingredients)
                                 .Include(o => o.ClientsContact)

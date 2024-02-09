@@ -25,9 +25,10 @@ namespace api._Controllers
         private readonly IDayOffLocalRepository dayOffLocalRepository;
         private readonly IOpeningHourLocalRepository openingHourLocalRepository;
         private readonly IPaymentService paymentService;
+        private readonly IPaymentRepository paymentRepository;
         private readonly IMapper mapper;
 
-        public OrderController(IOrderRepository orderRepository, IOrderProductRepository orderProductRepository, IClientContactRepository clientContactRepository, IDeliveryDetailsRepository deliveryDetailsRepository, IDayOffLocalRepository dayOffLocalRepository, IOpeningHourLocalRepository openingHourLocalRepository, IPaymentService paymentService, IMapper mapper)
+        public OrderController(IOrderRepository orderRepository, IOrderProductRepository orderProductRepository, IClientContactRepository clientContactRepository, IDeliveryDetailsRepository deliveryDetailsRepository, IDayOffLocalRepository dayOffLocalRepository, IOpeningHourLocalRepository openingHourLocalRepository, IPaymentService paymentService, IPaymentRepository paymentRepository, IMapper mapper)
         {
             this.orderRepository = orderRepository;
             this.orderProductRepository = orderProductRepository;
@@ -36,6 +37,7 @@ namespace api._Controllers
             this.dayOffLocalRepository = dayOffLocalRepository;
             this.openingHourLocalRepository = openingHourLocalRepository;
             this.paymentService = paymentService;
+            this.paymentRepository = paymentRepository;
             this.mapper = mapper;
         }
 
@@ -55,35 +57,32 @@ namespace api._Controllers
             // else if(orderPossiblity == 2)
             //     return BadRequest("Closed at this time!");
 
-            string? sessionId = null;
-            bool? paymentSuccess = null;
-
-            if(orderPostDTO.IsPaymentOnline == true)
-            {
-                int amount = Convert.ToInt32(orderPostDTO.Price * 100);
-                P24TransactionRequest p24TransactionRequest = new P24TransactionRequest(amount, "PLN", "Zamówienie", orderPostDTO.ClientsContact.Email, "PL", "pl", "https://localhost:5001/api/order", "https://localhost:5001/api/order/confirm-payment");
-
-                var paymentResponse = await paymentService.RegisterAsync(p24TransactionRequest);
-
-                if(paymentResponse.Data.Token == null)
-                    return BadRequest("Error! Something went wrong!");
-
-                sessionId = p24TransactionRequest.SessionId;
-                paymentSuccess = false;
-            }
-            
              var order = new Order
             {
                 Price = orderPostDTO.Price,
                 OrderStatus = "nowe",
                 WaitingTime = null,
                 RefusalReason = null,
-                SessionId = sessionId,
-                PaymentSuccess = paymentSuccess,
                 LocalId = orderPostDTO.LocalId,
             };
-
             await orderRepository.AddOrderAsync(order);
+
+            if(orderPostDTO.IsPaymentOnline == true)
+            {
+                var paymentResponse = await paymentService.RegisterAsync(orderPostDTO);
+
+                if(paymentResponse.Data.Token == null)
+                    return BadRequest("Error! Something went wrong!");
+
+                var paymentsDetails = new PaymentsDetails
+                {
+                    OrderId = order.Id,
+                    SessionId = paymentResponse.SessionId,
+                    IsPaymentDone = false,
+                };
+
+                await paymentRepository.AddPaymentAsync(paymentsDetails);
+            }
 
             var clientsContact = new ClientsContact
             {
