@@ -4,7 +4,7 @@ namespace api._DTOs.PaymentsDTOs
 {
     public class P24TransactionRequest
     {
-        public P24TransactionRequest(int amount, string currency, string description, string email, string country, string language, string urlReturn, string urlStatus)
+        public P24TransactionRequest(int amount, string currency, string description, string email, string country, string language, string urlReturn)
         {
             SessionId = DateTime.Now.Ticks.ToString();
             Amount = amount;
@@ -14,7 +14,6 @@ namespace api._DTOs.PaymentsDTOs
             Country = country;
             Language = language;
             UrlReturn = urlReturn;
-            UrlStatus = urlStatus;
         }
 
         public int MerchantId { get; set; }

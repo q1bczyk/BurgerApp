@@ -49,6 +49,13 @@ namespace api._Repositories
                                 .ToListAsync();
         }
 
+        public async Task<Order> GetPaymentDetails(string sessionId)
+        {
+            return await context.Orders
+                        .Include(o => o.PaymentsDetails)
+                        .FirstOrDefaultAsync(o => o.PaymentsDetails.SessionId == sessionId);
+        }
+
         public async Task<bool> SaveAllAsync()
         {
             return await context.SaveChangesAsync() > 0;

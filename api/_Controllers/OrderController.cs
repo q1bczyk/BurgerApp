@@ -198,11 +198,16 @@ namespace api._Controllers
             return Ok(mapper.Map<OrderGetDTO>(order));
         }
 
-        [HttpGet("confrim-payment")]
-        public async Task<ActionResult<string>> PaymentConfirm()
+        [AllowAnonymous]
+        [HttpPost("confirm-payment")]
+        public async Task<ActionResult<P24ReservationStatusModel>> PaymentConfirm(P24TransactionVerifyRequest p24TransactionVerifyRequest)
         {   
-            Console.WriteLine("XXDXDXDXDXDX");
-            return Ok("xd");
+            var response = await paymentService.TransactionVerifyAsync(p24TransactionVerifyRequest);
+
+            if(response.Data == null)
+                return BadRequest(response.Error);
+
+            return Ok(response);
         }
 
     }

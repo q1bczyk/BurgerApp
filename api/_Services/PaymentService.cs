@@ -66,10 +66,11 @@ namespace api._Services
         {
 
             int amount = Convert.ToInt32(orderPostDTO.Price * 100);
-            P24TransactionRequest data = new P24TransactionRequest(amount, "PLN", "Zamówienie", orderPostDTO.ClientsContact.Email, "PL", "pl", "https://localhost:5001/api/order", "https://localhost:5001/api/order/confirm-payment");
+            P24TransactionRequest data = new P24TransactionRequest(amount, "PLN", "Zamówienie", orderPostDTO.ClientsContact.Email, "PL", "pl", "https://localhost:5001/api/order");
 
             data.MerchantId = UserId;
             data.PosId = UserId;
+            data.UrlStatus = "https://localhost:5001/api/order/confirm-payment";
             var signString = $"{{\"sessionId\":\"{data.SessionId}\",\"merchantId\":{data.MerchantId},\"amount\":{data.Amount},\"currency\":\"{data.Currency}\",\"crc\":\"{CRC}\"}}";
             data.Sign = GenerateSign(signString);
             var request = new RestRequest("transaction/register");
@@ -83,15 +84,15 @@ namespace api._Services
 
          public async Task<P24TransactionVerifyResponse> TransactionVerifyAsync(P24TransactionVerifyRequest data)
         {
-
-            
-            var signString = $"{{\"sessionId\":\"{data.SessionId}\",\"orderId\":{data.OrderId},\"amount\":{data.Amount},\"currency\":\"{data.Currency}\",\"crc\":\"{CRC}\"}}";
+           var signString = $"{{\"sessionId\":\"{data.SessionId}\",\"orderId\":{data.OrderId},\"amount\":{data.Amount},\"currency\":\"{data.Currency}\",\"crc\":\"{CRC}\"}}";
             data.Sign = GenerateSign(signString);
-            var request = new RestRequest("/api/v1/transaction/verify");
+
+            var request = new RestRequest("transaction/verify");
             request.AddJsonBody(data);
 
-            
             var response = await Client.ExecuteAsync<P24TransactionVerifyResponse>(request, Method.Put);
+            
+            Console.WriteLine("DSADASDSADSADAS" + response.Content);
             return response.Data;
         }
 

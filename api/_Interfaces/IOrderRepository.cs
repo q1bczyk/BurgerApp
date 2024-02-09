@@ -9,6 +9,7 @@ namespace api._Interfaces
         Task<List<Order>> GetOrdersByStatus(string status, string localId);
         Task<Order> GetOrderByLocalId(string localId, string orderId);
         Task<Order> GetOrderByOrderId(string orderId);
+        Task<Order> GetPaymentDetails(string sessionId);
         Task<bool> SaveAllAsync();
     }
 }
