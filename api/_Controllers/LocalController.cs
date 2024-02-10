@@ -23,5 +23,15 @@ namespace api._Controllers
             return Ok(mapper.Map<List<LocalGetDTO>>(locals));
         }
 
+        [HttpGet("{slug}")]
+        public async Task<ActionResult<LocalGetDTO>> IsLocalExist(string slug)
+        {
+            var local = await localRepository.GetLocalBySlugAsync(slug);
+            
+            if(local == null)
+                return NotFound("Local doesn't exist!");
+
+            return Ok(mapper.Map<LocalGetDTO>(local));
+        }
     }
 }
