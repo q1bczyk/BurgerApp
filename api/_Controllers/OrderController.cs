@@ -54,8 +54,8 @@ namespace api._Controllers
             if(orderPossiblity == 1)
                 return BadRequest("Today is dayoff!");
             
-            // else if(orderPossiblity == 2)
-            //     return BadRequest("Closed at this time!");
+            else if(orderPossiblity == 2)
+                return BadRequest("Closed at this time!");
 
              var order = new Order
             {
