@@ -1,5 +1,7 @@
 using api._DTOs.AdminDTOs;
 using api._DTOs.ContactDTOs;
+using api._DTOs.DayOffDTOs;
+using api._DTOs.OpeningHourDTOs;
 
 namespace api._DTOs.LocalDTOs;
 
@@ -7,9 +9,8 @@ namespace api._DTOs.LocalDTOs;
     {
         public string Id { get; set; }
         public string Name { get; set; }
-        public ContactGetDTO ContactGetDTO { get; set; }
-        public List<OpeningHour> OpeningHours { get; set; } 
-        public List<OpeningHourLocal> OpeningHourLocals { get; set; } 
-        public List<DayOff> DayOffs { get; set; } 
-        public List<DayOffLocal> DayOffLocals { get; set; }
+        public string Slug { get; set; }
+        public ContactGetDTO Contact { get; set; }
+        public List<OpeningHourGetDTO> OpeningHours { get; set; } 
+        public List<DayOffGetDTO> DayOffs { get; set; } 
     }

@@ -1,0 +1,107 @@
+@use '../../../assets/styles/shared-styles.scss';
+@use '../../../assets/styles/base';
+
+.wrapper
+{
+    @include shared-styles.wrapper;
+    height: 100vh;
+    background-image: url('../../../assets/images/2.jpg');
+    background-position: center;
+    background-size: cover;
+    position: relative;
+    align-items: center;
+    flex-direction: column;
+
+    h2, h5
+    {
+        font-family: base.$header-font;
+        z-index: 1;
+    }
+
+    h2
+    {
+        text-transform: uppercase;
+        letter-spacing: 3px;
+        margin-top: 40px;
+        margin-bottom: 20px;
+        color: white;
+    }
+
+    h5
+    {
+        font-size: 20px;
+        letter-spacing: 2px;
+        padding: 5px;
+    }
+
+    span
+    {
+        color: base.$third-color;
+    }
+}
+
+.overly
+{
+    @include shared-styles.overly;
+}
+
+.logo
+{
+    @include shared-styles.logo;
+    width: 180px;
+    height: 180px;
+    z-index: 1;
+    background-color: #000000;
+    border-radius: 100px;
+    font-size: 16px;
+}
+
+.locals
+{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    z-index: 1;
+    width: 90%;
+    color: white;
+}
+
+.local
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    margin: 20px 0;
+    cursor: pointer;
+    background-color: #0000006c;
+    border-radius: 10px;
+    width: 350px;
+    height: 280px;
+    transition: all ease-in-out 0.2s;
+}
+
+.local:hover
+{
+    background-color: #000000b2;
+}
+
+.name
+{
+    color: base.$third-color;
+}
+
+@media(max-width: base.$medium)
+{
+    .locals
+    {
+        flex-direction: column;
+    }
+
+    .wrapper
+    {
+        min-height: 900px;
+    }
+}
+

@@ -19,6 +19,15 @@ namespace api._Repositories
             return local;
         }
 
+        public async Task<List<Local>> GetLocalsAsync()
+        {
+            return await context.Locals
+                                .Include(x => x.Contact)
+                                .Include(x => x.OpeningHours)
+                                .Include(x => x.DayOffs)
+                                .ToListAsync();
+        }
+
         public async Task<bool> IsLocalExists(string id)
         {
             return await context.Locals.AnyAsync(x => x.Id == id);

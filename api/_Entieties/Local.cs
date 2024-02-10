@@ -9,6 +9,7 @@ public class Local
     [MaxLength(36)] 
     public string Id { get; set; }
     public string Name { get; set; }
+    public string? Slug { get; set; }
     public Admin? Admin { get; set; }
     public Contact? Contact { get; set; }
     public List<OpeningHour> OpeningHours { get; set; } = new();
