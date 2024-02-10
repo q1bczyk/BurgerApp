@@ -1,7 +1,7 @@
 export interface ContactResponseInterface
 {
     city : string;
-    postalCode : stirng;
+    postalCode : string;
     street : string;
     streetNumber : string;
     email : string;

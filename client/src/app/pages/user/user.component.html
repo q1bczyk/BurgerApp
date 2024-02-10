@@ -4,4 +4,27 @@
         <app-logo/>
     </div>
     <h2>Wybierz lokal</h2>
+    <div class="locals">
+        <div class="local" *ngFor="let local of locals; let i = index">
+            <h5 class="name">{{local.name}}</h5>
+            <h5>
+                <span>
+                    <fa-icon [icon]="faLocationDot"></fa-icon>
+                </span>
+                {{getAddress(i)}}
+            </h5>
+            <h5>
+                <span>
+                    <fa-icon [icon]="faEnvelope"></fa-icon>
+                </span>
+                {{local.contact.email}}
+            </h5>
+            <h5>
+                <span>
+                    <fa-icon [icon]="faPhone"></fa-icon>
+                </span>
+                {{local.contact.phoneNumber}}
+            </h5>
+        </div>
+    </div>
 </div>
