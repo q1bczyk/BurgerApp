@@ -20,6 +20,8 @@ namespace api._Services
         private readonly int UserId;
         private readonly string Secret;
         private readonly string CRC;
+        private readonly string ApiDomeinName;
+        private readonly string ClientDomeinName;
         private RestClient Client;
         public PaymentService(IOptions<PaymentsSettings> config)
         {
@@ -27,6 +29,8 @@ namespace api._Services
             UserId = config.Value.UserId;
             Secret = config.Value.Secret;
             CRC = config.Value.CRC;
+            ApiDomeinName = config.Value.ApiDomeinName;
+            ClientDomeinName = config.Value.ClientDomeinName;
 
             InitializeRestClient();
         }
@@ -66,17 +70,19 @@ namespace api._Services
         {
 
             int amount = Convert.ToInt32(orderPostDTO.Price * 100);
-            P24TransactionRequest data = new P24TransactionRequest(amount, "PLN", "Zamówienie", orderPostDTO.ClientsContact.Email, "PL", "pl", "https://localhost:5001/api/order");
+            P24TransactionRequest data = new P24TransactionRequest(amount, "PLN", "Zamówienie", orderPostDTO.ClientsContact.Email, "PL", "pl", ClientDomeinName);
 
             data.MerchantId = UserId;
             data.PosId = UserId;
-            data.UrlStatus = "https://localhost:5001/api/order/confirm-payment";
+            data.UrlStatus = $"{ApiDomeinName}api/order/confirm-payment";
             var signString = $"{{\"sessionId\":\"{data.SessionId}\",\"merchantId\":{data.MerchantId},\"amount\":{data.Amount},\"currency\":\"{data.Currency}\",\"crc\":\"{CRC}\"}}";
             data.Sign = GenerateSign(signString);
             var request = new RestRequest("transaction/register");
             request.AddJsonBody(data);
 
             var response = await Client.ExecuteAsync<P24TransactionResponse>(request, Method.Post);
+
+            Console.WriteLine(ApiDomeinName);
 
             response.Data.SessionId = data.SessionId;
             return response.Data;

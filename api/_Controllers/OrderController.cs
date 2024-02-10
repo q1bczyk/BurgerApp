@@ -207,6 +207,14 @@ namespace api._Controllers
             if(response.Data == null)
                 return BadRequest(response.Error);
 
+            var orderToConfirm = await orderRepository.GetPaymentDetails(p24TransactionVerifyRequest.SessionId);
+
+            orderToConfirm.PaymentsDetails.IsPaymentDone = true;
+
+            paymentRepository.Update(orderToConfirm.PaymentsDetails);
+            await paymentRepository.SaveChangesAsync();
+            
+
             return Ok(response);
         }
 

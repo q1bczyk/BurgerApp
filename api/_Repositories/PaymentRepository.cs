@@ -17,10 +17,14 @@ namespace api._Repositories
             return paymentsDetails;
         }
 
-        public async void Update(PaymentsDetails paymentsDetails)
+        public async Task<bool> SaveChangesAsync()
+        {
+            return await context.SaveChangesAsync() > 0;
+        }
+
+        public void Update(PaymentsDetails paymentsDetails)
         {
             context.Entry(paymentsDetails).State = EntityState.Modified;
-            await context.SaveChangesAsync();
         }
     }
 }

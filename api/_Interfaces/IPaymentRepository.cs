@@ -6,5 +6,6 @@ namespace api._Interfaces
     {
         void Update(PaymentsDetails paymentsDetails);
         Task<PaymentsDetails> AddPaymentAsync(PaymentsDetails paymentsDetails);
+        Task<bool> SaveChangesAsync();
     }
 }
