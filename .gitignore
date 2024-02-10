@@ -1,3 +1,26 @@
+# Node modules
+/node_modules
+
+# Compiled output
+/dist
+/tmp
+/out-tsc
+
+# Sensitive or environment-specific files
+/src/environments/*.ts
+
+# IDE files
+/.idea
+/.vscode
+
+# Test generated files
+/*.spec.ts
+/*.e2e-spec.ts
+
+# System files
+.DS_Store
+Thumbs.db
+
 # Visual Studio Code
 .vscode/
 
@@ -451,3 +474,7 @@ api/obj/Debug/net8.0/api.AssemblyInfo.cs
 =======
 api/obj/Debug/net8.0/api.AssemblyInfoInputs.cache
 >>>>>>> Stashed changes
+
+
+api/obj/Debug/net8.0/api.AssemblyInfoInputs.cache
+api/obj/Debug/net8.0/api.AssemblyInfo.cs
