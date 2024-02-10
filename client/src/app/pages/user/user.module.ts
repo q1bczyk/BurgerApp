@@ -5,10 +5,14 @@ import { UserRoutingModule } from './user-routing.module';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { HttpClientModule } from '@angular/common/http';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { HomeComponent } from './pages/home/home.component';
+import { NavbarComponent } from 'src/app/core/navbar/navbar.component';
 
 @NgModule({
   declarations: [
     UserComponent,
+    HomeComponent,
+    NavbarComponent,
   ],
   imports: [
     CommonModule,
