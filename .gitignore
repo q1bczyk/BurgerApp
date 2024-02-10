@@ -1,3 +1,112 @@
+client/.angular/
+
+# Node.js
+node_modules/
+
+# Compiled output
+/dist/
+/tmp/
+/out-tsc/
+
+# Sensitive or environment-specific files
+.env
+.env.prod
+.env.local
+
+# IDEs and editors
+.idea/
+.vscode/
+*.sublime-workspace
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+*.suo
+*.user
+*.userosscache
+*.suo
+*.dotCover
+*.dotSettings.user
+*.swp
+*.bak
+Thumbs.db
+Desktop.ini
+
+# Dependency directories
+/bower_components/
+
+# Logs and databases
+logs/
+*.log
+*.sql
+*.sqlite
+
+# TypeScript
+*.tsbuildinfo
+
+# TSLint
+tslint-report*/
+
+# Yarn
+yarn-error.log
+.pnp/
+.pnp.js
+
+# Jest
+/coverage/
+
+# Cypress
+/cypress/screenshots/
+/cypress/videos/
+
+# Parcel
+/.cache/
+
+# Next.js
+/.next/
+/out/
+
+# Nuxt.js
+/.nuxt/
+/dist/
+
+# Vuepress
+/.vuepress/dist/
+
+# Serverless
+/serverless/.serverless/
+/serverless/.serverless-debug/
+
+# Svelte
+/node_modules/
+/public/build/
+
+# Rollup.js
+/.rollup.cache/
+
+# Gatsby
+/cache/
+/public/
+/.netlify/
+.env.development
+.env.production
+
+# Prettier
+node_modules/
+.cache/
+.env.local
+
+# Nest
+/dist/
+/node_modules/
+
+# Nest temp files
+/.nest
+
+# User-specific files
+.DS_Store
+
 # Visual Studio Code
 .vscode/
 
