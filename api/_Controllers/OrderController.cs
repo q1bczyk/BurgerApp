@@ -2,12 +2,14 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Net;
 using System.Net.Mail;
 using api._DTOs.OrderDTOs;
+using api._DTOs.PaymentsDTOs;
 using api._Entieties;
 using api._Extensions;
 using api._Interfaces;
 using api.Controllers;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 
 namespace api._Controllers
@@ -22,9 +24,11 @@ namespace api._Controllers
         private readonly ILocalRepository localRepository;
         private readonly IDayOffLocalRepository dayOffLocalRepository;
         private readonly IOpeningHourLocalRepository openingHourLocalRepository;
+        private readonly IPaymentService paymentService;
+        private readonly IPaymentRepository paymentRepository;
         private readonly IMapper mapper;
 
-        public OrderController(IOrderRepository orderRepository, IOrderProductRepository orderProductRepository, IClientContactRepository clientContactRepository, IDeliveryDetailsRepository deliveryDetailsRepository, IDayOffLocalRepository dayOffLocalRepository, IOpeningHourLocalRepository openingHourLocalRepository, IMapper mapper)
+        public OrderController(IOrderRepository orderRepository, IOrderProductRepository orderProductRepository, IClientContactRepository clientContactRepository, IDeliveryDetailsRepository deliveryDetailsRepository, IDayOffLocalRepository dayOffLocalRepository, IOpeningHourLocalRepository openingHourLocalRepository, IPaymentService paymentService, IPaymentRepository paymentRepository, IMapper mapper)
         {
             this.orderRepository = orderRepository;
             this.orderProductRepository = orderProductRepository;
@@ -32,6 +36,8 @@ namespace api._Controllers
             this.deliveryDetailsRepository = deliveryDetailsRepository;
             this.dayOffLocalRepository = dayOffLocalRepository;
             this.openingHourLocalRepository = openingHourLocalRepository;
+            this.paymentService = paymentService;
+            this.paymentRepository = paymentRepository;
             this.mapper = mapper;
         }
 
@@ -48,10 +54,9 @@ namespace api._Controllers
             if(orderPossiblity == 1)
                 return BadRequest("Today is dayoff!");
             
-            else if(orderPossiblity == 2)
-                return BadRequest("Closed at this time!");
+            // else if(orderPossiblity == 2)
+            //     return BadRequest("Closed at this time!");
 
-            
              var order = new Order
             {
                 Price = orderPostDTO.Price,
@@ -60,8 +65,24 @@ namespace api._Controllers
                 RefusalReason = null,
                 LocalId = orderPostDTO.LocalId,
             };
-
             await orderRepository.AddOrderAsync(order);
+
+            if(orderPostDTO.IsPaymentOnline == true)
+            {
+                var paymentResponse = await paymentService.RegisterAsync(orderPostDTO);
+
+                if(paymentResponse.Data.Token == null)
+                    return BadRequest("Error! Something went wrong!");
+
+                var paymentsDetails = new PaymentsDetails
+                {
+                    OrderId = order.Id,
+                    SessionId = paymentResponse.SessionId,
+                    IsPaymentDone = false,
+                };
+
+                await paymentRepository.AddPaymentAsync(paymentsDetails);
+            }
 
             var clientsContact = new ClientsContact
             {
@@ -83,7 +104,6 @@ namespace api._Controllers
                     PostalCode = orderPostDTO.ClientsContact.DeliveryDetails.PostalCode,
                     Street = orderPostDTO.ClientsContact.DeliveryDetails.Street,
                     HouseNumber = orderPostDTO.ClientsContact.DeliveryDetails.HouseNumber,
-                    PaymentMethod = orderPostDTO.ClientsContact.DeliveryDetails.PaymentMethod,
                     ClientsContact = clientsContact,
                 };
 
@@ -111,7 +131,6 @@ namespace api._Controllers
             var localId = HttpContext.User.FindFirst(JwtRegisteredClaimNames.Name)?.Value;
 
             var orders = await orderRepository.GetOrdersByStatus(orderStatus, localId);
-
             return Ok(mapper.Map<List<OrderGetDTO>>(orders));
         }
 
@@ -178,5 +197,26 @@ namespace api._Controllers
 
             return Ok(mapper.Map<OrderGetDTO>(order));
         }
+
+        [AllowAnonymous]
+        [HttpPost("confirm-payment")]
+        public async Task<ActionResult<P24ReservationStatusModel>> PaymentConfirm(P24TransactionVerifyRequest p24TransactionVerifyRequest)
+        {   
+            var response = await paymentService.TransactionVerifyAsync(p24TransactionVerifyRequest);
+
+            if(response.Data == null)
+                return BadRequest(response.Error);
+
+            var orderToConfirm = await orderRepository.GetPaymentDetails(p24TransactionVerifyRequest.SessionId);
+
+            orderToConfirm.PaymentsDetails.IsPaymentDone = true;
+
+            paymentRepository.Update(orderToConfirm.PaymentsDetails);
+            await paymentRepository.SaveChangesAsync();
+            
+
+            return Ok(response);
+        }
+
     }
 }

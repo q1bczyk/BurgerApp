@@ -17,7 +17,7 @@ namespace api._Extensions
                 return 1; // dzien wolny
             
             if(await CheckOpeningHours(openingHourLocalRepository, localId) == false)
-                return 2;
+                return 2; 
 
             return 0;
         }

@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using api._DTOs.ClientsContactDTOs;
+using api._DTOs.PaymentsDTOs;
 using api._DTOs.ProductDTOs;
 
 namespace api._DTOs.OrderDTOs
@@ -8,6 +9,8 @@ namespace api._DTOs.OrderDTOs
     {
         [Required]
         public float Price { get; set; }
+        [Required]
+        public bool IsPaymentOnline { get; set; }
         [Required]
         public List<string> ProductsId { get; set; }
         [Required]

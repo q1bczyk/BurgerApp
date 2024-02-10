@@ -21,6 +21,7 @@ public class DataContext : DbContext
     public DbSet<IngredientProduct> IngredientProducts { get; set; }
     public DbSet<Ingredient> Ingredients { get; set; }
     public DbSet<Product> Products { get; set; }
+    public DbSet<PaymentsDetails> PaymentsDetails { get; set; }
 
      protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -70,6 +71,11 @@ public class DataContext : DbContext
             .HasMany(o => o.Products)
             .WithMany(o => o.Orders)
             .UsingEntity<OrderProduct>();
+
+        modelBuilder.Entity<Order>()
+            .HasOne(o => o.PaymentsDetails)
+            .WithOne(p => p.Order)
+            .HasForeignKey<PaymentsDetails>(p => p.OrderId);
 
         modelBuilder.Entity<ClientsContact>()
             .HasOne(o => o.DeliveryDetail)

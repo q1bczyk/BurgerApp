@@ -37,8 +37,6 @@ namespace api._Services
             var blobPath = uri.LocalPath.TrimStart('/').Replace("burger-app/", "");
             var fileToDelete = filesContainer.GetBlobClient(blobPath);
 
-            Console.WriteLine(fileToDelete.Uri.ToString());
-
             if(await fileToDelete.ExistsAsync())
             {
                 await fileToDelete.DeleteIfExistsAsync();

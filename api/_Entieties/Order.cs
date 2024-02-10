@@ -15,6 +15,7 @@ namespace api._Entieties
         public string? RefusalReason { get; set; }
         public List<Product> Products { get; set; } = new();
         public ClientsContact ClientsContact { get; set; }
+        public PaymentsDetails? PaymentsDetails { get; set; }
         public string LocalId { get; set; }
         public Local Local { get; set; }
 

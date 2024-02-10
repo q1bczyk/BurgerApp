@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -10,9 +11,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace api.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20240207144932_paymentUpdate3")]
+    partial class paymentUpdate3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -344,10 +347,16 @@ namespace api.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<bool?>("PaymentSuccess")
+                        .HasColumnType("boolean");
+
                     b.Property<float>("Price")
                         .HasColumnType("real");
 
                     b.Property<string>("RefusalReason")
+                        .HasColumnType("text");
+
+                    b.Property<string>("SessionId")
                         .HasColumnType("text");
 
                     b.Property<string>("WaitingTime")
@@ -373,32 +382,6 @@ namespace api.Migrations
                     b.HasIndex("ProductId");
 
                     b.ToTable("OrderProducts");
-                });
-
-            modelBuilder.Entity("api._Entieties.PaymentsDetails", b =>
-                {
-                    b.Property<string>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasMaxLength(36)
-                        .HasColumnType("character varying(36)");
-
-                    b.Property<bool>("IsPaymentDone")
-                        .HasColumnType("boolean");
-
-                    b.Property<string>("OrderId")
-                        .IsRequired()
-                        .HasColumnType("character varying(36)");
-
-                    b.Property<string>("SessionId")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("OrderId")
-                        .IsUnique();
-
-                    b.ToTable("PaymentsDetails");
                 });
 
             modelBuilder.Entity("api._Entieties.Product", b =>
@@ -562,17 +545,6 @@ namespace api.Migrations
                     b.Navigation("Product");
                 });
 
-            modelBuilder.Entity("api._Entieties.PaymentsDetails", b =>
-                {
-                    b.HasOne("api._Entieties.Order", "Order")
-                        .WithOne("PaymentsDetails")
-                        .HasForeignKey("api._Entieties.PaymentsDetails", "OrderId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Order");
-                });
-
             modelBuilder.Entity("DayOff", b =>
                 {
                     b.Navigation("DayOffLocals");
@@ -610,8 +582,6 @@ namespace api.Migrations
                 {
                     b.Navigation("ClientsContact")
                         .IsRequired();
-
-                    b.Navigation("PaymentsDetails");
                 });
 
             modelBuilder.Entity("api._Entieties.Product", b =>
