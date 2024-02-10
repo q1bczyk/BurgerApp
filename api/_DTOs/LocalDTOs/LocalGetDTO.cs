@@ -9,6 +9,7 @@ namespace api._DTOs.LocalDTOs;
     {
         public string Id { get; set; }
         public string Name { get; set; }
+        public string Slug { get; set; }
         public ContactGetDTO Contact { get; set; }
         public List<OpeningHourGetDTO> OpeningHours { get; set; } 
         public List<DayOffGetDTO> DayOffs { get; set; } 

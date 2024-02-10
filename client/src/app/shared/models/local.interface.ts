@@ -6,6 +6,7 @@ export interface LocalInterface
 {
     id : string;
     name : string;
+    slug : string;
     contact : ContactResponseInterface;
     openingHours : OpeningHourResponseInterface[];
     dayOffs : DayOffResponseInterface[];
