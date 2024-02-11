@@ -1,10 +1,10 @@
 <div class="wrapper">
     <div class="carousel-controls">
-        <div class="arrow left-arrow"><fa-icon [icon]="faAngleLeft"></fa-icon></div>
-        <div class="arrow right-arrow"><fa-icon [icon]="faAngleRight"></fa-icon></div>
+        <div class="arrow left-arrow" (click)="changePage(-1)"><fa-icon [icon]="faAngleLeft"></fa-icon></div>
+        <div class="arrow right-arrow" (click)="changePage(1)"><fa-icon [icon]="faAngleRight"></fa-icon></div>
     </div>
     <div class="container">
-        <div class="carousel">
+        <div class="carousel" [appBestsellerDirective]="currentPage">
             <div class="card" *ngFor="let bestseller of bestsellers">
                 <div class="img-box">
                     <img src="../../../../../../../../../assets/images/test.jpg">

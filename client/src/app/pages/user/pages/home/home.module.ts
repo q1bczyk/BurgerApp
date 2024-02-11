@@ -10,6 +10,7 @@ import { BestsellersSectionComponent } from './pages/home-page/components/bestse
 import { IngredientsPipe } from 'src/app/shared/pipes/ingredients.pipe';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { BestsellerSectionDirective } from './pages/home-page/components/bestsellers-section/directive/bestseller-section.directive';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     MenuSectionComponent,
     DescriptionSectionComponent,
     BestsellersSectionComponent,
+    BestsellerSectionDirective,
   ],
   imports: [
     CommonModule,

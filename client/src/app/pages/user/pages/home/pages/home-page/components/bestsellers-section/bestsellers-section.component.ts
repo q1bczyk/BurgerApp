@@ -15,7 +15,8 @@ export class BestsellersSectionComponent implements OnInit{
   faAngleLeft = faAngleLeft;
   faAngleRight = faAngleRight;
 
-  bestsellers : ProductInterface[] = []
+  bestsellers : ProductInterface[] = [];
+  currentPage : number = 0;
 
   constructor(private productService : ProductService, private ingredientsPipe : IngredientsPipe){}
 
@@ -27,5 +28,13 @@ export class BestsellersSectionComponent implements OnInit{
       }, err => {
         console.log(err);
       })
+  }
+
+  changePage(value : number) : void
+  {
+    if((this.currentPage == 0 && value == -1) || (this.currentPage == 2 && value == 1))
+    return;
+
+    this.currentPage += value;
   }
 }
