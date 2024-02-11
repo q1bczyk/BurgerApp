@@ -1,0 +1,53 @@
+@use '../../../../../../../../../assets/styles/base';
+@use '../../../../../../../../../assets/styles/shared-styles.scss';
+
+.wrapper
+{
+    @include shared-styles.section-wrapper;
+
+    .container
+    {
+        width: 90%;
+        height: 100%;
+        margin-left: auto;
+        margin-right: auto;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        img
+        {
+            height: 450px;
+        }
+    }
+
+    .description
+    {
+        max-width: 600px;
+        padding: 50px;
+        @include shared-styles.article;
+    }
+
+    .button
+    {
+        @include shared-styles.button;
+    }
+}
+
+@media(max-width : base.$medium)
+{
+    .container
+    {
+        flex-direction: column-reverse;
+
+        img
+        {
+            height: 200px;
+        }
+
+        .description
+        {
+            padding: 0px;
+        }
+    }
+}

@@ -5,10 +5,14 @@
 {
     width: 100%;
     height: 100vh;
+    min-height: 600px;
     background-image: url('../../../assets/images/navbar-background.jpeg');
     background-position: center;
     background-size: cover;
     position: relative;
+    display: flex;
+    justify-content: center;
+    font-family: base.$header-font;
 }
 
 .overly
@@ -21,7 +25,7 @@
 .navbar
 {
     width: 100%;
-    height: 200px;
+    height: 80px; 
     position: absolute;
     z-index: 1;
     display: flex;
@@ -33,8 +37,8 @@
 {
     width: 90%;
     display: flex;
-    flex-direction: column;
-    justify-content: center;
+    flex-direction: row;
+    justify-content: space-between;
     align-items: center;
     position: relative;
 
@@ -51,14 +55,15 @@
 .logo
 {
     width: 120px;
-    height: 90px;
-    margin: 20px;
+    height: 80px;
+    font-size: 10px;
+    padding: 20px;
 }
 
 .links
 {
     width: 100%;
-    display: flex;
+    display: none;
     justify-content: center;
     align-items: center;
     list-style: none;
@@ -87,6 +92,118 @@
     .active
     {
         color: white;
+    }
+}
+
+.burger
+{
+    width: 30px;
+    height: 21px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    cursor: pointer;
+    margin-right: 5%;
+
+    div
+    {
+        width: 100%;
+        height: 2px;
+        background-color: white;
+        border-radius: 10px;
+    }
+}
+
+.burger:hover
+{
+    div
+    {
+        background-color: base.$third-color;
+    }
+}
+
+.header
+{
+    position: absolute;
+    width: 90%;
+    max-width: 300px;
+    height: 400px;
+    left: 10%;
+    bottom: 10%;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    color: white;
+
+    h2
+    {
+        font-size: 25px;
+    }
+
+    p
+    {
+        padding: 15px 0;
+        font-size: 15px;
+    }
+
+    h3
+    {
+        font-size: 15px;
+    }
+}
+
+.button
+{
+    @include shared-styles.button;
+    margin-top: 15px;
+}
+
+@media(min-width : base.$medium)
+{
+    .navbar
+    {
+        height: 200px;
+    }
+
+    .box
+    {
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .links
+    {
+        display: flex;
+    }
+
+    .logo
+    {
+        width: 120px;
+        height: 90px;
+        margin: 20px;
+        padding: 0;
+        font-size: 15px;
+    }
+
+    .burger
+    {
+        display: none;
+    }
+
+    .header
+    {
+        max-width: 600px;
+        h2
+        {
+            font-size: 35px;
+        }
+
+        p
+        {
+            font-size: 20px;
+        }
     }
 }
 
