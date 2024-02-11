@@ -72,17 +72,21 @@
     a
     {
         text-decoration: none;
-        color: white;
+        color: #ffffff8a;
         font-family: base.$header-font;
         letter-spacing: 3px;
         font-size: 18px;
+        position: relative;
+    }
+
+    a:hover
+    {
+        color: white;
+    }
+
+    .active
+    {
+        color: white;
     }
 }
 
-.active
-{
-    a
-    {
-        color: red;
-    }
-}

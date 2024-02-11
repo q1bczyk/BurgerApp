@@ -1,5 +1,8 @@
-import { Component, ComponentFactoryResolver, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { setLocal } from 'src/app/pages/user/store/active-local.action';
+import { LocalInterface } from 'src/app/shared/models/local.interface';
 
 @Component({
   selector: 'app-home-page',
@@ -8,16 +11,18 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class HomePageComponent implements OnInit{
 
-  constructor(private route : ActivatedRoute, private componentFactoryResolver : ComponentFactoryResolver){}
+  constructor(private route : ActivatedRoute, private store : Store<{localData : LocalInterface}>){}
 
-  ngOnInit(): void 
-  {
+  ngOnInit(): void {
     this.route.data
-      .subscribe(res => {
-        console.log(res);
+      .subscribe((data: any) => {
+        const localData: LocalInterface | null = data.localData;
+        if (localData) {
+          this.store.dispatch(setLocal({ localData : localData }));
+        }
       }, err => {
         console.log(err);
-      })
+      });
   }
 
 }

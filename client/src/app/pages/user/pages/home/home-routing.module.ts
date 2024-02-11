@@ -10,7 +10,7 @@ const routes: Routes =
   {
     path: ':slug',
     component: HomeComponent,
-    resolve : {local : HomeResolver},
+    resolve : {localData : HomeResolver},
     children: 
     [
       {

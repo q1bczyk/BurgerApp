@@ -7,6 +7,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { HomeComponent } from './pages/home/home.component';
 import { NavbarComponent } from 'src/app/core/navbar/navbar.component';
+import { StoreModule } from '@ngrx/store';
+import { activeLocalFeautureKey, activeLocalReducer } from './store/active-local.reducer';
 
 @NgModule({
   declarations: [
@@ -20,6 +22,7 @@ import { NavbarComponent } from 'src/app/core/navbar/navbar.component';
     SharedModule,
     HttpClientModule,
     FontAwesomeModule,
+    StoreModule.forFeature(activeLocalFeautureKey, activeLocalReducer),
   ]
 })
 export class UserModule { }
