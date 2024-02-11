@@ -26,9 +26,10 @@ namespace api._Controllers
         private readonly IOpeningHourLocalRepository openingHourLocalRepository;
         private readonly IPaymentService paymentService;
         private readonly IPaymentRepository paymentRepository;
+        private readonly IProductRepository productRepository;
         private readonly IMapper mapper;
 
-        public OrderController(IOrderRepository orderRepository, IOrderProductRepository orderProductRepository, IClientContactRepository clientContactRepository, IDeliveryDetailsRepository deliveryDetailsRepository, IDayOffLocalRepository dayOffLocalRepository, IOpeningHourLocalRepository openingHourLocalRepository, IPaymentService paymentService, IPaymentRepository paymentRepository, IMapper mapper)
+        public OrderController(IOrderRepository orderRepository, IOrderProductRepository orderProductRepository, IClientContactRepository clientContactRepository, IDeliveryDetailsRepository deliveryDetailsRepository, IDayOffLocalRepository dayOffLocalRepository, IOpeningHourLocalRepository openingHourLocalRepository, IPaymentService paymentService, IPaymentRepository paymentRepository, IMapper mapper, IProductRepository productRepository)
         {
             this.orderRepository = orderRepository;
             this.orderProductRepository = orderProductRepository;
@@ -39,6 +40,7 @@ namespace api._Controllers
             this.paymentService = paymentService;
             this.paymentRepository = paymentRepository;
             this.mapper = mapper;
+            this.productRepository = productRepository;
         }
 
         [AllowAnonymous]
@@ -118,6 +120,11 @@ namespace api._Controllers
                     OrderId = order.Id,
                 };
 
+                var product = await productRepository.GetProductByIdAsync(orderProduct.ProductId);
+
+                product.OrderCount += 1;
+                productRepository.Update(product);
+            
                 await orderProductRepository.AddOrderAsync(orderProduct);
             }
 

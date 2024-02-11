@@ -40,6 +40,7 @@ namespace api._Repositories
         {
             return await context.Products  
                 .Where(p => p.Type.ToLower() == "burger")
+                .OrderByDescending(p => p.OrderCount)
                 .Include(p => p.IngredientsProduct)
                 .ThenInclude(ip => ip.Ingredient)
                 .Take(5)

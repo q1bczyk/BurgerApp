@@ -1,6 +1,6 @@
 import { IngredientResponseInterface } from "./ingredient-response.interface";
 
-export interface ProductInterfacec
+export interface ProductInterface
 {
     id : string;
     price : number;
