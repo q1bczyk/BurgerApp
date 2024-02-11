@@ -1,4 +1,8 @@
 <div class="wrapper">
+    <div class="carousel-controls">
+        <div class="arrow left-arrow"><fa-icon [icon]="faAngleLeft"></fa-icon></div>
+        <div class="arrow right-arrow"><fa-icon [icon]="faAngleRight"></fa-icon></div>
+    </div>
     <div class="container">
         <div class="carousel">
             <div class="card" *ngFor="let bestseller of bestsellers">
@@ -7,7 +11,8 @@
                 </div>
                 <div class="description">
                     <h2>{{bestseller.name}}</h2>
-                    <p>bułka <span>&bull;</span> wołowina <span>&bull;</span> bekon <span>&bull;</span> pomidor <span>&bull;</span> pikle</p>
+                    <p>{{bestseller.ingredients | ingredientsPipe}}</p>
+                    <div class="button"><div><fa-icon [icon]="faCartShopping"></fa-icon></div></div>
                 </div>
             </div>
     </div>

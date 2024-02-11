@@ -7,6 +7,9 @@ import { HomeResolver } from './home.resolver';
 import { MenuSectionComponent } from './pages/home-page/components/menu-section/menu-section.component';
 import { DescriptionSectionComponent } from './pages/home-page/components/description-section/description-section.component';
 import { BestsellersSectionComponent } from './pages/home-page/components/bestsellers-section/bestsellers-section.component';
+import { IngredientsPipe } from 'src/app/shared/pipes/ingredients.pipe';
+import { SharedModule } from 'src/app/shared/shared.module';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [
@@ -18,9 +21,12 @@ import { BestsellersSectionComponent } from './pages/home-page/components/bestse
   imports: [
     CommonModule,
     HomeRoutingModule,
+    SharedModule,
+    FontAwesomeModule,
   ],
   providers: [
-    HomeResolver
+    HomeResolver,
+    IngredientsPipe,
   ]
 })
 export class HomeModule { }

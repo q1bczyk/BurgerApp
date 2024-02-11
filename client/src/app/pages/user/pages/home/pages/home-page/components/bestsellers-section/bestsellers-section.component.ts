@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { ProductInterface } from 'src/app/shared/models/product.interface';
+import { IngredientsPipe } from 'src/app/shared/pipes/ingredients.pipe';
 import { ProductService } from 'src/app/shared/services/product.service';
+import { faCartShopping, faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-bestsellers-section',
@@ -9,9 +11,13 @@ import { ProductService } from 'src/app/shared/services/product.service';
 })
 export class BestsellersSectionComponent implements OnInit{
   
+  faCartShopping = faCartShopping;
+  faAngleLeft = faAngleLeft;
+  faAngleRight = faAngleRight;
+
   bestsellers : ProductInterface[] = []
 
-  constructor(private productService : ProductService){}
+  constructor(private productService : ProductService, private ingredientsPipe : IngredientsPipe){}
 
   ngOnInit(): void 
   {
@@ -22,5 +28,4 @@ export class BestsellersSectionComponent implements OnInit{
         console.log(err);
       })
   }
-
 }
