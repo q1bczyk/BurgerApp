@@ -1,0 +1,33 @@
+<div class="wrapper">
+    <div class="container">
+        <div class="contact" *ngIf="contact">
+            <div>
+                <h2>Kontakt</h2>
+            <h3>
+                <span><fa-icon [icon]="faLocationDot"></fa-icon></span>
+                {{getAddress()}}
+            </h3>
+            <h3>
+                <span><fa-icon [icon]="faEnvelope"></fa-icon></span>
+                {{contact.email}}
+            </h3>
+            <h3>
+                <span><fa-icon [icon]="faPhone"></fa-icon></span>
+                {{contact.phoneNumber}}
+            </h3>
+            </div>
+            <div class="logo"><app-logo/></div>
+        </div>
+        <span></span>
+        <div class="opening-hours">
+            <h2>Godziny otwarcia</h2>
+            <div>
+                <div *ngFor="let openingHour of openingHours">
+                    <div class="day">{{openingHour.day}}</div>
+                    <div class="time" *ngIf="openingHour.isDayOff == false">{{openingHour.opened}} <span>-</span> {{openingHour.closed}}</div>
+                    <div class="time" *ngIf="openingHour.isDayOff == true"><span>zamknięte</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,20 @@
+<div class="wrapper">
+    <h2 class="header">Bestsellery</h2>
+    <div class="carousel-controls">
+        <div class="arrow left-arrow" (click)="changePage(-1)" *ngIf="currentPage !== 0"><fa-icon [icon]="faAngleLeft"></fa-icon></div>
+        <div class="arrow right-arrow" (click)="changePage(1)" *ngIf="currentPage <= maxPage"><fa-icon [icon]="faAngleRight"></fa-icon></div>
+    </div>
+    <div class="container">
+        <div class="carousel" [appBestsellerDirective]="currentPage" (maxPageEvent)="setMaxPage($event)">
+            <div class="card" *ngFor="let bestseller of bestsellers">
+                <div class="img-box">
+                    <img src={{bestseller.imgUrl}}>
+                </div>
+                <div class="description">
+                    <h2>{{bestseller.name}}</h2>
+                    <p>{{bestseller.ingredients | ingredientsPipe}}</p>
+                    <div class="button"><div><fa-icon [icon]="faCartShopping"></fa-icon></div></div>
+                </div>
+            </div>
+    </div>
+</div>

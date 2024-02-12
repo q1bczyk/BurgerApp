@@ -3,9 +3,11 @@
     <div class="logo">
         <app-logo/>
     </div>
-    <h2>Wybierz lokal</h2>
-    <div class="locals">
-        <div class="local" *ngFor="let local of locals; let i = index">
+    <app-loader *ngIf="isLoading"/>
+    <h2 *ngIf="error">{{error}}</h2>
+    <h2 *ngIf="!isLoading && !error">Wybierz lokal</h2>
+    <div class="locals" *ngIf="!isLoading">
+        <div class="local" *ngFor="let local of locals; let i = index" (click)="onNavigate(i)">
             <h5 class="name">{{local.name}}</h5>
             <h5>
                 <span>

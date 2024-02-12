@@ -23,4 +23,14 @@ export class LocalService
       );
   }
 
+  FetchLocal(slug : string) : Observable<LocalInterface>
+  {
+    return this.http.get<LocalInterface>(this.url + `/${slug}`)
+      .pipe(
+        map(resData => {
+          return resData;
+        })
+      )
+  }
+
 }

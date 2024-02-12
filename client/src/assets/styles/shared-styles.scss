@@ -1,3 +1,5 @@
+@use './base';
+
 @mixin wrapper
 {
     padding: 20px 0;
@@ -12,13 +14,49 @@
     height: 100%;
     position: absolute;
     z-index: 1;
-    background-color: #0000007e;
     top: 0;    
 }
 
-@mixin  logo 
+@mixin logo 
 {
     display: flex;
     justify-content: center;
     align-items: center;    
+}
+
+@mixin article
+{
+    font-family: base.$header-font;
+
+    p
+    {
+        padding: 15px 0;
+    }
+
+    h3
+    {
+        font-size: 15px;
+    }
+}
+
+@mixin button
+{
+    background-color: base.$third-color;
+    border-radius: 5px;
+    cursor: pointer;
+    display: inline-block;
+
+    h3
+    {
+        padding: 10px 20px;
+        color: black;
+    }
+}
+
+@mixin section-wrapper
+{
+    width: 100%;
+    min-height: 450px;
+    max-height: 800px;
+    padding: 20px 0;
 }

@@ -1,0 +1,65 @@
+@use '../../../../../../../../../assets/styles/shared-styles.scss';
+@use '../../../../../../../../../assets/styles/base';
+
+.wrapper
+{
+    @include shared-styles.section-wrapper;
+    min-height: 450px;
+    max-height: 1500px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    font-family: base.$header-font;
+}
+
+.box
+{
+    width: 90%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.card
+{
+    @include shared-styles.article;
+    width: 300px;
+    height: 300px;
+    background-color: base.$gray-color;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+    margin: 10px 20px;
+
+    h4
+    {
+        cursor: pointer;
+        transition: all ease-in-out 0.2s;
+    }
+
+    h4:hover
+    {
+        color: base.$third-color;
+    }
+}
+
+.icon
+{
+    font-size: 30px;
+    color: base.$third-color;
+}
+
+@media(max-width : base.$small)
+{
+    .box
+    {
+        flex-direction: column;
+    }
+}

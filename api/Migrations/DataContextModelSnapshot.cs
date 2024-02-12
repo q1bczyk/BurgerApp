@@ -205,6 +205,9 @@ namespace api.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<int>("Order")
+                        .HasColumnType("integer");
+
                     b.HasKey("Id");
 
                     b.ToTable("OpeningHours");

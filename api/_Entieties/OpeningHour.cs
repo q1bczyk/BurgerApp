@@ -11,6 +11,7 @@ public class OpeningHour
     public string Opened { get; set; }
     public string Closed { get; set; }
     public bool IsDayOff { get; set; }
+    public int Order { get; set; }
     public List<Local> Locals { get; set; } = new();
     public List<OpeningHourLocal> OpeningHourLocals { get; set; } = new();
 

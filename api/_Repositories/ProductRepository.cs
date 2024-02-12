@@ -36,6 +36,17 @@ namespace api._Repositories
             return context.Products.AnyAsync(p => p.Name == name);
         }
 
+        public async Task<List<Product>> GetBestsellersAsync()
+        {
+            return await context.Products  
+                .Where(p => p.Type.ToLower() == "burger")
+                .OrderByDescending(p => p.OrderCount)
+                .Include(p => p.IngredientsProduct)
+                .ThenInclude(ip => ip.Ingredient)
+                .Take(5)
+                .ToListAsync();
+        }
+
         public async Task<Product> GetProductByIdAsync(string id)
         {
             return await context.Products

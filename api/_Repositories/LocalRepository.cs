@@ -19,6 +19,15 @@ namespace api._Repositories
             return local;
         }
 
+        public async Task<Local> GetLocalBySlugAsync(string slug)
+        {
+            return await context.Locals
+                                .Include(x => x.Contact)
+                                .Include(x => x.OpeningHours.OrderBy(oh => oh.Order))
+                                .Include(x => x.DayOffs)
+                                .FirstOrDefaultAsync(x => x.Slug == slug);
+        }
+
         public async Task<List<Local>> GetLocalsAsync()
         {
             return await context.Locals

@@ -1,0 +1,35 @@
+<div class="wrapper">
+    <div class="overly"></div>
+    <div class="navbar">
+        <div class="box">
+            <div class="logo"><app-logo/></div>
+            <ul class="links">
+                <li>
+                    <a [routerLinkActive]="'active'" [routerLink]="dynamicPath">Strona główna</a>
+                </li>
+                <li>
+                    <a [routerLinkActive]="'active'" [routerLink]="['/#']">O nas</a>
+                </li>
+                <li>
+                    <a [routerLinkActive]="'active'" [routerLink]="['/#']">Menu</a>
+                </li>
+                <li>
+                    <a [routerLinkActive]="'active'" [routerLink]="['/#']">Kontakt</a>
+                </li>
+            </ul>
+            <div class="burger">
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+            <span></span>
+        </div>
+    </div>
+    <div class="header">
+            <h2>Odkryj Nasze Wyjątkowe Burgery</h2>
+            <p>Nasze burgery to doświadczenie pełne intensywnych i wyjątkowych smaków oraz gwarancja najwyższej jakości składników. Każdy kęs to podróż po zmysłach!</p>
+            <div class="button">
+                <h3>Sprawdź menu</h3>
+            </div>
+    </div>
+</div>

@@ -177,5 +177,19 @@ namespace api._Controllers
             return Ok(mapper.Map<ProductGetDTO>(product));
 
         }
+
+        [AllowAnonymous]
+        [HttpGet("bestsellers")]
+        public async Task<ActionResult<List<ProductGetDTO>>> GetBestsellers()
+        {
+            var bestsellers = await productRepository.GetBestsellersAsync();
+
+            foreach(var bestseller in bestsellers)
+            {
+                bestseller.ImgUrl = await fileService.GeneratePublicLink(bestseller.ImgUrl);
+            }
+
+            return Ok(mapper.Map<List<ProductGetDTO>>(bestsellers));
+        }
     }
 }
