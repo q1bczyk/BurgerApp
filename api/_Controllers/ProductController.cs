@@ -184,6 +184,11 @@ namespace api._Controllers
         {
             var bestsellers = await productRepository.GetBestsellersAsync();
 
+            foreach(var bestseller in bestsellers)
+            {
+                bestseller.ImgUrl = await fileService.GeneratePublicLink(bestseller.ImgUrl);
+            }
+
             return Ok(mapper.Map<List<ProductGetDTO>>(bestsellers));
         }
     }

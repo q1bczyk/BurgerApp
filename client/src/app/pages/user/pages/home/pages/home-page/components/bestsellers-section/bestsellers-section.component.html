@@ -7,7 +7,7 @@
         <div class="carousel" [appBestsellerDirective]="currentPage">
             <div class="card" *ngFor="let bestseller of bestsellers">
                 <div class="img-box">
-                    <img src="../../../../../../../../../assets/images/test.jpg">
+                    <img src={{bestseller.imgUrl}}>
                 </div>
                 <div class="description">
                     <h2>{{bestseller.name}}</h2>

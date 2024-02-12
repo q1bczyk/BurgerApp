@@ -4,6 +4,7 @@ namespace api._Interfaces
     {
         Task<string> UploadFileAsync(IFormFile file, string fileName);
         Task<bool> DeleteFileAsync(string imgUrl);
+        Task<string> GeneratePublicLink(string imgUrl);
         bool IsFileExtensionAllowed(IFormFile file);
     }
 }

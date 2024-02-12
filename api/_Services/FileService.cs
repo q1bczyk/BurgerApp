@@ -1,6 +1,8 @@
 using api._Helpers;
 using api._Interfaces;
+using Azure.Storage;
 using Azure.Storage.Blobs;
+using Azure.Storage.Sas;
 using Microsoft.Extensions.Options;
 
 namespace api._Services
@@ -8,10 +10,15 @@ namespace api._Services
     public class FileService : IFileService
     {
         private readonly BlobContainerClient filesContainer;
+        private readonly string AccountName; 
+        private readonly string Key;
     
         public FileService(IOptions<BlobStorageSettings> config)
         {
-            string blobConnection = $"DefaultEndpointsProtocol=https;AccountName={config.Value.AccountName};AccountKey={config.Value.Key};EndpointSuffix=core.windows.net";
+            this.AccountName = config.Value.AccountName;
+            this.Key = config.Value.Key;
+
+            string blobConnection = $"DefaultEndpointsProtocol=https;AccountName={AccountName};AccountKey={Key};EndpointSuffix=core.windows.net";
 
             this.filesContainer = new BlobContainerClient(blobConnection, config.Value.ContainerName);
         }
@@ -46,6 +53,25 @@ namespace api._Services
             return false;
                 
         }   
+
+        public async Task<string> GeneratePublicLink(string imgUrl)
+        {
+            var blobClient = new BlobClient(new Uri(imgUrl), new StorageSharedKeyCredential(AccountName, Key));
+            
+            var sasBuilder = new BlobSasBuilder
+            {
+                StartsOn = DateTimeOffset.UtcNow,
+                ExpiresOn = DateTimeOffset.UtcNow.AddHours(1), 
+                Resource = "b",
+            };
+
+            sasBuilder.SetPermissions("r");
+
+            var sasToken = blobClient.GenerateSasUri(sasBuilder);
+            var publicUrl = sasToken.ToString();
+
+            return publicUrl;
+        }
 
          public bool IsFileExtensionAllowed(IFormFile file)
         {
