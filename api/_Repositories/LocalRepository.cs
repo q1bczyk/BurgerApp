@@ -23,7 +23,7 @@ namespace api._Repositories
         {
             return await context.Locals
                                 .Include(x => x.Contact)
-                                .Include(x => x.OpeningHours)
+                                .Include(x => x.OpeningHours.OrderBy(oh => oh.Order))
                                 .Include(x => x.DayOffs)
                                 .FirstOrDefaultAsync(x => x.Slug == slug);
         }
