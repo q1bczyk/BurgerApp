@@ -16,11 +16,9 @@
 {
     width: 80%;
     height: 100%;
-    overflow: hidden;
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    overflow-x: hidden;
     position: relative;
 }
 
@@ -38,10 +36,7 @@
     margin-left: 35px;
 }
 
-.card:first-child
-{
-    margin-left: 10px;
-}
+
 
 .card
 {
@@ -128,6 +123,18 @@
     cursor: pointer;
     font-size: 30px;
     transition: all ease-in-out 0.2s;
+    z-index: 1;
+    position: absolute;
+}
+
+.right-arrow
+{
+    right: 0;
+}
+
+.left-arrow
+{
+    left: 0;
 }
 
 .left-arrow:hover

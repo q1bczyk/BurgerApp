@@ -17,6 +17,7 @@ export class BestsellersSectionComponent implements OnInit{
 
   bestsellers : ProductInterface[] = [];
   currentPage : number = 0;
+  maxPage : number = 0;
 
   constructor(private productService : ProductService, private ingredientsPipe : IngredientsPipe){}
 
@@ -32,9 +33,13 @@ export class BestsellersSectionComponent implements OnInit{
 
   changePage(value : number) : void
   {
-    if((this.currentPage == 0 && value == -1) || (this.currentPage == 2 && value == 1))
-    return;
-
+    if(this.currentPage <= 0 && value < 0)
+      return
     this.currentPage += value;
+  }
+
+  setMaxPage(value : number) : void
+  {
+    this.maxPage = value;
   }
 }
