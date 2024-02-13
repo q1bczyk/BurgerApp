@@ -1,23 +1,11 @@
 <div class="wrapper">
+    <app-mobile/>
     <div class="overly"></div>
     <div class="navbar">
         <div class="box">
             <div class="logo"><app-logo/></div>
-            <ul class="links">
-                <li>
-                    <a [routerLinkActive]="'active'" [routerLink]="dynamicPath">Strona główna</a>
-                </li>
-                <li>
-                    <a [routerLinkActive]="'active'" [routerLink]="['/#']">O nas</a>
-                </li>
-                <li>
-                    <a [routerLinkActive]="'active'" [routerLink]="['/#']">Menu</a>
-                </li>
-                <li>
-                    <a [routerLinkActive]="'active'" [routerLink]="['/#']">Kontakt</a>
-                </li>
-            </ul>
-            <div class="burger">
+                <app-links appNavbar/>
+            <div class="burger" (click)="openMenu()">
                 <div></div>
                 <div></div>
                 <div></div>

@@ -1,35 +1,18 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { Observable, Subscription } from 'rxjs';
-import { LocalInterface } from 'src/app/shared/models/local.interface';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { MobileComponent } from './components/mobile/mobile.component';
 
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss']
 })
-export class NavbarComponent implements OnInit, OnDestroy{
+export class NavbarComponent{
   
-  activeLocal$! : Observable<LocalInterface>
-  activeLocalSubscription: Subscription | undefined;
+  @ViewChild(MobileComponent) mobileComponent !: MobileComponent;
 
-  dynamicPath : string = '';
-
-  constructor(private store : Store<{activeLocalStore : LocalInterface}>){}
-
-  ngOnInit(): void 
+  openMenu() : void
   {
-    this.activeLocal$ = this.store.select('activeLocalStore');
-    this.activeLocalSubscription = this.activeLocal$
-      .subscribe(data => {
-        this.dynamicPath = `/${data.slug}`;
-      })
-  }
-
-  ngOnDestroy(): void 
-  {
-    if(this.activeLocalSubscription)
-      this.activeLocalSubscription.unsubscribe();  
+    this.mobileComponent.menuState(true);
   }
 
 }

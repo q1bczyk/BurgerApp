@@ -10,6 +10,9 @@ import { NavbarComponent } from 'src/app/core/navbar/navbar.component';
 import { StoreModule } from '@ngrx/store';
 import { activeLocalFeautureKey, activeLocalReducer } from './store/active-local.reducer';
 import { FooterComponent } from 'src/app/core/footer/footer.component';
+import { LinksComponent } from 'src/app/core/navbar/components/links/links.component';
+import { MobileComponent } from 'src/app/core/navbar/components/mobile/mobile.component';
+import { NavbarDirective } from 'src/app/core/navbar/directives/navbar.directive';
 
 @NgModule({
   declarations: [
@@ -17,6 +20,9 @@ import { FooterComponent } from 'src/app/core/footer/footer.component';
     HomeComponent,
     NavbarComponent,
     FooterComponent,
+    LinksComponent,
+    MobileComponent,
+    NavbarDirective,
   ],
   imports: [
     CommonModule,
