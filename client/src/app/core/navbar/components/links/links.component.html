@@ -1,14 +1,14 @@
 <ul class="links">
     <li>
-        <a [routerLinkActive]="'active'" [routerLink]="dynamicPath">Strona główna</a>
+        <a [routerLinkActive]="'active'" [routerLinkActiveOptions]="{ exact: true }" [routerLink]="dynamicPath">Strona główna</a>
     </li>
     <li>
-        <a [routerLinkActive]="'active'" [routerLink]="['/#']">O nas</a>
+        <a [routerLinkActive]="'active'" [routerLink]="['o-nas']">O nas</a>
     </li>
     <li>
-        <a [routerLinkActive]="'active'" [routerLink]="['/#']">Menu</a>
+        <a [routerLinkActive]="'active'" [routerLink]="['menu']">Menu</a>
     </li>
     <li>
-        <a [routerLinkActive]="'active'" [routerLink]="['/#']">Kontakt</a>
+        <a style="cursor: pointer;">Kontakt</a>
     </li>
 </ul>

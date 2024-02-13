@@ -1,0 +1,56 @@
+@use '../../../../../../../../../assets/styles/base';
+@use '../../../../../../../../../assets/styles/shared-styles.scss';
+
+.wrapper
+{
+    @include shared-styles.wrapper;
+    background-image: url('../../../../../../../../../assets/images/ingredients.jpeg');
+    background-position: center;
+    background-size: cover;
+    color: white;
+    position: relative;
+
+    h2
+    {
+        color: base.$third-color;
+    }
+}
+
+.container
+{
+    @include shared-styles.container;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+
+    >div
+    {
+        margin: 20px 100px;
+    }
+
+}
+
+.overly
+{
+    @include shared-styles.overly;
+    background-color: #0000007c
+}
+
+.description
+{
+    @include shared-styles.article;
+    flex-direction: column;
+    justify-content: center;
+    max-width: 500px;
+    z-index: 1;
+}
+
+@media(min-width : base.$medium)
+{
+    .container
+    {
+        flex-direction: row;
+        justify-content: flex-start;
+        height: 350px;
+    }
+}

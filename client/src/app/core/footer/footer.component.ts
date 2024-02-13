@@ -5,6 +5,7 @@ import { ContactResponseInterface } from 'src/app/shared/models/contact-response
 import { LocalInterface } from 'src/app/shared/models/local.interface';
 import { OpeningHourResponseInterface } from 'src/app/shared/models/opening-hour-response.interface';
 import { faLocationDot, faEnvelope, faPhone } from '@fortawesome/free-solid-svg-icons';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-footer',
@@ -23,7 +24,7 @@ export class FooterComponent implements OnInit, OnDestroy{
   contact : ContactResponseInterface | null = null;
   openingHours : OpeningHourResponseInterface[] | null = null;
 
-  constructor(private store : Store<{activeLocalStore : LocalInterface}>){}
+  constructor(private store : Store<{activeLocalStore : LocalInterface}>, private router : Router){}
   
   ngOnInit(): void 
   {
@@ -32,7 +33,8 @@ export class FooterComponent implements OnInit, OnDestroy{
       .subscribe(data => {
         this.contact = data.contact;
         this.openingHours = data.openingHours;
-
+        if(data.contact.phoneNumber == '')
+          this.router.navigate([''])
       })
   }
 

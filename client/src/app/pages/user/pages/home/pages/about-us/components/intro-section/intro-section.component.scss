@@ -1,0 +1,56 @@
+@use '../../../../../../../../../assets/styles/base';
+@use '../../../../../../../../../assets/styles/shared-styles.scss';
+
+.wrapper
+{
+    @include shared-styles.wrapper;
+
+    h2
+    {
+        color: base.$third-color
+    }
+}
+
+.container
+{
+    @include shared-styles.container;
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: center;
+    align-items: center;
+
+    >div
+    {
+        margin: 20px 100px;
+    }
+
+}
+
+.description
+{
+    @include shared-styles.article;
+    flex-direction: column;
+    justify-content: flex-start;
+    max-width: 500px;
+}
+
+.logo
+{
+    width: 200px;
+    height: 200px;
+    padding: 10px;
+    border-radius: 100px;
+    background-color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@media(min-width : base.$medium)
+{
+    .container
+    {
+        flex-direction: row;
+        height: 350px;
+    }
+}

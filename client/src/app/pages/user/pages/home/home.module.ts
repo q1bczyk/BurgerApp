@@ -11,6 +11,11 @@ import { IngredientsPipe } from 'src/app/shared/pipes/ingredients.pipe';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { BestsellerSectionDirective } from './pages/home-page/components/bestsellers-section/directive/bestseller-section.directive';
+import { AboutUsComponent } from './pages/about-us/about-us.component';
+import { MenuComponent } from './pages/menu/menu.component';
+import { HistorySectionComponent } from './pages/about-us/components/history-section/history-section.component';
+import { IngredientsSectionComponent } from './pages/about-us/components/ingredients-section/ingredients-section.component';
+import { IntroSectionComponent } from './pages/about-us/components/intro-section/intro-section.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +24,11 @@ import { BestsellerSectionDirective } from './pages/home-page/components/bestsel
     DescriptionSectionComponent,
     BestsellersSectionComponent,
     BestsellerSectionDirective,
+    AboutUsComponent,
+    MenuComponent,
+    HistorySectionComponent,
+    IngredientsSectionComponent,
+    IntroSectionComponent,
   ],
   imports: [
     CommonModule,

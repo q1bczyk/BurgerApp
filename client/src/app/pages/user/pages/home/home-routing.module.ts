@@ -3,7 +3,9 @@ import { RouterModule, Routes } from '@angular/router';
 import { NotFoundComponent } from 'src/app/shared/not-found/not-found.component';
 import { HomeComponent } from './home.component';
 import { HomeResolver } from './home.resolver';
+import { AboutUsComponent } from './pages/about-us/about-us.component';
 import { HomePageComponent } from './pages/home-page/home-page.component';
+import { MenuComponent } from './pages/menu/menu.component';
 
 const routes: Routes = 
 [
@@ -16,7 +18,15 @@ const routes: Routes =
       {
         path: '',
         component: HomePageComponent,
-      }
+      },
+      {
+        path: 'menu',
+        component: MenuComponent,
+      },
+      {
+        path: 'o-nas',
+        component: AboutUsComponent,
+      },
     ],
   },
   { 
