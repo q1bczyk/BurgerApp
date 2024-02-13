@@ -20,7 +20,7 @@ export class NavbarComponent{
 
   navigate() : void
   {
-    this.router.navigate(['menu'], { relativeTo: this.activatedRoute });
+    this.router.navigate(['menu'], { relativeTo: this.activatedRoute, queryParams: { 'product-type': 'burger' } });
   }
 
 }

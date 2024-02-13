@@ -22,4 +22,14 @@ export class ProductService {
       )
   }
 
+  GetProducts(prodcutType : string) : Observable<ProductInterface[]>
+  {
+    return this.http.get<ProductInterface[]>(`${this.url}?searchTerm=${prodcutType.toLowerCase()}`)
+      .pipe(
+        map(resData => {
+          return resData;
+        })
+      )
+  }
+
 }

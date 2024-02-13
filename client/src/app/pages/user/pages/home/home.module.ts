@@ -16,6 +16,7 @@ import { MenuComponent } from './pages/menu/menu.component';
 import { HistorySectionComponent } from './pages/about-us/components/history-section/history-section.component';
 import { IngredientsSectionComponent } from './pages/about-us/components/ingredients-section/ingredients-section.component';
 import { IntroSectionComponent } from './pages/about-us/components/intro-section/intro-section.component';
+import { MenuResolver } from './pages/menu/menu.resolver';
 
 @NgModule({
   declarations: [
@@ -38,6 +39,7 @@ import { IntroSectionComponent } from './pages/about-us/components/intro-section
   ],
   providers: [
     HomeResolver,
+    MenuResolver,
     IngredientsPipe,
   ]
 })

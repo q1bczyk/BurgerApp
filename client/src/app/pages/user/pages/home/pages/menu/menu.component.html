@@ -1,1 +1,15 @@
-<p>menu works!</p>
+<div class="wrapper">
+    <div class="nav" #menu>
+        <ul>
+            <li [ngClass]="{ 'active': productType === 'burger' }" (click)="setType('burger')">Burgery</li>
+            <span></span>
+            <li [ngClass]="{ 'active': productType === 'snack' }" (click)="setType('snack')">Przekąski</li>
+            <span></span>
+            <li [ngClass]="{ 'active': productType === 'drink' }" (click)="setType('drink')">Napoje</li>
+        </ul>
+    </div>
+    <div class="container">
+        <app-loader *ngIf="isLoading"/>
+        <h2 *ngIf="products.length == 0 && !isLoading">Brak produktów</h2>
+    </div>
+</div>

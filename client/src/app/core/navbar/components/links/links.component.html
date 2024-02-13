@@ -6,7 +6,7 @@
         <a [routerLinkActive]="'active'" [routerLink]="['o-nas']">O nas</a>
     </li>
     <li>
-        <a [routerLinkActive]="'active'" [routerLink]="['menu']">Menu</a>
+        <a [routerLinkActive]="'active'" [routerLink]="['menu']" [queryParams]="{ 'product-type': 'burger' }">Menu</a>
     </li>
     <li>
         <a style="cursor: pointer;">Kontakt</a>

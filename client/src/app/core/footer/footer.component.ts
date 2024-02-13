@@ -33,8 +33,6 @@ export class FooterComponent implements OnInit, OnDestroy{
       .subscribe(data => {
         this.contact = data.contact;
         this.openingHours = data.openingHours;
-        if(data.contact.phoneNumber == '')
-          this.router.navigate([''])
       })
   }
 

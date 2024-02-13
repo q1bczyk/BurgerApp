@@ -1,0 +1,66 @@
+@use '../../../../../../../assets/styles/base';
+@use '../../../../../../../assets/styles/shared-styles.scss';
+
+.wrapper
+{
+    @include shared-styles.wrapper;
+    font-family: base.$header-font;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.nav
+{
+    width: 90%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-bottom: 20px;
+
+    ul
+    {
+        list-style: none;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    li
+    {
+        font-size: 20px;
+        position: relative;
+        color: #0000009a;
+        cursor: pointer;
+    }
+
+    span
+    {
+        width: 1px;
+        height: 30px;
+        background-color: base.$third-color;
+        border-radius: 10px;
+        margin: 10px;
+    }
+
+    li:hover
+    {
+        color: black;
+    }
+
+    .active
+    {
+        color: black;
+    }
+}
+
+.container
+{
+    width: 90%;
+    min-height: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
