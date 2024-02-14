@@ -1,30 +1,31 @@
-<div class="wrapper">
+<div class="wrapper" *ngIf="cart" [ngStyle]="{'transform': !cart.isCartVisible ? 'translateX(100%)' : 'translateX(0)'}">
+    <p class="close">
+        <fa-icon [icon]="faRemove"></fa-icon>
+    </p>
    <div>
     <div class="settings">
         <h1>Koszyk</h1>
         <div>
-            <div [ngClass]="!isDelivery ? 'active' : null" (click)="setDelivery(false)">
+            <div [ngClass]="!cart.isDelivery ? 'active' : null" (click)="setDelivery(false)">
                 <div><fa-icon [icon]="faBagShopping"></fa-icon></div>
                 <p>Odbiór</p>
             </div>
-            <div [ngClass]="isDelivery ? 'active' : null" (click)="setDelivery(true)">
+            <div [ngClass]="cart.isDelivery ? 'active' : null" (click)="setDelivery(true)">
                 <div><fa-icon [icon]="faShippingFast"></fa-icon></div>
                 <p>Dostawa</p>
             </div>
         </div>
     </div>
     <div class="products">
-        <app-cart-item/>
-        <app-cart-item/>
-        <app-cart-item/>
-        <app-cart-item/>
-        <app-cart-item/>
-        <app-cart-item/>
+        <app-cart-item *ngFor="let product of cart.products; let i = index"
+            [product]="product"
+            [index]="i"
+        />
     </div>
     <div class="summary">
         <div>
             <h4>Kwota całkowita:</h4>
-            <h4>185,00zł</h4>
+            <h4>{{cart.price}}zł</h4>
         </div>
         <div class="button">
             <h2>Do kasy</h2>

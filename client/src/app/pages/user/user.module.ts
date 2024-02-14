@@ -15,6 +15,7 @@ import { MobileComponent } from 'src/app/core/navbar/components/mobile/mobile.co
 import { NavbarDirective } from 'src/app/core/navbar/directives/navbar.directive';
 import { CartSummaryComponent } from 'src/app/core/cart-summary/cart-summary.component';
 import { CartItemComponent } from 'src/app/core/cart-summary/cart-item/cart-item.component';
+import { cartFeautureKey, cartReducer } from 'src/app/shared/store/cart-store/cart.reducer';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { CartItemComponent } from 'src/app/core/cart-summary/cart-item/cart-item
     HttpClientModule,
     FontAwesomeModule,
     StoreModule.forFeature(activeLocalFeautureKey, activeLocalReducer),
+    StoreModule.forFeature(cartFeautureKey, cartReducer)
   ]
 })
 export class UserModule { }

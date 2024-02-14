@@ -9,5 +9,6 @@ import { ProductInterface } from 'src/app/shared/models/product.interface';
 export class CartItemComponent {
 
   @Input() product : ProductInterface | null = null;
+  @Input() index : number = 0;
 
 }

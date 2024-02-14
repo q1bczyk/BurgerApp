@@ -120,5 +120,20 @@
     align-items: center;
 }
 
+.close
+{
+    position: absolute;
+    right: 30px;
+    top: 20px;
+    font-size: 25px;
+    cursor: pointer;
+    transition: all ease-in-out 0.1s;
+}
+
+.close:hover
+{
+    color: base.$third-color;
+}
+
 
 
