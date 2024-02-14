@@ -1,5 +1,5 @@
-<div class="wrapper" *ngIf="cart" [ngStyle]="{'transform': !cart.isCartVisible ? 'translateX(100%)' : 'translateX(0)'}">
-    <p class="close">
+<div class="wrapper" *ngIf="cart && cart.productsQuantity > 0" [ngStyle]="{'transform': !cart.isCartVisible ? 'translateX(100%)' : 'translateX(0)'}">
+    <p class="close" (click)="hideCart()">
         <fa-icon [icon]="faRemove"></fa-icon>
     </p>
    <div>

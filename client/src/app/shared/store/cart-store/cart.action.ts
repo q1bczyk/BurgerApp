@@ -14,3 +14,8 @@ export const addProduct = createAction(
     'addProduct',
     props<{product : ProductInterface}>()
 )
+
+export const deleteProduct = createAction(
+    'deleteProduct',
+    props<{productName : string}>()
+)

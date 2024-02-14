@@ -4,9 +4,9 @@
         <p>{{product.price}}</p>
     </div>
     <div class="quantity">
-        <div>-</div>
+        <div (click)="decrementProduct()">-</div>
         <p>{{product.quantity}}</p>
-        <div>+</div>
+        <div (click)="incrementProduct()">+</div>
     </div>
     <span *ngIf="index > 0"></span>
 </div>

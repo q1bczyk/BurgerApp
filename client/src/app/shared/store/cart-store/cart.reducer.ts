@@ -1,5 +1,5 @@
 import { createReducer, on } from "@ngrx/store";
-import { addProduct, setCartVisiblity, setDeliveryState } from "./cart.action";
+import { addProduct, deleteProduct, setCartVisiblity, setDeliveryState } from "./cart.action";
 import { CartInterface, initialState } from "./cart.state";
 
 export const cartFeautureKey = 'cartStorage';
@@ -19,14 +19,54 @@ const _cartReducer = createReducer(
         }
     }),
     on(addProduct, (state, action) => {
-        const updatedProduct = { ...action.product, quantity: 1 };
-        const updatedProducts = [...state.products, updatedProduct];
-        const updatedPrice = state.price + updatedProduct.price;
+        const existingProductIndex = state.products.findIndex(product => product.name === action.product.name);
+
+        if (existingProductIndex !== -1) 
+        {
+            const updatedProducts = [...state.products];
+            const existingProduct = updatedProducts[existingProductIndex];
+            const updatedProduct = { ...existingProduct, quantity: existingProduct.quantity + 1 };
+            updatedProducts[existingProductIndex] = updatedProduct;
+    
+            return {
+                ...state,
+                products: updatedProducts,
+                price: state.price + existingProduct.price,
+                productsQuantity: state.productsQuantity + 1
+            };
+        } else 
+        {
+            const product = { ...action.product, quantity: 1 };
+            const updatedProducts = [...state.products, product];
+    
+            return {
+                ...state,
+                products: updatedProducts,
+                price: state.price + product.price,
+                productsQuantity: state.productsQuantity + 1
+            };
+        }
+    }),
+    on(deleteProduct, (state, action) => {
+        const products = [...state.products];
+        const indexToDelete = products.findIndex(product => product.name === action.productName);
+        const productToDelete = products[indexToDelete];
+        const updatedProduct = { ...productToDelete, quantity : productToDelete.quantity - 1}
+        let updatedProducts = [...state.products];
+        
+        if(updatedProduct.quantity === 0)
+            updatedProducts = products.filter(product => product.name !== productToDelete.name)
+
+        else
+            updatedProducts[indexToDelete] = updatedProduct;
+            
         return{
             ...state,
             products : updatedProducts,
-            price : updatedPrice,
+            price : state.price - productToDelete.price,
+            productsQuantity : state.productsQuantity - 1,
         }
+
     })
 )
 

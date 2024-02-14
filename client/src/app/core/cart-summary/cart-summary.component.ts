@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { faShippingFast, faBagShopping, faRemove } from '@fortawesome/free-solid-svg-icons';
 import { Store } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
-import { setDeliveryState } from 'src/app/shared/store/cart-store/cart.action';
+import { addProduct, setCartVisiblity, setDeliveryState } from 'src/app/shared/store/cart-store/cart.action';
 import { CartInterface } from 'src/app/shared/store/cart-store/cart.state';
 
 @Component({
@@ -35,6 +35,11 @@ export class CartSummaryComponent implements OnInit{
   setDelivery(value : boolean) : void
   {
     this.store.dispatch(setDeliveryState({value : value}));
+  }
+
+  hideCart() : void
+  {
+    this.store.dispatch(setCartVisiblity());
   }
 
 }

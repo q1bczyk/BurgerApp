@@ -1,6 +1,10 @@
 <div class="wrapper">
     <app-mobile/>
     <app-cart-summary/>
+    <div class="cart-icon" *ngIf="cart && cart.productsQuantity > 0" (click)="showCart()">
+        <fa-icon [icon]="faBasketShopping "></fa-icon>
+        <h5>{{cart.productsQuantity}}</h5>
+    </div>
     <div class="overly"></div>
     <div class="navbar">
         <div class="box">

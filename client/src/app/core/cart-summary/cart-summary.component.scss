@@ -10,13 +10,14 @@
     position: fixed;
     top: 0;
     right: 0;
-    z-index: 2;
+    z-index: 3;
     font-family: base.$header-font;
     display: flex;
     align-items: center;
     flex-direction: column;
     box-shadow: -6px 0px 12px -10px rgba(66, 68, 90, 1);
     overflow: auto;
+    transition: all ease-in-out 0.2s;
 
     >div
     {
@@ -128,6 +129,7 @@
     font-size: 25px;
     cursor: pointer;
     transition: all ease-in-out 0.1s;
+    z-index: 3;
 }
 
 .close:hover
