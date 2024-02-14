@@ -1,0 +1,124 @@
+@use '../../../assets/styles/base';
+@use '../../../assets/styles/shared-styles.scss';
+
+.wrapper
+{
+    width: 100%;
+    min-height: 100%;
+    max-width: 350px;
+    background-color: white;
+    position: fixed;
+    top: 0;
+    right: 0;
+    z-index: 2;
+    font-family: base.$header-font;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    box-shadow: -6px 0px 12px -10px rgba(66, 68, 90, 1);
+    overflow: auto;
+
+    >div
+    {
+        position: absolute;
+    }
+}
+
+.settings
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+
+    h1
+    {
+        padding: 20px;
+    }
+
+    >div
+    {
+        background-color: base.$gray-color;
+        width: 90%;
+        height: 60px;
+        border-radius: 100px;
+        display: flex;
+        overflow: hidden;
+        justify-content: space-around;
+        align-items: center;
+
+        >div
+        {
+            width: 46%;
+            height: 85%;
+            border-radius: 100px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+
+            p
+            {
+                padding: 0 10px;
+            }
+        }
+
+        .active
+        {
+            background-color: white;
+            box-shadow: 0px 0px 8px 1px rgba(221, 221, 221, 1);
+
+            >div
+            {
+                color: base.$third-color;
+            }
+        }
+    }
+}
+
+.summary
+{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0 0 20px 0;
+
+    >div
+    {
+        display: flex;
+        justify-content: space-between;
+        width: 80%;
+    }
+
+}
+
+.button
+{
+    @include shared-styles.button;
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    h2
+    {
+        padding: 5px 20px;
+        font-size: 18px;
+        width: 100%;
+        text-align: center;
+    }
+}
+
+.products
+{
+    padding: 20px 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+
+

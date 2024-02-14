@@ -1,0 +1,34 @@
+<div class="wrapper">
+   <div>
+    <div class="settings">
+        <h1>Koszyk</h1>
+        <div>
+            <div [ngClass]="!isDelivery ? 'active' : null" (click)="setDelivery(false)">
+                <div><fa-icon [icon]="faBagShopping"></fa-icon></div>
+                <p>Odbiór</p>
+            </div>
+            <div [ngClass]="isDelivery ? 'active' : null" (click)="setDelivery(true)">
+                <div><fa-icon [icon]="faShippingFast"></fa-icon></div>
+                <p>Dostawa</p>
+            </div>
+        </div>
+    </div>
+    <div class="products">
+        <app-cart-item/>
+        <app-cart-item/>
+        <app-cart-item/>
+        <app-cart-item/>
+        <app-cart-item/>
+        <app-cart-item/>
+    </div>
+    <div class="summary">
+        <div>
+            <h4>Kwota całkowita:</h4>
+            <h4>185,00zł</h4>
+        </div>
+        <div class="button">
+            <h2>Do kasy</h2>
+        </div>
+    </div>
+   </div>
+</div>

@@ -1,0 +1,49 @@
+@use '../../../../assets/styles/base';
+
+.wrapper
+{
+    width: 350px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 15px 0;
+
+    >div
+    {
+        width: 80%;
+        display: flex;
+    }
+
+}
+
+.product
+{
+    justify-content: space-between;
+}
+
+.quantity
+{
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+
+    div
+    {
+        width: 25px;
+        height: 25px;
+        background-color: base.$gray-color;
+        font-size: 30px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 100px;
+        margin: 0 15px;
+        text-align: center;
+    }
+
+    p
+    {
+        font-size: 25px;
+    }
+}
