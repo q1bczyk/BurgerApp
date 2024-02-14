@@ -9,6 +9,13 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    background-color: base.$gray-color;
+
+    h2
+    {
+        width: 100%;
+        text-align: center;
+    }
 }
 
 .nav
@@ -17,7 +24,6 @@
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    margin-bottom: 20px;
 
     ul
     {
@@ -63,4 +69,14 @@
     justify-content: center;
     align-items: center;
     position: relative;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}
+
+@media(min-width : 1500px)
+{
+    .container
+    {
+        justify-content: flex-start;
+    }
 }

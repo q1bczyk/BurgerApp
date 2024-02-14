@@ -11,5 +11,10 @@
     <div class="container">
         <app-loader *ngIf="isLoading"/>
         <h2 *ngIf="products.length == 0 && !isLoading">Brak produktów</h2>
+        <app-product-item *ngFor="let product of products; let i = index"
+            [product]="product"
+            [index]="i"
+            [marginTop]="true"
+        />
     </div>
 </div>

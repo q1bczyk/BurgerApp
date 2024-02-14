@@ -105,6 +105,11 @@ namespace api._Controllers
         {
             var products = await productRepository.GetProductsAsync(searchTerm);
 
+            foreach(var product in products)
+            {
+                product.ImgUrl = await fileService.GeneratePublicLink(product.ImgUrl);
+            }
+
             return Ok(mapper.Map<List<ProductGetDTO>>(products));
         }
 

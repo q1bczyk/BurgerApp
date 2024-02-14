@@ -1,0 +1,13 @@
+<div class="card" *ngIf="product" 
+    [ngClass]="{ 'first-card': index === 0 }"
+    [ngClass]="{ 'margin-top': marginTop === true }"
+    >
+    <div class="img-box">
+        <img src={{product.imgUrl}}>
+    </div>
+    <div class="description">
+        <h2>{{product.name}}</h2>
+        <p>{{product.ingredients | ingredientsPipe}}</p>
+        <div class="button"><div><fa-icon [icon]="faCartShopping"></fa-icon></div></div>
+    </div>
+</div>

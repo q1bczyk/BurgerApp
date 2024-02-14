@@ -17,6 +17,7 @@
 .header
 {
     font-size: 30px;
+    margin-bottom: 20px;
 }
 
 .container
@@ -42,77 +43,6 @@
 .carousel .card:not(:first-child)
 {
     margin-left: 35px;
-}
-
-
-
-.card
-{
-    height: 90%;
-    width: 300px;
-    background-color: white;
-    border-radius: 10px;
-    position: relative;
-    
-}
-
-.img-box
-{
-    height: 50%;
-    width: 100%;
-    overflow: hidden;
-
-    img
-    {
-        height: 100%;
-        width: 100%;
-        object-fit: contain;
-        object-position: center;
-    }
-}
-
-.description
-{
-    @include shared-styles.article;
-    width: 100%;
-    height: 50%;
-    padding: 0 10px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-
-    h2
-    {
-        color: base.$third-color;
-    }
-
-    span
-    {
-        color: base.$third-color;
-    }
-}
-
-.button
-{
-    @include shared-styles.button;
-    position: absolute;
-    bottom: 10px;
-    right: 10px;
-    padding: 0;
-    border-radius: 100px;
-    width: 40px;
-    height: 40px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 20px;
-    transition: all ease-in-out 0.1s;
-}
-
-.button:hover
-{
-    font-size: 22px;
 }
 
 .carousel-controls
