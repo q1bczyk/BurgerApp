@@ -12,7 +12,7 @@ export class ProductItemComponent {
   faCartShopping = faCartShopping;
 
   @Input() product : ProductInterface | null = null;
-  @Input() index : number = 1;
+  @Input() index : number = 0;
   @Input() marginTop : boolean = false;
 
 }

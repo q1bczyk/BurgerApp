@@ -1,7 +1,5 @@
 <div class="card" *ngIf="product" 
-    [ngClass]="{ 'first-card': index === 0 }"
-    [ngClass]="{ 'margin-top': marginTop === true }"
-    >
+    [ngClass]="{ 'margin-top': marginTop === true, 'first-card': !marginTop && index === 0 }">
     <div class="img-box">
         <img src={{product.imgUrl}}>
     </div>
