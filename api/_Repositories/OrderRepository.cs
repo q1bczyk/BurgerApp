@@ -42,8 +42,8 @@ namespace api._Repositories
         {
             return await context.Orders
                                 .Where(o => o.LocalId == localId && o.OrderStatus == status && o.PaymentsDetails.IsPaymentDone == true || o.PaymentsDetails.IsPaymentDone == null)
-                                .Include(o => o.Products) 
-                                    .ThenInclude(p => p.Ingredients)
+                                .Include(o => o.OrderProducts)
+                                    .ThenInclude(p => p.Product)
                                 .Include(o => o.ClientsContact)
                                     .ThenInclude(c => c.DeliveryDetail)
                                 .ToListAsync();

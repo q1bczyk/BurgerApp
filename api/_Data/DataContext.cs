@@ -86,5 +86,10 @@ public class DataContext : DbContext
             .HasMany(p => p.Ingredients)
             .WithMany(i => i.Products)
             .UsingEntity<IngredientProduct>();
+
+        modelBuilder.Entity<Product>()
+            .HasMany(p => p.Orders)
+            .WithMany(i => i.Products)
+            .UsingEntity<OrderProduct>();
     }
 }

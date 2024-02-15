@@ -6,6 +6,6 @@
     <div class="description">
         <h2>{{product.name}}</h2>
         <p>{{product.ingredients | ingredientsPipe}}</p>
-        <div class="button"><div><fa-icon [icon]="faCartShopping"></fa-icon></div></div>
+        <div class="button" (click)="addProductToCart(product)"><div><fa-icon [icon]="faCartShopping"></fa-icon></div></div>
     </div>
 </div>

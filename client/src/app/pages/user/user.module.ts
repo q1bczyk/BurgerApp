@@ -13,6 +13,9 @@ import { FooterComponent } from 'src/app/core/footer/footer.component';
 import { LinksComponent } from 'src/app/core/navbar/components/links/links.component';
 import { MobileComponent } from 'src/app/core/navbar/components/mobile/mobile.component';
 import { NavbarDirective } from 'src/app/core/navbar/directives/navbar.directive';
+import { CartSummaryComponent } from 'src/app/core/cart-summary/cart-summary.component';
+import { CartItemComponent } from 'src/app/core/cart-summary/cart-item/cart-item.component';
+import { cartFeautureKey, cartReducer } from 'src/app/shared/store/cart-store/cart.reducer';
 
 @NgModule({
   declarations: [
@@ -23,6 +26,8 @@ import { NavbarDirective } from 'src/app/core/navbar/directives/navbar.directive
     LinksComponent,
     MobileComponent,
     NavbarDirective,
+    CartSummaryComponent,
+    CartItemComponent,
   ],
   imports: [
     CommonModule,
@@ -31,6 +36,7 @@ import { NavbarDirective } from 'src/app/core/navbar/directives/navbar.directive
     HttpClientModule,
     FontAwesomeModule,
     StoreModule.forFeature(activeLocalFeautureKey, activeLocalReducer),
+    StoreModule.forFeature(cartFeautureKey, cartReducer)
   ]
 })
 export class UserModule { }

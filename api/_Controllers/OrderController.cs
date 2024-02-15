@@ -2,6 +2,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Net;
 using System.Net.Mail;
 using api._DTOs.OrderDTOs;
+using api._DTOs.OrderProductDTOs;
 using api._DTOs.PaymentsDTOs;
 using api._Entieties;
 using api._Extensions;
@@ -112,18 +113,19 @@ namespace api._Controllers
                 await deliveryDetailsRepository.AddDeliveryDetailsAsync(deliveryDetails);
             }
 
-            foreach(string productId in orderPostDTO.ProductsId)
+            foreach(OrderProductPostDTO product in orderPostDTO.Products)
             {
                 var orderProduct = new OrderProduct
                 {
-                    ProductId = productId,
+                    ProductId = product.ProductId,
                     OrderId = order.Id,
+                    Quantity = product.Quantity
                 };
 
-                var product = await productRepository.GetProductByIdAsync(orderProduct.ProductId);
+                var productToUpdate = await productRepository.GetProductByIdAsync(orderProduct.ProductId);
 
-                product.OrderCount += 1;
-                productRepository.Update(product);
+                productToUpdate.OrderCount += 1;
+                productRepository.Update(productToUpdate);
             
                 await orderProductRepository.AddOrderAsync(orderProduct);
             }
