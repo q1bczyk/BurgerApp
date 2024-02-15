@@ -14,6 +14,7 @@ namespace api._Entieties
         public string? WaitingTime { get; set; }
         public string? RefusalReason { get; set; }
         public List<Product> Products { get; set; } = new();
+        public List<OrderProduct> OrderProducts { get; set; } = new();
         public ClientsContact ClientsContact { get; set; }
         public PaymentsDetails? PaymentsDetails { get; set; }
         public string LocalId { get; set; }
