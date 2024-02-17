@@ -49,4 +49,9 @@ export class NavbarComponent{
     this.store.dispatch(setCartVisiblity());
   }
 
+  cartVisible() : boolean
+  {
+    return !this.router.url.endsWith('/zamowienie')
+  }
+
 }

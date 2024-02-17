@@ -17,6 +17,9 @@ import { HistorySectionComponent } from './pages/about-us/components/history-sec
 import { IngredientsSectionComponent } from './pages/about-us/components/ingredients-section/ingredients-section.component';
 import { IntroSectionComponent } from './pages/about-us/components/intro-section/intro-section.component';
 import { MenuResolver } from './pages/menu/menu.resolver';
+import { OrderSummaryComponent } from './pages/order-summary/order-summary.component';
+import { SummaryItemComponent } from './pages/order-summary/components/summary-item/summary-item.component';
+import { SummaryFormComponent } from './pages/order-summary/components/summary-form/summary-form.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +33,9 @@ import { MenuResolver } from './pages/menu/menu.resolver';
     HistorySectionComponent,
     IngredientsSectionComponent,
     IntroSectionComponent,
+    OrderSummaryComponent,
+    SummaryItemComponent,
+    SummaryFormComponent,
   ],
   imports: [
     CommonModule,

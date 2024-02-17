@@ -1,0 +1,29 @@
+<div class="wrapper">
+    <div class="container">
+        <div class="cart">
+            <h3>Twoje zamówienie</h3>
+            <div class="info">
+                <h4>Produkt</h4>
+                <p>Cena</p>
+            </div>
+            <div class="products" *ngIf="cart">
+                <app-summary-item *ngFor="let product of cart.products; let i = index"
+                    [product]="product"
+                    [index]="i"
+                />
+            </div>
+            <div class="info info-border" *ngIf="cart">
+                <h4>Łącznie</h4>
+                <p>{{cart.price}}zł</p>
+            </div>
+            <div class="logo">
+                <img src="https://seekvectorlogo.net/wp-content/uploads/2020/03/przelewy24-vector-logo.png">
+            </div>
+        </div>
+        <div class="form">
+            <app-summary-form
+                [isDelivery]="cart?.isDelivery"
+            />
+        </div>
+    </div>
+</div>

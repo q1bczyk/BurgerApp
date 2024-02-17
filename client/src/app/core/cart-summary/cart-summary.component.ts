@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { faShippingFast, faBagShopping, faRemove } from '@fortawesome/free-solid-svg-icons';
 import { Store } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
-import { addProduct, setCartVisiblity, setDeliveryState } from 'src/app/shared/store/cart-store/cart.action';
+import { setCartVisiblity, setDeliveryState } from 'src/app/shared/store/cart-store/cart.action';
 import { CartInterface } from 'src/app/shared/store/cart-store/cart.state';
 
 @Component({
@@ -10,7 +11,7 @@ import { CartInterface } from 'src/app/shared/store/cart-store/cart.state';
   templateUrl: './cart-summary.component.html',
   styleUrls: ['./cart-summary.component.scss']
 })
-export class CartSummaryComponent implements OnInit{
+export class CartSummaryComponent implements OnInit, OnDestroy{
 
   faShippingFast = faShippingFast;
   faBagShopping = faBagShopping
@@ -19,9 +20,9 @@ export class CartSummaryComponent implements OnInit{
   cart$! : Observable<CartInterface>
   cartSubscription: Subscription | undefined;
 
-  cart : CartInterface | null = null;
+  cart? : CartInterface;
 
-  constructor(private store : Store<{cartStorage : CartInterface}>){}
+  constructor(private store : Store<{cartStorage : CartInterface}>, private router : Router, private activatedRoute : ActivatedRoute){}
   
   ngOnInit(): void 
   {
@@ -32,6 +33,12 @@ export class CartSummaryComponent implements OnInit{
       })
   }
 
+  ngOnDestroy(): void 
+  {
+    if(this.cartSubscription)
+      this.cartSubscription.unsubscribe();
+  }
+
   setDelivery(value : boolean) : void
   {
     this.store.dispatch(setDeliveryState({value : value}));
@@ -40,6 +47,12 @@ export class CartSummaryComponent implements OnInit{
   hideCart() : void
   {
     this.store.dispatch(setCartVisiblity());
+  }
+
+  navigate() : void
+  {
+    this.hideCart();
+    this.router.navigate(['zamowienie'], { relativeTo: this.activatedRoute});
   }
 
 }

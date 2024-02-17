@@ -1,0 +1,83 @@
+@use '../../../../assets/styles/base';
+@use '../../../../assets/styles/shared-styles';
+
+.form
+{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+
+    span
+    {
+        color: red;
+    }
+
+    >div
+    {
+        padding: 5px 0;
+    }
+
+    input
+    {
+        outline: none !important;
+        width: 100%;
+        padding: 10px;
+        border: 0;
+        border: 1px solid #e0e0e0;
+        border-radius: 5px;
+    }
+
+    input:focus
+    {
+        border: 1px solid base.$third-color
+    }
+
+    .ng-invalid 
+    {
+        outline: none !important;
+        border: 1px solid red;
+        background-color: #ffdbdb;
+    }
+
+    .ng-untouched, .ng-valid
+    {
+        outline: none !important;
+        border: 1px solid #e0e0e0;
+        background-color: base.$gray-color;
+    }
+
+    button
+    {
+        margin-top: 10px;
+        @include shared-styles.button;
+        max-width: 150px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: 0;
+        padding: 10px 20px;
+        font-family: base.$header-font;
+    }
+
+    .row {
+        display: flex;
+        width: 50%;
+        max-width: 150px;
+        justify-content: space-between;
+        font-size: 15px;
+        text-transform: lowercase;
+        color: #00000088;
+      }
+      
+      .row input {
+        width: 11px;
+        cursor: pointer;
+        background-color: #d1d3d1; /* Kolor szary */
+      }
+      
+      .row input:checked {
+        background-color: #ffa500; /* Kolor pomarańczowy po zaznaczeniu */
+      }
+}
+

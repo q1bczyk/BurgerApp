@@ -7,6 +7,7 @@ import { AboutUsComponent } from './pages/about-us/about-us.component';
 import { HomePageComponent } from './pages/home-page/home-page.component';
 import { MenuComponent } from './pages/menu/menu.component';
 import { MenuResolver } from './pages/menu/menu.resolver';
+import { OrderSummaryComponent } from './pages/order-summary/order-summary.component';
 
 const routes: Routes = 
 [
@@ -28,6 +29,10 @@ const routes: Routes =
       {
         path: 'o-nas',
         component: AboutUsComponent,
+      },
+      {
+        path: 'zamowienie',
+        component: OrderSummaryComponent,
       },
     ],
   },

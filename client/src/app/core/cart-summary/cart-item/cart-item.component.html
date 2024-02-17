@@ -1,7 +1,7 @@
 <div class="wrapper" *ngIf="product">
     <div class="product">
         <h4><span>{{index + 1}}</span>{{product.name}}</h4>
-        <p>{{product.price}}</p>
+        <p>{{product.price * product.quantity}}zł</p>
     </div>
     <div class="quantity">
         <div (click)="decrementProduct()">-</div>
