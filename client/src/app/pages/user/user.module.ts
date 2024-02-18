@@ -8,7 +8,6 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { HomeComponent } from './pages/home/home.component';
 import { NavbarComponent } from 'src/app/core/navbar/navbar.component';
 import { StoreModule } from '@ngrx/store';
-import { activeLocalFeautureKey, activeLocalReducer } from './store/active-local.reducer';
 import { FooterComponent } from 'src/app/core/footer/footer.component';
 import { LinksComponent } from 'src/app/core/navbar/components/links/links.component';
 import { MobileComponent } from 'src/app/core/navbar/components/mobile/mobile.component';
@@ -35,7 +34,6 @@ import { cartFeautureKey, cartReducer } from 'src/app/shared/store/cart-store/ca
     SharedModule,
     HttpClientModule,
     FontAwesomeModule,
-    StoreModule.forFeature(activeLocalFeautureKey, activeLocalReducer),
     StoreModule.forFeature(cartFeautureKey, cartReducer)
   ]
 })

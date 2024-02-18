@@ -9,28 +9,20 @@ import { LocalInterface } from 'src/app/shared/models/local.interface';
   templateUrl: './links.component.html',
   styleUrls: ['./links.component.scss']
 })
-export class LinksComponent implements OnInit, OnDestroy{
+export class LinksComponent implements OnInit{
 
   dynamicPath :string = '';
-
-  activeLocal$! : Observable<LocalInterface>
-  activeLocalSubscription: Subscription | undefined;
 
   constructor(private store : Store<{activeLocalStore : LocalInterface}>, private router : Router, private activatedRoute : ActivatedRoute){}
 
   ngOnInit(): void 
   {
-    this.activeLocal$ = this.store.select('activeLocalStore');
-    this.activeLocalSubscription = this.activeLocal$
-      .subscribe(data => {
-        this.dynamicPath = `/${data.slug}`;
-      })
-  }
-
-  ngOnDestroy(): void 
-  {
-    if(this.activeLocalSubscription)
-      this.activeLocalSubscription.unsubscribe();
+    const dataToParse = localStorage.getItem('activeLocal');
+    if(dataToParse)
+    {
+      const data : LocalInterface = JSON.parse(dataToParse);
+      this.dynamicPath = `/${data.slug}`;
+    }
   }
 
   navigate(productType: string): void 

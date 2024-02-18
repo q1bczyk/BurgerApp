@@ -42,13 +42,13 @@ export class FormService
       name : "isPaymentOnline",
       label : 'Przy odbiorze',
       type : 'radio',
-      value : 'przy odbiorze'
+      value : false
     },
     {
       name : "isPaymentOnline",
       label : 'Online',
       type : 'radio',
-      value : 'online'
+      value : true
     }
   ]
 
@@ -58,7 +58,7 @@ export class FormService
     lastname : ['', [Validators.required, Validators.minLength(3)]],
     email: ['', [Validators.required, Validators.email]],
     phoneNumber : ['', [Validators.required, Validators.maxLength(9), Validators.minLength(9)]],
-    isPaymentOnline : ['przy odbiorze']
+    isPaymentOnline : [false]
   })
 
   deliveryFormSettings : any = 
@@ -118,13 +118,13 @@ export class FormService
       name : "isPaymentOnline",
       label : 'Przy odbiorze',
       type : 'radio',
-      value : 'przy odbiorze'
+      value : false
     },
     {
       name : "isPaymentOnline",
       label : 'Online',
       type : 'radio',
-      value : 'online'
+      value : true
     }
   ]
 
@@ -138,7 +138,7 @@ export class FormService
     postalCode: ['', [Validators.required, Validators.maxLength(6), Validators.maxLength(6)]],
     street: ['', [Validators.required, Validators.minLength(2)]],
     houseNumber: ['', [Validators.required]],
-    isPaymentOnline : ['przy odbiorze']
+    isPaymentOnline : [false]
   })
 
     

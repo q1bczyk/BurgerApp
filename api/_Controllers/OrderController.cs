@@ -46,7 +46,7 @@ namespace api._Controllers
 
         [AllowAnonymous]
         [HttpPost]
-        public async Task<ActionResult<OrderPostDTO>> PlaceOrder(OrderPostDTO orderPostDTO)
+        public async Task<ActionResult<OrderConfirmDTO>> PlaceOrder(OrderPostDTO orderPostDTO)
         {
         
             if (!ModelState.IsValid)
@@ -69,23 +69,6 @@ namespace api._Controllers
                 LocalId = orderPostDTO.LocalId,
             };
             await orderRepository.AddOrderAsync(order);
-
-            if(orderPostDTO.IsPaymentOnline == true)
-            {
-                var paymentResponse = await paymentService.RegisterAsync(orderPostDTO);
-
-                if(paymentResponse.Data.Token == null)
-                    return BadRequest("Error! Something went wrong!");
-
-                var paymentsDetails = new PaymentsDetails
-                {
-                    OrderId = order.Id,
-                    SessionId = paymentResponse.SessionId,
-                    IsPaymentDone = false,
-                };
-
-                await paymentRepository.AddPaymentAsync(paymentsDetails);
-            }
 
             var clientsContact = new ClientsContact
             {
@@ -130,7 +113,31 @@ namespace api._Controllers
                 await orderProductRepository.AddOrderAsync(orderProduct);
             }
 
-            return Ok(mapper.Map<OrderPostDTO>(orderPostDTO));
+            var orderSummary = new OrderConfirmDTO
+            {
+                id = order.Id,
+                token = null,
+            };
+
+            if(orderPostDTO.IsPaymentOnline == true)
+            {
+                var paymentResponse = await paymentService.RegisterAsync(orderPostDTO);
+
+                if(paymentResponse.Data.Token == null)
+                    return BadRequest("Error! Something went wrong!");
+
+                var paymentsDetails = new PaymentsDetails
+                {
+                    OrderId = order.Id,
+                    SessionId = paymentResponse.SessionId,
+                    IsPaymentDone = false,
+                };
+
+                await paymentRepository.AddPaymentAsync(paymentsDetails);
+                orderSummary.token = paymentResponse.Data.Token;
+            }
+
+            return Ok(orderSummary);
 
         }
 

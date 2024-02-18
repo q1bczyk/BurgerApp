@@ -11,9 +11,6 @@ import { OpeningHourResponseInterface } from '../models/opening-hour-response.in
 
 export class OrderPossibilityService{
 
-  activeLocal$! : Observable<LocalInterface>
-  activeLocalSubscription?: Subscription;
-
   openingHours : OpeningHourResponseInterface[] = [];
   dayOffs : DayOffResponseInterface[] = [];
 
@@ -22,12 +19,13 @@ export class OrderPossibilityService{
  
   constructor(private store : Store<{activeLocalStore : LocalInterface}>)
   {
-    this.activeLocal$ = this.store.select('activeLocalStore');
-    this.activeLocalSubscription = this.activeLocal$
-      .subscribe(data => {
-        this.dayOffs = data.dayOffs;
-        this.openingHours = data.openingHours;
-      })
+    const dataToParse = localStorage.getItem('activeLocal');
+    if(dataToParse)
+    {
+      const data : LocalInterface = JSON.parse(dataToParse);
+      this.dayOffs = data.dayOffs;
+      this.openingHours = data.openingHours;
+    }
 
       const formatedDate = this.formatDate();
 
@@ -122,12 +120,5 @@ export class OrderPossibilityService{
 
     return date;
   }
-
-  ngOnDestroy(): void 
-  {
-    if (this.activeLocalSubscription) 
-      this.activeLocalSubscription.unsubscribe();
-  }
-
 
 }

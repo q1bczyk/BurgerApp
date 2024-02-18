@@ -12,28 +12,26 @@ import { Router } from '@angular/router';
   templateUrl: './footer.component.html',
   styleUrls: ['./footer.component.scss']
 })
-export class FooterComponent implements OnInit, OnDestroy{
+export class FooterComponent implements OnInit{
 
   faLocationDot = faLocationDot;
   faEnvelope = faEnvelope;
   faPhone = faPhone;
 
-  activeLocal$! : Observable<LocalInterface>
-  activeLocalSubscription: Subscription | undefined;
-
   contact : ContactResponseInterface | null = null;
   openingHours : OpeningHourResponseInterface[] | null = null;
 
-  constructor(private store : Store<{activeLocalStore : LocalInterface}>, private router : Router){}
+  constructor(private router : Router){}
   
   ngOnInit(): void 
   {
-    this.activeLocal$ = this.store.select('activeLocalStore');
-    this.activeLocalSubscription = this.activeLocal$
-      .subscribe(data => {
-        this.contact = data.contact;
-        this.openingHours = data.openingHours;
-      })
+    const dataToParse = localStorage.getItem('activeLocal');
+    if(dataToParse)
+    {
+      const data : LocalInterface = JSON.parse(dataToParse);
+      this.contact = data.contact;
+      this.openingHours = data.openingHours;
+    }
   }
 
   getAddress() : string
@@ -42,12 +40,6 @@ export class FooterComponent implements OnInit, OnDestroy{
       return `${this.contact.city}, ${this.contact.street} ${this.contact.streetNumber}`
     
     return '';
-  }
-
-  ngOnDestroy(): void 
-  {
-    if(this.activeLocalSubscription)
-      this.activeLocalSubscription.unsubscribe();
   }
 
 }

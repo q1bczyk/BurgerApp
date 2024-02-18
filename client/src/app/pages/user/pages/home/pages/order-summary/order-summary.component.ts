@@ -24,6 +24,8 @@ export class OrderSummaryComponent
     this.cart$ = this.store.select('cartStorage');
     this.cartSubscription = this.cart$
       .subscribe(data => {
+        if(data.products.length === 0)
+          this.router.navigate(['not-found']);
         this.cart = data;
       })
   }

@@ -82,8 +82,6 @@ namespace api._Services
 
             var response = await Client.ExecuteAsync<P24TransactionResponse>(request, Method.Post);
 
-            Console.WriteLine(ApiDomeinName);
-
             response.Data.SessionId = data.SessionId;
             return response.Data;
         }
