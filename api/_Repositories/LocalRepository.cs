@@ -1,4 +1,5 @@
 
+using System.Globalization;
 using Microsoft.EntityFrameworkCore;
 
 namespace api._Repositories
@@ -30,6 +31,7 @@ namespace api._Repositories
 
         public async Task<List<Local>> GetLocalsAsync()
         {
+            
             return await context.Locals
                                 .Include(x => x.Contact)
                                 .Include(x => x.OpeningHours)

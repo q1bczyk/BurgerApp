@@ -1,5 +1,6 @@
 import { Component, Input, OnInit} from '@angular/core';
 import { FormService } from 'src/app/shared/services/form.service';
+import { OrderPossibilityService} from 'src/app/shared/services/order-possibility.service'
 
 @Component({
   selector: 'app-summary-form',
@@ -13,7 +14,7 @@ export class SummaryFormComponent implements OnInit{
   contactForm : any;
   formSettings : any;
 
-  constructor(private formService : FormService){}
+  constructor(private formService : FormService, private orderPossibilityService : OrderPossibilityService){}
 
   ngOnInit(): void 
   {

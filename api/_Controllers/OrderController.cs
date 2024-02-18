@@ -223,7 +223,6 @@ namespace api._Controllers
             paymentRepository.Update(orderToConfirm.PaymentsDetails);
             await paymentRepository.SaveChangesAsync();
             
-
             return Ok(response);
         }
 
