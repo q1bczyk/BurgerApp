@@ -41,10 +41,10 @@ export class OrderPossibilityService{
       return 'Dzisiaj mamy wolne'
 
     if(this.isToEarly() === true)
-      return 'Jeszcze jest za wcześnie na składanie zamówień!'
+      return 'O tej godzinie lokal jest jeszcze zamknięty'
 
     if(this.isToLate() === true)
-      return 'Jest już za pózno na złożenie zamówienia!'
+      return 'Jest już za pózno na złożenie zamówienia'
 
     return true;
     

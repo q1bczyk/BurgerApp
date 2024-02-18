@@ -1,6 +1,8 @@
-import { Component, Input, OnInit} from '@angular/core';
+import { Component, Input, OnInit, ViewChild} from '@angular/core';
 import { FormService } from 'src/app/shared/services/form.service';
 import { OrderPossibilityService} from 'src/app/shared/services/order-possibility.service'
+import { PlaceholderDirective } from 'src/app/shared/ui/alert/directive/placeholder.directive';
+import { AlertService } from 'src/app/shared/ui/alert/service/alert.service';
 
 @Component({
   selector: 'app-summary-form',
@@ -9,12 +11,13 @@ import { OrderPossibilityService} from 'src/app/shared/services/order-possibilit
 })
 export class SummaryFormComponent implements OnInit{
 
+  @ViewChild(PlaceholderDirective, { static: true }) alertHost!: PlaceholderDirective;
   @Input() isDelivery? : boolean;
 
   contactForm : any;
   formSettings : any;
 
-  constructor(private formService : FormService, private orderPossibilityService : OrderPossibilityService){}
+  constructor(private formService : FormService, private orderPossibilityService : OrderPossibilityService, private alertService : AlertService){}
 
   ngOnInit(): void 
   {
@@ -32,6 +35,13 @@ export class SummaryFormComponent implements OnInit{
 
   onSubmitForm(value : any)
   {
+    var orderStatus = this.orderPossibilityService.checkOrderPossibility();
+
+    if(typeof orderStatus === 'string' && orderStatus !== 'completed')
+    {
+      this.alertService.ShowAlert('Nie można złożyć zamówienia', '', orderStatus, this.alertHost);
+      return
+    }
     console.log(value);
   }
 

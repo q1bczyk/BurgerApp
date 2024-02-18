@@ -8,6 +8,8 @@ import { ProductItemComponent } from './ui/product-item/product-item.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { FormComponent } from './ui/form/form.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { AlertComponent } from './ui/alert/alert.component';
+import { PlaceholderDirective } from './ui/alert/directive/placeholder.directive';
 
 @NgModule({
   declarations: [
@@ -17,6 +19,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     IngredientsPipe,
     ProductItemComponent,
     FormComponent,
+    AlertComponent,
+    PlaceholderDirective,
   ],
   imports: [
     CommonModule,
@@ -29,6 +33,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     IngredientsPipe,
     ProductItemComponent,
     FormComponent,
+    AlertComponent,
+    PlaceholderDirective,
   ]
 })
 export class SharedModule { }

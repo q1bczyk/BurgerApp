@@ -1,3 +1,4 @@
+<ng-template appPlaceholder></ng-template>
 <div class="wrapper">
     <div class="nav" #menu>
         <ul>
@@ -15,6 +16,7 @@
             [product]="product"
             [index]="i"
             [marginTop]="true"
+            (alertEvent)="showAlert($event)"
         />
     </div>
 </div>

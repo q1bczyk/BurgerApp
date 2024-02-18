@@ -1,8 +1,10 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ProductInterface } from 'src/app/shared/models/product.interface';
 import { IngredientsPipe } from 'src/app/shared/pipes/ingredients.pipe';
 import { ProductService } from 'src/app/shared/services/product.service';
 import { faCartShopping, faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons';
+import { AlertService } from 'src/app/shared/ui/alert/service/alert.service';
+import { PlaceholderDirective } from 'src/app/shared/ui/alert/directive/placeholder.directive';
 
 @Component({
   selector: 'app-bestsellers-section',
@@ -11,6 +13,8 @@ import { faCartShopping, faAngleLeft, faAngleRight } from '@fortawesome/free-sol
 })
 export class BestsellersSectionComponent implements OnInit{
   
+  @ViewChild(PlaceholderDirective, { static: true }) alertHost!: PlaceholderDirective;
+
   faCartShopping = faCartShopping;
   faAngleLeft = faAngleLeft;
   faAngleRight = faAngleRight;
@@ -19,7 +23,7 @@ export class BestsellersSectionComponent implements OnInit{
   currentPage : number = 0;
   maxPage : number = 0;
 
-  constructor(private productService : ProductService, private ingredientsPipe : IngredientsPipe){}
+  constructor(private productService : ProductService, private ingredientsPipe : IngredientsPipe, private alertService : AlertService){}
 
   ngOnInit(): void 
   {
@@ -41,5 +45,10 @@ export class BestsellersSectionComponent implements OnInit{
   setMaxPage(value : number) : void
   {
     this.maxPage = value;
+  }
+
+  showAlert(message : string) : void
+  {
+    this.alertService.ShowAlert('Nie można dodać produktu', '', message, this.alertHost);
   }
 }

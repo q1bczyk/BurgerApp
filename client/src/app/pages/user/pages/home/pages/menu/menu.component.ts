@@ -2,6 +2,8 @@ import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProductInterface } from 'src/app/shared/models/product.interface';
 import { ProductService } from 'src/app/shared/services/product.service';
+import { PlaceholderDirective } from 'src/app/shared/ui/alert/directive/placeholder.directive';
+import { AlertService } from 'src/app/shared/ui/alert/service/alert.service';
 
 @Component({
   selector: 'app-menu',
@@ -10,13 +12,14 @@ import { ProductService } from 'src/app/shared/services/product.service';
 })
 export class MenuComponent{
 
+  @ViewChild(PlaceholderDirective, { static: true }) alertHost!: PlaceholderDirective;
   @ViewChild('menu') menuRef!: ElementRef;
 
   productType : string = '';
   products : ProductInterface[] = [];
   isLoading : boolean = false;
 
-  constructor(private route: ActivatedRoute, private router: Router, private productService : ProductService) {}
+  constructor(private route: ActivatedRoute, private router: Router, private productService : ProductService, private alertService : AlertService) {}
 
   ngOnInit() 
   {
@@ -27,7 +30,6 @@ export class MenuComponent{
     this.route.data
       .subscribe((data: any) => {
         this.products = data.products;
-        console.log(this.products);
       }, err => {
         console.log(err);
       });
@@ -64,6 +66,11 @@ export class MenuComponent{
         this.products = [];
       })
 
+  }
+
+  showAlert(message : string) : void
+  {
+    this.alertService.ShowAlert('Nie można dodać produktu', '', message, this.alertHost);
   }
 
 }
