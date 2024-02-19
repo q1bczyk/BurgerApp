@@ -20,6 +20,11 @@ import { MenuResolver } from './pages/menu/menu.resolver';
 import { OrderSummaryComponent } from './pages/order-summary/order-summary.component';
 import { SummaryItemComponent } from './pages/order-summary/components/summary-item/summary-item.component';
 import { SummaryFormComponent } from './pages/order-summary/components/summary-form/summary-form.component';
+import { OrderPageComponent } from './pages/order-page/order-page.component';
+import { NewOrderComponent } from './pages/order-page/components/new-order/new-order.component';
+import { OrderResolver } from './pages/order-page/order-page.resolver';
+import { OrderInProgressComponent } from './pages/order-page/components/order-in-progess/order-in-progress.component';
+import { CanceledOrderComponent } from './pages/order-page/components/canceled-order/canceled-order.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +41,10 @@ import { SummaryFormComponent } from './pages/order-summary/components/summary-f
     OrderSummaryComponent,
     SummaryItemComponent,
     SummaryFormComponent,
+    OrderPageComponent,
+    NewOrderComponent,
+    OrderInProgressComponent,
+    CanceledOrderComponent,
   ],
   imports: [
     CommonModule,
@@ -46,6 +55,7 @@ import { SummaryFormComponent } from './pages/order-summary/components/summary-f
   providers: [
     HomeResolver,
     MenuResolver,
+    OrderResolver,
     IngredientsPipe,
   ]
 })

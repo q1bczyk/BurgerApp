@@ -1,0 +1,41 @@
+@use '../../../../../../../../../assets/styles/base';
+
+.container
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    h4
+    {
+        color: base.$third-color;
+        margin-top: 10px;
+    }
+
+    >div
+    {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 10px;
+
+        span
+        {
+            font-size: 35px;
+            padding: 0 10px;
+        }
+
+        >div
+        {
+            width: 70px;
+            height: 70px;
+            background-color: base.$gray-color;
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 30px;
+        }
+    }
+}

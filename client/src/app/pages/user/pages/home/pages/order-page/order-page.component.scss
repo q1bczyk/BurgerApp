@@ -1,0 +1,21 @@
+@use '../../../../../../../assets/styles/base';
+
+.wrapper
+{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+    min-height: 300px;
+    font-family: base.$header-font;
+}
+
+.container
+{
+    width: 90%;
+    min-height: 300px;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

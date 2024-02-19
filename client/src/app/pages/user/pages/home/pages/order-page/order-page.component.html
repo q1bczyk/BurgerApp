@@ -1,0 +1,12 @@
+<div class="wrapper" #element *ngIf="orderDetails">
+    <div class="container">
+        <app-new-order *ngIf="orderDetails.orderStatus === 'nowe'"/> 
+        <app-order-in-progress *ngIf="orderDetails.orderStatus === 'realizowane'"
+            [waitingTime]="orderDetails.waitingTime"
+            [isDelivery]="orderDetails.clientsContact.deliveryDetails"
+        /> 
+        <app-canceled-order *ngIf="orderDetails.orderStatus === 'anulowane'"
+            [refusalReason]="orderDetails.refusalReason"
+        />
+    </div>
+</div>

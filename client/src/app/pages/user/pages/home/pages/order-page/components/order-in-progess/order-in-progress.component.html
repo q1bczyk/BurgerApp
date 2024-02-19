@@ -1,0 +1,10 @@
+<div class="container">
+    <h2>Twoje zamówienie zostało przyjęte</h2>
+    <h4 *ngIf="isDelivery">godzina dostawy</h4>
+    <h4 *ngIf="!isDelivery">godzina odbioru</h4>
+    <div>
+        <div>{{formatedTime?.hour}}</div>
+        <span>:</span>
+        <div>{{formatedTime?.minutes}}</div>
+    </div>
+</div>

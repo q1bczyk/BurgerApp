@@ -7,6 +7,8 @@ import { AboutUsComponent } from './pages/about-us/about-us.component';
 import { HomePageComponent } from './pages/home-page/home-page.component';
 import { MenuComponent } from './pages/menu/menu.component';
 import { MenuResolver } from './pages/menu/menu.resolver';
+import { OrderPageComponent } from './pages/order-page/order-page.component';
+import { OrderResolver } from './pages/order-page/order-page.resolver';
 import { OrderSummaryComponent } from './pages/order-summary/order-summary.component';
 
 const routes: Routes = 
@@ -34,6 +36,11 @@ const routes: Routes =
         path: 'zamowienie',
         component: OrderSummaryComponent,
       },
+      {
+        path: 'potwierdzenie/:orderId',
+        component: OrderPageComponent,
+        resolve : {orderDetails : OrderResolver}
+      }
     ],
   },
   { 

@@ -17,15 +17,9 @@ export class OrderPossibilityService{
   today : string;
   date : string;
  
-  constructor(private store : Store<{activeLocalStore : LocalInterface}>)
+  constructor()
   {
-    const dataToParse = localStorage.getItem('activeLocal');
-    if(dataToParse)
-    {
-      const data : LocalInterface = JSON.parse(dataToParse);
-      this.dayOffs = data.dayOffs;
-      this.openingHours = data.openingHours;
-    }
+      this.getActiveLocal();
 
       const formatedDate = this.formatDate();
 
@@ -35,6 +29,8 @@ export class OrderPossibilityService{
 
   checkOrderPossibility() : any
   {
+    this.getActiveLocal();
+
     if(this.isDayOff() === true)
       return 'Dzisiaj mamy wolne'
 
@@ -119,6 +115,17 @@ export class OrderPossibilityService{
     date.setHours(hours, minutes, 0, 0);
 
     return date;
+  }
+
+  private getActiveLocal() : void
+  {
+    const dataToParse = localStorage.getItem('activeLocal');
+    if(dataToParse)
+    {
+      const data : LocalInterface = JSON.parse(dataToParse);
+      this.dayOffs = data.dayOffs;
+      this.openingHours = data.openingHours;
+    }
   }
 
 }

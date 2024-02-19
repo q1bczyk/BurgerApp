@@ -188,7 +188,7 @@ namespace api._Controllers
 
            if(orderPutDTO.OrderStatus == "anulowane" || orderPutDTO.OrderStatus == "realizowane")
            {
-                var link = $"{Request.Scheme}://{Request.Host}/api/order/{order.Id}";
+                var link = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}/potwierdzenie/{order.Id}";
 
                 string senderEmail = "bartekkubik7@gmail.com";
                 string senderPassword = "nbmw atok pztp wbjn";

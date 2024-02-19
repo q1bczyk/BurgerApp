@@ -1,5 +1,5 @@
 import { createReducer, on } from "@ngrx/store";
-import { addProduct, deleteProduct, setCartVisiblity, setDeliveryState } from "./cart.action";
+import { addProduct, clearCart, deleteProduct, setCartVisiblity, setDeliveryState } from "./cart.action";
 import { CartInterface, initialState } from "./cart.state";
 
 export const cartFeautureKey = 'cartStorage';
@@ -66,7 +66,9 @@ const _cartReducer = createReducer(
             price : state.price - productToDelete.price,
             productsQuantity : state.productsQuantity - 1,
         }
-
+    }),
+    on(clearCart, state => {
+        return initialState;
     })
 )
 

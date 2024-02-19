@@ -1,4 +1,5 @@
 import { Component, Input, OnInit, ViewChild} from '@angular/core';
+import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { map, Observable } from 'rxjs';
 import { ClientContactInterface, DeliveryDetailsInterface } from 'src/app/shared/models/client-contact.interface';
@@ -8,6 +9,8 @@ import { ProductInterface } from 'src/app/shared/models/product.interface';
 import { FormService } from 'src/app/shared/services/form.service';
 import { OrderPossibilityService} from 'src/app/shared/services/order-possibility.service'
 import { OrderService } from 'src/app/shared/services/order.service';
+import { clearCart } from 'src/app/shared/store/cart-store/cart.action';
+import { CartInterface } from 'src/app/shared/store/cart-store/cart.state';
 import { PlaceholderDirective } from 'src/app/shared/ui/alert/directive/placeholder.directive';
 import { AlertService } from 'src/app/shared/ui/alert/service/alert.service';
 
@@ -26,8 +29,9 @@ export class SummaryFormComponent implements OnInit{
   contactForm : any;
   formSettings : any;
   localId : string = '';
+  dynamicPath : string = '';
 
-  constructor(private formService : FormService, private orderPossibilityService : OrderPossibilityService, private alertService : AlertService, private orderService : OrderService){}
+  constructor(private formService : FormService, private orderPossibilityService : OrderPossibilityService, private alertService : AlertService, private orderService : OrderService, private store : Store<{cartStorage : CartInterface}>, private router : Router){}
 
   ngOnInit(): void 
   {
@@ -47,6 +51,7 @@ export class SummaryFormComponent implements OnInit{
     {
       const data : LocalInterface = JSON.parse(dataToParse);
       this.localId = data.id;
+      this.dynamicPath = data.slug;
     }
   }
 
@@ -104,7 +109,8 @@ export class SummaryFormComponent implements OnInit{
 
     this.orderService.placeOrder(data)
       .subscribe(data => {
-        console.log(data)
+        this.store.dispatch(clearCart())
+        this.router.navigate([`${this.dynamicPath}/potwierdzenie/${data.id}`])
       }, err => {
         console.log(err);
       });

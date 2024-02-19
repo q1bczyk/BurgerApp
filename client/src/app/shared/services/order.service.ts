@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
 import { OrderRequestInterface } from '../models/order-request.interface';
 import { OrderConfirmInterface } from '../models/order-confirm.interface';
+import { OrderDetailsInterface } from '../models/order-details.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -21,6 +22,16 @@ export class OrderService {
                 return resData;
             })
         )
+  }
+
+  orderDetails(orderId : string) : Observable<OrderDetailsInterface>
+  {
+    return this.http.get<OrderDetailsInterface>(`${this.url}/${orderId}`)
+      .pipe(
+        map(resData => {
+          return resData
+        })
+      )
   }
 
 

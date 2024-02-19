@@ -19,3 +19,7 @@ export const deleteProduct = createAction(
     'deleteProduct',
     props<{productName : string}>()
 )
+
+export const clearCart = createAction(
+    'clearCart',
+)
