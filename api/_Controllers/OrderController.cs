@@ -30,7 +30,7 @@ namespace api._Controllers
         private readonly IProductRepository productRepository;
         private readonly IMapper mapper;
 
-        public OrderController(IOrderRepository orderRepository, IOrderProductRepository orderProductRepository, IClientContactRepository clientContactRepository, IDeliveryDetailsRepository deliveryDetailsRepository, IDayOffLocalRepository dayOffLocalRepository, IOpeningHourLocalRepository openingHourLocalRepository, IPaymentService paymentService, IPaymentRepository paymentRepository, IMapper mapper, IProductRepository productRepository)
+        public OrderController(IOrderRepository orderRepository, IOrderProductRepository orderProductRepository, IClientContactRepository clientContactRepository, IDeliveryDetailsRepository deliveryDetailsRepository, IDayOffLocalRepository dayOffLocalRepository, IOpeningHourLocalRepository openingHourLocalRepository, IPaymentService paymentService, IPaymentRepository paymentRepository, IMapper mapper, IProductRepository productRepository, ILocalRepository localRepository)
         {
             this.orderRepository = orderRepository;
             this.orderProductRepository = orderProductRepository;
@@ -42,6 +42,7 @@ namespace api._Controllers
             this.paymentRepository = paymentRepository;
             this.mapper = mapper;
             this.productRepository = productRepository;
+            this.localRepository = localRepository;
         }
 
         [AllowAnonymous]
@@ -121,7 +122,12 @@ namespace api._Controllers
 
             if(orderPostDTO.IsPaymentOnline == true)
             {
-                var paymentResponse = await paymentService.RegisterAsync(orderPostDTO);
+                var local = await localRepository.GetLocalById(orderPostDTO.LocalId); 
+
+                if(local != null)
+                    orderPostDTO.LocalId = local.Slug;
+
+                var paymentResponse = await paymentService.RegisterAsync(orderPostDTO, order.Id);
 
                 if(paymentResponse.Data.Token == null)
                     return BadRequest("Error! Something went wrong!");
@@ -132,8 +138,9 @@ namespace api._Controllers
                     SessionId = paymentResponse.SessionId,
                     IsPaymentDone = false,
                 };
-
                 await paymentRepository.AddPaymentAsync(paymentsDetails);
+                await paymentRepository.SaveChangesAsync();
+                
                 orderSummary.token = paymentResponse.Data.Token;
             }
 

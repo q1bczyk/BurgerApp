@@ -8,7 +8,9 @@ import { OrderDetailsInterface } from '../models/order-details.interface';
 @Injectable({
   providedIn: 'root'
 })
-export class OrderService {
+
+export class OrderService 
+{
 
   url : string = "https://localhost:5001/api/order"
 

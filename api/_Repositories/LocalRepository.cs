@@ -20,6 +20,12 @@ namespace api._Repositories
             return local;
         }
 
+        public async Task<Local> GetLocalById(string localId)
+        {
+            return await context.Locals
+                .FirstOrDefaultAsync(x => x.Id == localId);
+        }
+
         public async Task<Local> GetLocalBySlugAsync(string slug)
         {
             return await context.Locals
