@@ -141,6 +141,26 @@ export class FormService
     isPaymentOnline : [false]
   })
 
-    
+  loginFormSettings : any = 
+  [
+    {
+      name : "email",
+      label : 'Email',
+      type : 'text',
+      required: true,
+    },
+    {
+      name : "password",
+      label : 'Hasło',
+      type : 'password',
+      required: true,
+    },
+  ]
 
+  loginForm = this.fb.group(
+    {
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(8)]]
+    })
+    
 }

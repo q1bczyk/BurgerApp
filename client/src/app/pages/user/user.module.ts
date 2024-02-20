@@ -15,6 +15,7 @@ import { NavbarDirective } from 'src/app/core/navbar/directives/navbar.directive
 import { CartSummaryComponent } from 'src/app/core/cart-summary/cart-summary.component';
 import { CartItemComponent } from 'src/app/core/cart-summary/cart-item/cart-item.component';
 import { cartFeautureKey, cartReducer } from 'src/app/shared/store/cart-store/cart.reducer';
+import { LoginPageComponent } from './pages/login-page/login-page.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { cartFeautureKey, cartReducer } from 'src/app/shared/store/cart-store/ca
     NavbarDirective,
     CartSummaryComponent,
     CartItemComponent,
+    LoginPageComponent,
   ],
   imports: [
     CommonModule,

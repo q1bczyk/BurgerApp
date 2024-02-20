@@ -6,10 +6,14 @@ import { UserModule } from './pages/user/user.module';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { HomeModule } from './pages/user/pages/home/home.module';
 import { StoreModule } from '@ngrx/store';
+import { AdminComponent } from './pages/admin/admin.component';
+import { AdminNavbarComponent } from './core/admin-navbar/admin-navbar.component';
 
 @NgModule({
   declarations: [
     AppComponent,
+    AdminComponent,
+    AdminNavbarComponent,
   ],
   imports: [
     BrowserModule,

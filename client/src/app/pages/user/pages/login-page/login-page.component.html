@@ -1,0 +1,15 @@
+<div class="container">
+    <app-loader *ngIf="isLoading"/>
+    <ng-template appPlaceholder></ng-template>
+    <div class="form-box">
+        <div class="logo">
+            <app-logo></app-logo>
+        </div>
+        <app-form
+            [formGroup]="loginForm"
+            [formSettings]="loginFormSettings"
+            [buttonLabel]="'Zaloguj się'"
+            (formEvent)="onSubmit($event)"
+        />
+    </div>
+</div>
