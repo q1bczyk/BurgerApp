@@ -112,10 +112,12 @@ export class SummaryFormComponent implements OnInit{
     this.orderService.placeOrder(data)
       .subscribe(data => {
         if(data.token === null)
+        {
           this.router.navigate([`${this.dynamicPath}/potwierdzenie/${data.id}`])
+          this.isLoading = false;
+        }
         else
           window.location.href = `https://sandbox-go.przelewy24.pl/trnRequest/${data.token}`;
-        this.isLoading = false;
       }, err => {
         this.isLoading = false;
         this.alertService.ShowAlert('Błąd', err.message, 'błąd serwera spróbuj ponownie później!', this.alertHost);
