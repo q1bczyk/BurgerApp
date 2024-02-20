@@ -9,7 +9,6 @@ import { ProductInterface } from 'src/app/shared/models/product.interface';
 import { FormService } from 'src/app/shared/services/form.service';
 import { OrderPossibilityService} from 'src/app/shared/services/order-possibility.service'
 import { OrderService } from 'src/app/shared/services/order.service';
-import { clearCart } from 'src/app/shared/store/cart-store/cart.action';
 import { CartInterface } from 'src/app/shared/store/cart-store/cart.state';
 import { PlaceholderDirective } from 'src/app/shared/ui/alert/directive/placeholder.directive';
 import { AlertService } from 'src/app/shared/ui/alert/service/alert.service';
@@ -31,7 +30,9 @@ export class SummaryFormComponent implements OnInit{
   localId : string = '';
   dynamicPath : string = '';
 
-  constructor(private formService : FormService, private orderPossibilityService : OrderPossibilityService, private alertService : AlertService, private orderService : OrderService, private store : Store<{cartStorage : CartInterface}>, private router : Router){}
+  isLoading : boolean = false;
+
+  constructor(private formService : FormService, private orderPossibilityService : OrderPossibilityService, private alertService : AlertService, private orderService : OrderService, private router : Router){}
 
   ngOnInit(): void 
   {
@@ -107,12 +108,17 @@ export class SummaryFormComponent implements OnInit{
       localId : this.localId,
     };
 
+    this.isLoading = true;
     this.orderService.placeOrder(data)
       .subscribe(data => {
-        this.store.dispatch(clearCart())
-        this.router.navigate([`${this.dynamicPath}/potwierdzenie/${data.id}`])
+        if(data.token === null)
+          this.router.navigate([`${this.dynamicPath}/potwierdzenie/${data.id}`])
+        else
+          window.location.href = `https://sandbox-go.przelewy24.pl/trnRequest/${data.token}`;
+        this.isLoading = false;
       }, err => {
-        console.log(err);
+        this.isLoading = false;
+        this.alertService.ShowAlert('Błąd', err.message, 'błąd serwera spróbuj ponownie później!', this.alertHost);
       });
     
   }

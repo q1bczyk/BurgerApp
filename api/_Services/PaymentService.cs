@@ -66,11 +66,11 @@ namespace api._Services
             }
         }
 
-        public async Task<P24TransactionResponse> RegisterAsync(OrderPostDTO orderPostDTO)
+        public async Task<P24TransactionResponse> RegisterAsync(OrderPostDTO orderPostDTO, string orderId)
         {
 
             int amount = Convert.ToInt32(orderPostDTO.Price * 100);
-            P24TransactionRequest data = new P24TransactionRequest(amount, "PLN", "Zamówienie", orderPostDTO.ClientsContact.Email, "PL", "pl", ClientDomeinName);
+            P24TransactionRequest data = new P24TransactionRequest(amount, "PLN", "Zamówienie", orderPostDTO.ClientsContact.Email, "PL", "pl", $"{ClientDomeinName}/{orderPostDTO.LocalId}/potwierdzenie/{orderId}");
 
             data.MerchantId = UserId;
             data.PosId = UserId;
@@ -96,7 +96,6 @@ namespace api._Services
 
             var response = await Client.ExecuteAsync<P24TransactionVerifyResponse>(request, Method.Put);
             
-            Console.WriteLine("DSADASDSADSADAS" + response.Content);
             return response.Data;
         }
 
