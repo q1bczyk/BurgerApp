@@ -6,20 +6,22 @@ import { UserModule } from './pages/user/user.module';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { HomeModule } from './pages/user/pages/home/home.module';
 import { StoreModule } from '@ngrx/store';
-import { AdminComponent } from './pages/admin/admin.component';
 import { AdminNavbarComponent } from './core/admin-navbar/admin-navbar.component';
+import { AdminComponent } from './pages/admin/admin.component';
+import { AdminModule } from './pages/admin/admin.module';
 
 @NgModule({
   declarations: [
     AppComponent,
-    AdminComponent,
     AdminNavbarComponent,
+    AdminComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     UserModule,
     HomeModule,
+    AdminModule,
     FontAwesomeModule,
     StoreModule.forRoot({}, {}),
   ],
