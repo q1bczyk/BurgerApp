@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { OrderDetailsIdInterface } from 'src/app/pages/admin/models/order-details-id.interface';
 
 @Component({
@@ -9,5 +9,13 @@ import { OrderDetailsIdInterface } from 'src/app/pages/admin/models/order-detail
 export class OrderItemComponent {
 
   @Input() order? : OrderDetailsIdInterface;
+  @Output() optionEvent : EventEmitter<{option : number, orderId : string}> = new EventEmitter();
+
+  onButtonSubmit(option : number) : void
+  {
+    if(this.order)
+      this.optionEvent.emit({option : option, orderId : this.order.id});
+    return
+  }
 
 }

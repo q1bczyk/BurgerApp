@@ -37,6 +37,21 @@ export class OrderService
       )
   }
 
+  handleOrder(orderId : string, data : any) : Observable<OrderDetailsIdInterface>
+  {
+    const token = localStorage.getItem('token');
+      const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+      });
+
+    return this.http.put<OrderDetailsIdInterface>(`${this.url}/${orderId}`, data, {headers : headers})
+          .pipe(
+              map(res => {
+                  return res;
+              })
+          )
+  }
+
   getOrders(orderStatus : string) : Observable<OrderDetailsIdInterface[]>
   {
       const token = localStorage.getItem('token');

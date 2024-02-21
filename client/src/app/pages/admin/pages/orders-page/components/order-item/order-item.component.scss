@@ -1,4 +1,5 @@
 @use '../../../../../../../assets/styles/base';
+@use '../../../../../../../assets/styles/shared-styles';
 
 .card
 {
@@ -33,4 +34,34 @@
         align-items: center;
     }
 
+    .price
+    {
+        font-size: 25px;
+    }
+}
+
+.options
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    >h4
+    {
+        margin-bottom: 20px;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-bottom: 20px;
+        margin-right: 10px;
+    }
+}
+
+.cancel
+{
+    background-color: red;
+}
+
+.submit
+{
+    background-color: base.$third-color;
 }

@@ -198,8 +198,10 @@ namespace api._Controllers
                 var link = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}/potwierdzenie/{order.Id}";
 
                 string senderEmail = "bartekkubik7@gmail.com";
-                string senderPassword = "nbmw atok pztp wbjn";
+                string senderPassword = "hheu ddos enwx ykuv";
                 string recipientEmail = order.ClientsContact.Email;
+
+                ServicePointManager.ServerCertificateValidationCallback = (sender, certificate, chain, sslPolicyErrors) => true;
 
                 var smtpClient = new SmtpClient("smtp.gmail.com")
                 {

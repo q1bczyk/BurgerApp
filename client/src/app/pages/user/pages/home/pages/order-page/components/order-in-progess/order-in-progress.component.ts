@@ -10,7 +10,7 @@ import { FormatedTimeInterface, TimeFormaterService } from 'src/app/shared/servi
 export class OrderInProgressComponent implements OnInit{
 
   @Input() waitingTime? : string;
-  @Input() isDelivery? : DeliveryDetailsInterface;
+  @Input() isDelivery? : DeliveryDetailsInterface | null;
 
   formatedTime? : FormatedTimeInterface;
 

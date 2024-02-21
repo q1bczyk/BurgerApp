@@ -4,7 +4,7 @@ export interface ClientContactInterface
     lastname : string,
     email : string,
     phoneNumber : string,
-    deliveryDetails? : DeliveryDetailsInterface | null;
+    deliveryDetails : DeliveryDetailsInterface | null;
 }
 
 export interface DeliveryDetailsInterface 

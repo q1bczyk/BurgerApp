@@ -7,4 +7,12 @@ export interface OrderDetailsIdInterface extends OrderDetailsInterface
     products : ProductInterface[];
     price : number;
     orderStatus : string,
+    paymentsDetails? : PaymentDetailsInterface
+}
+
+interface PaymentDetailsInterface
+{
+    orderId : number,
+    sessionId : number,
+    isPaymentDone : boolean,
 }

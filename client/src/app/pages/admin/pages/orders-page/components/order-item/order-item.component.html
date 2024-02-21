@@ -1,5 +1,5 @@
 <div class="card" *ngIf="order">
-    <h2>Nowe zamówienie</h2>
+    <h2>{{order.orderStatus}}</h2>
     <div>
         <h3>Produkty</h3>
         <div class="product" *ngFor="let product of order.products">
@@ -9,5 +9,31 @@
     <div>
         <h3>Dane klienta</h3>
         <p>{{order.clientsContact.name}} {{order.clientsContact.lastname}}</p>
+        <p>{{order.clientsContact.phoneNumber}}</p>
+    </div>
+    <div *ngIf="order.clientsContact.deliveryDetails">
+        <h3>Dane dostawy</h3>
+        <p>{{order.clientsContact.deliveryDetails.street}} {{order.clientsContact.deliveryDetails.houseNumber}}</p>
+        <p>{{order.clientsContact.deliveryDetails.city}}, {{order.clientsContact.deliveryDetails.postalCode}}</p>
+    </div>
+    <div>
+        <h3>Należność</h3>
+        <div>
+            <h4 class="price">{{order.price}}zł</h4>
+            <div *ngIf="order && order.paymentsDetails && order.paymentsDetails.isPaymentDone"><h4>zapłacono</h4></div>
+        </div>
+    </div>
+    <div *ngIf="order.waitingTime && order.orderStatus === 'realizowane'">
+        <h3>Czas realizacji</h3>
+        <h2>{{order.waitingTime}}</h2>
+    </div>
+    <div *ngIf="order.refusalReason && order.orderStatus === 'anulowane'">
+        <h3>Powód odmowy</h3>
+        <p>{{order.refusalReason}}</p>
+    </div>
+    <div class="options">
+        <h4 class="submit" *ngIf="order.orderStatus === 'nowe'" (click)="onButtonSubmit(1)">Przyjmij</h4>
+        <h4 class="cancel" *ngIf="order.orderStatus === 'nowe'" (click)="onButtonSubmit(2)">Anuluj</h4>
+        <h4 class="submit" *ngIf="order.orderStatus === 'realizowane'" (click)="onButtonSubmit(3)">Zakończ</h4>
     </div>
 </div>
