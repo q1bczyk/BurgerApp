@@ -1,6 +1,6 @@
 <ul class="links">
     <li>
-        <a [routerLinkActive]="'active'" [routerLink]="['zamowienia']"><span><fa-icon [icon]="faBell"/></span>Zamówienia</a>
+        <a [routerLinkActive]="'active'" [routerLink]="['zamowienia']" (click)="navigate('nowe')"><span><fa-icon [icon]="faBell"/></span>Zamówienia</a>
     </li>
     <li>
         <a [routerLinkActive]="'active'" [routerLink]="['produkty']"><span><fa-icon [icon]="faBurger"/></span>Produkty</a>

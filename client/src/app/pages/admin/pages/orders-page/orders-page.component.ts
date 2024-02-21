@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { LocalInterface } from 'src/app/shared/models/local.interface';
-import { AdminService } from '../../services/admin.service';
+import { OrderService } from 'src/app/shared/services/order.service';
+import { OrderDetailsIdInterface } from '../../models/order-details-id.interface';
 
 @Component({
   selector: 'app-orders-page',
@@ -10,17 +12,32 @@ import { AdminService } from '../../services/admin.service';
 })
 export class OrdersPageComponent implements OnInit{
 
-  localId : string = '';
+  orderStatus : string = 'nowe';
+  isLoading : boolean = false;
+  orders : OrderDetailsIdInterface[] = [];
 
-  constructor(private adminService : AdminService, private store : Store<{adminStorage : LocalInterface}>){}
+  constructor(private orderService : OrderService, private route : ActivatedRoute, private store : Store<{adminStorage : LocalInterface}>, private router : Router){}
   
-  ngOnInit(): void 
+  ngOnInit() 
   {
-    this.store.select('adminStorage')
-      .subscribe(data => {
-        this.localId = data.id;
-        console.log(this.localId)
+    this.route.queryParams.subscribe(params => {
+    this.orderStatus = params['order-status'];
+
+    this.orderService.getOrders(this.orderStatus)
+      .subscribe(res => {
+        this.orders = res;
       })
+  });
+  }
+
+  setStatus(status : string) : void
+  {
+    this.orderStatus = status;
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: { 'order-status': status },
+      queryParamsHandling: 'merge',
+    });
   }
   
 }

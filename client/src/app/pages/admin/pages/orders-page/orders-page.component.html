@@ -1,1 +1,18 @@
-<p>orders-page works!</p>
+<div class="wrapper">
+    <div class="nav">
+        <ul>
+            <li [ngClass]="{ 'active': orderStatus === 'nowe' }" (click)="setStatus('nowe')">Nowe</li>
+            <span></span>
+            <li [ngClass]="{ 'active': orderStatus === 'realizowane' }" (click)="setStatus('realizowane')">Realizowane</li>
+            <span></span>
+            <li [ngClass]="{ 'active': orderStatus === 'anulowane' }" (click)="setStatus('anulowane')">Anulowane</li>
+            <span></span>
+            <li [ngClass]="{ 'active': orderStatus === 'zrealizowane' }" (click)="setStatus('zrealizowane')">Zrealizowane</li>
+        </ul>
+    </div>
+    <div class="orders">
+        <app-order-item *ngFor="let order of orders"
+            [order]="order"
+        />
+    </div>
+</div>

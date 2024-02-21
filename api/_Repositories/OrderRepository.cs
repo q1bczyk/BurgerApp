@@ -46,6 +46,7 @@ namespace api._Repositories
                                     .ThenInclude(p => p.Product)
                                 .Include(o => o.ClientsContact)
                                     .ThenInclude(c => c.DeliveryDetail)
+                                .Include(o => o.PaymentsDetails)
                                 .ToListAsync();
         }
 

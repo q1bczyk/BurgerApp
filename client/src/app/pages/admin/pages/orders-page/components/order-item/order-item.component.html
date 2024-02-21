@@ -1,0 +1,13 @@
+<div class="card" *ngIf="order">
+    <h2>Nowe zamówienie</h2>
+    <div>
+        <h3>Produkty</h3>
+        <div class="product" *ngFor="let product of order.products">
+            <p>{{product.name}} x{{product.quantity}}</p>
+        </div>
+    </div>
+    <div>
+        <h3>Dane klienta</h3>
+        <p>{{order.clientsContact.name}} {{order.clientsContact.lastname}}</p>
+    </div>
+</div>

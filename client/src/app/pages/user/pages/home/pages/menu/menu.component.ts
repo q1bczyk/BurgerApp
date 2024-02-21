@@ -53,7 +53,7 @@ export class MenuComponent{
     this.router.navigate([], {
       relativeTo: this.route,
       queryParams: { 'product-type': type },
-      queryParamsHandling: 'merge', // Zachowaj istniejące queryParams
+      queryParamsHandling: 'merge', 
     });
     
     this.productService.GetProducts(this.productType)

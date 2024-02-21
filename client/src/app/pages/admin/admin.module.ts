@@ -8,12 +8,14 @@ import { AdminHomeComponent } from './pages/admin-home/admin-home.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { adminFeautureKey, adminReducer } from './store/admin.reducer';
 import { StoreModule } from '@ngrx/store';
+import { OrderItemComponent } from './pages/orders-page/components/order-item/order-item.component';
 
 @NgModule({
   declarations: [
     OrdersPageComponent,
     ProductsPageComponent,
-    AdminHomeComponent
+    AdminHomeComponent,
+    OrderItemComponent
   ],
   imports: [
     CommonModule,
@@ -22,7 +24,7 @@ import { StoreModule } from '@ngrx/store';
     StoreModule.forFeature(adminFeautureKey, adminReducer)
   ],
   providers: [
-    AuthGuard
+    AuthGuard,
   ]
 })
 export class AdminModule { }
