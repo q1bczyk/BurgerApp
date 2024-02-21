@@ -23,7 +23,10 @@ namespace api._Repositories
         public async Task<Local> GetLocalById(string localId)
         {
             return await context.Locals
-                .FirstOrDefaultAsync(x => x.Id == localId);
+                                .Include(x => x.Contact)
+                                .Include(x => x.OpeningHours.OrderBy(oh => oh.Order))
+                                .Include(x => x.DayOffs)
+                                .FirstOrDefaultAsync(x => x.Id == localId);
         }
 
         public async Task<Local> GetLocalBySlugAsync(string slug)

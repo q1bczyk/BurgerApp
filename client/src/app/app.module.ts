@@ -9,12 +9,15 @@ import { StoreModule } from '@ngrx/store';
 import { AdminNavbarComponent } from './core/admin-navbar/admin-navbar.component';
 import { AdminComponent } from './pages/admin/admin.component';
 import { AdminModule } from './pages/admin/admin.module';
+import { SharedModule } from './shared/shared.module';
+import { AdminLinksComponent } from './core/admin-navbar/components/admin-links/admin-links.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     AdminNavbarComponent,
     AdminComponent,
+    AdminLinksComponent,
   ],
   imports: [
     BrowserModule,
@@ -22,6 +25,7 @@ import { AdminModule } from './pages/admin/admin.module';
     UserModule,
     HomeModule,
     AdminModule,
+    SharedModule,
     FontAwesomeModule,
     StoreModule.forRoot({}, {}),
   ],

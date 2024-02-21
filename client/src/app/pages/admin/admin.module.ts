@@ -12,7 +12,7 @@ import { AuthGuard } from './auth.guard';
   ],
   imports: [
     CommonModule,
-    AdminRoutingModule
+    AdminRoutingModule,
   ],
   providers: [
     AuthGuard
