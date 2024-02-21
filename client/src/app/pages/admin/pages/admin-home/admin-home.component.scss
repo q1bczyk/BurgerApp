@@ -1,0 +1,7 @@
+@use '../../../../../assets/styles/shared-styles.scss';
+@use '../../../../../assets/styles/base.scss';
+
+.wrapper
+{
+    @include shared-styles.admin-wrapper;
+}

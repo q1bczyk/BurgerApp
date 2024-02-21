@@ -4,11 +4,13 @@ import { AdminRoutingModule } from './admin-routing.module';
 import { OrdersPageComponent } from './pages/orders-page/orders-page.component';
 import { ProductsPageComponent } from './pages/products-page/products-page.component';
 import { AuthGuard } from './auth.guard';
+import { AdminHomeComponent } from './pages/admin-home/admin-home.component';
 
 @NgModule({
   declarations: [
     OrdersPageComponent,
-    ProductsPageComponent
+    ProductsPageComponent,
+    AdminHomeComponent
   ],
   imports: [
     CommonModule,

@@ -8,6 +8,22 @@
     justify-content: center;
 }
 
+@mixin admin-wrapper
+{
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    right: 0;
+
+    @media(min-width : base.$small)
+    {
+        width: calc(100% - 300px);
+    }
+}
+
 @mixin container
 {
     width: 90%;
