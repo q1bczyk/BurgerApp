@@ -17,6 +17,7 @@
     align-items: center;
     position: absolute;
     right: 0;
+    font-family: base.$header-font;
 
     @media(min-width : base.$small)
     {

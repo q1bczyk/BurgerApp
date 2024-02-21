@@ -1,3 +1,5 @@
 <div class="wrapper">
-xd
+    <app-loader *ngIf="isLoading"/>
+    <h1 *ngIf="!isLoading">Witaj w panelu administracyjnym</h1>
+    <h3 *ngIf="!isLoading">Jesteś zalogowany do konta <span>{{localName}}</span></h3>
 </div>

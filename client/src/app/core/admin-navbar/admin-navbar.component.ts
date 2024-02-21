@@ -1,5 +1,5 @@
 import { Component, HostListener } from '@angular/core';
-import { AdminService } from 'src/app/shared/services/admin.service';
+import { AdminService } from 'src/app/pages/admin/services/admin.service';
 
 @Component({
   selector: 'app-admin-navbar',
