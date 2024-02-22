@@ -6,6 +6,7 @@ import { OrderService } from 'src/app/shared/services/order.service';
 import { PlaceholderDirective } from 'src/app/shared/ui/alert/directive/placeholder.directive';
 import { AlertService } from 'src/app/shared/ui/alert/service/alert.service';
 import { OrderDetailsIdInterface } from '../../models/order-details-id.interface';
+import { OrderHandleInterface } from '../../models/order-handle.interface';
 
 @Component({
   selector: 'app-orders-page',
@@ -17,8 +18,9 @@ export class OrdersPageComponent implements OnInit{
   @ViewChild(PlaceholderDirective, { static: true }) alertHost!: PlaceholderDirective;
 
   orderStatus : string = 'nowe';
-  isLoading : boolean = false;
+  isLoading : boolean = true;
   orders : OrderDetailsIdInterface[] = [];
+  formSettings? : {orderId : string, orderStatus : string, isFormOpen : boolean}
 
   constructor(private orderService : OrderService, private route : ActivatedRoute, private store : Store<{adminStorage : LocalInterface}>, private router : Router, private alertService : AlertService){}
   
@@ -30,6 +32,7 @@ export class OrdersPageComponent implements OnInit{
     this.orderService.getOrders(this.orderStatus)
       .subscribe(res => {
         this.orders = res;
+        this.isLoading = false;
       })
   });
   }
@@ -54,16 +57,70 @@ export class OrdersPageComponent implements OnInit{
 
   onChildButtonSubmit(data : any)
   {
-    console.log(data.option)
-    if(data.option === 3)
+    
+    if(data.option === 1)
     {
-      this.orderService.handleOrder(data.orderId, {orderStatus : 'zrealizowane'})
-        .subscribe(res => {
-          this.orders = this.orders.filter(order => order.id !== data.orderId);
-        }, err => {
-          console.log(err);
-        })
+      this.formSettings = 
+      {
+        orderId : data.orderId,
+        orderStatus : 'realizowane',
+        isFormOpen : true,
+      }
     }
+
+    else if(data.option === 2)
+    {
+      this.formSettings = 
+      {
+        orderId : data.orderId,
+        orderStatus : 'anulowane',
+        isFormOpen : true,
+      }
+    }
+
+    else if(data.option === 3)
+    {
+      const orderStatus : OrderHandleInterface = {orderStatus : 'zrealizowane'};
+      this.handleOrderApi(data.orderId, orderStatus);
+    }
+      
+      
+  }
+
+  handleOrder(childData : any)
+  {
+    if(this.formSettings)
+      this.formSettings.isFormOpen = false;
+
+    console.log(childData);
+
+    const data : OrderHandleInterface = 
+    {
+      orderStatus : childData.orderStatus, 
+      waitingTime : childData.waitingTime,
+      refusalReason : childData.refusalReason,
+    }
+    this.handleOrderApi(childData.orderId, data);
+  }
+
+  closeForm() : void
+  {
+    if(this.formSettings)
+      this.formSettings.isFormOpen = false;
+  }
+
+  private handleOrderApi(orderId : string, data : OrderHandleInterface)
+  {
+    this.isLoading = true;
+    this.orderService.handleOrder(orderId, data)
+        .subscribe(res => {
+          this.orders = this.orders.filter(order => order.id !== orderId);
+          this.isLoading = false;
+        }, err => {
+          console.log(err)
+          this.alertService.ShowAlert('Błąd', err.message, 'spróbuj ponownie później', this.alertHost);
+          this.isLoading = false;
+        })
   }
 
 }

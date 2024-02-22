@@ -5,6 +5,7 @@ import { OrderRequestInterface } from '../models/order-request.interface';
 import { OrderConfirmInterface } from '../models/order-confirm.interface';
 import { OrderDetailsInterface } from '../models/order-details.interface';
 import { OrderDetailsIdInterface } from 'src/app/pages/admin/models/order-details-id.interface';
+import { OrderHandleInterface } from 'src/app/pages/admin/models/order-handle.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -37,7 +38,7 @@ export class OrderService
       )
   }
 
-  handleOrder(orderId : string, data : any) : Observable<OrderDetailsIdInterface>
+  handleOrder(orderId : string, data : OrderHandleInterface) : Observable<OrderDetailsIdInterface>
   {
     const token = localStorage.getItem('token');
       const headers = new HttpHeaders({
