@@ -39,9 +39,8 @@ export class AdminService
             )
     }
 
-    logOut()
+    logOut() : void
     {
         localStorage.removeItem('token');
-        this.router.navigate(['']);
     }
 }

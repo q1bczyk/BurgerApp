@@ -20,4 +20,7 @@
     <li>
         <a [routerLinkActive]="'active'" [routerLink]="['ranking']"><span><fa-icon [icon]="faRankingStar"/></span>Ranking</a>
     </li>
+    <li (click)="logOut()">
+        <a (click)="logOut()" [routerLinkActive]="'active'" [routerLink]="['/logowanie']"><span><fa-icon [icon]="faSignOut"/></span>Wyloguj się</a>
+    </li>
 </ul>
