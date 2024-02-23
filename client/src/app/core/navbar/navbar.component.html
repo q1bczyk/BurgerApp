@@ -1,5 +1,6 @@
 <div class="wrapper">
-    <app-mobile/>
+    <div class="container">
+        <app-mobile/>
     <app-cart-summary/>
     <div class="cart-icon" *ngIf="cart && cart.productsQuantity > 0 && cartVisible()" (click)="showCart()">
         <fa-icon [icon]="faBasketShopping "></fa-icon>
@@ -24,5 +25,6 @@
             <div class="button">
                 <h3 (click)="navigate()">Sprawdź menu</h3>
             </div>
+    </div>
     </div>
 </div>

@@ -3,6 +3,7 @@ using System.Net;
 using System.Net.Mail;
 using api._DTOs.AdminDTOs;
 using api._DTOs.ContactDTOs;
+using api._DTOs.LocalDTOs;
 using api._Extensions;
 using api._Interfaces;
 using api._Models;
@@ -47,7 +48,7 @@ public class AdminController : BaseApiController
 
         return new AdminLoggedDTO
         {
-            Token = tokenService.CreateToken(admin.LocalId)
+            Token = tokenService.CreateToken(admin.LocalId),
         };
             
     }
@@ -169,6 +170,20 @@ public class AdminController : BaseApiController
         await contactRepository.SaveAllAsync();
 
         return Ok(mapper.Map<ContactGetDTO>(contact));
+    }
+
+    [Authorize]
+    [HttpGet("local")]
+    public async Task<ActionResult<ContactGetDTO>> GetLocal()
+    {
+        var localId = HttpContext.User.FindFirst(JwtRegisteredClaimNames.Name)?.Value;
+
+        var local = await localRepository.GetLocalById(localId);
+
+        if(local == null)
+            return NotFound();
+
+        return Ok(mapper.Map<LocalGetDTO>(local));
     }
 
 }

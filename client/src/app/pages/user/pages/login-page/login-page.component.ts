@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { AdminService } from 'src/app/shared/services/admin.service';
+import { AdminService } from 'src/app/pages/admin/services/admin.service';
 import { FormService } from 'src/app/shared/services/form.service';
 import { PlaceholderDirective } from 'src/app/shared/ui/alert/directive/placeholder.directive';
 import { AlertService } from 'src/app/shared/ui/alert/service/alert.service';

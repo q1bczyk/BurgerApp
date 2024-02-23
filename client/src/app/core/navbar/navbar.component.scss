@@ -20,6 +20,7 @@
     @include shared-styles.overly;
     background: rgb(0,0,0);
     background: linear-gradient(0deg, rgba(0,0,0,0) 37%, rgba(0,0,0,0.8380602240896359) 93%);
+    left: 0;
 }
 
 .navbar
@@ -31,6 +32,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    left: 0;
 }
 
 .box

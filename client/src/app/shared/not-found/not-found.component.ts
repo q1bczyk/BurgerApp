@@ -9,28 +9,20 @@ import { LocalInterface } from '../models/local.interface';
   templateUrl: './not-found.component.html',
   styleUrls: ['./not-found.component.scss']
 })
-export class NotFoundComponent implements OnInit, OnDestroy{
+export class NotFoundComponent implements OnInit{
 
-  constructor(private router : Router, private store : Store<{activeLocalStore : LocalInterface}>){}
+  dynamicPath : string = '';
 
-  dynamicPath :string = '';
+  constructor(private router : Router){}
 
-  activeLocal$! : Observable<LocalInterface>
-  activeLocalSubscription: Subscription | undefined;
-
-  ngOnInit(): void 
+    ngOnInit(): void 
   {
-    this.activeLocal$ = this.store.select('activeLocalStore');
-    this.activeLocalSubscription = this.activeLocal$
-      .subscribe(data => {
-        this.dynamicPath = `/${data.slug}`;
-      })
-  }
-
-  ngOnDestroy(): void 
-  {
-    if(this.activeLocalSubscription)
-      this.activeLocalSubscription.unsubscribe();
+    const dataToParse = localStorage.getItem('activeLocal');
+    if(dataToParse)
+    {
+      const data : LocalInterface = JSON.parse(dataToParse);
+      this.dynamicPath = `/${data.slug}`;
+    }
   }
 
   onNavigate() : void

@@ -5,13 +5,13 @@ import { NotFoundComponent } from './shared/not-found/not-found.component';
 
 const routes: Routes = 
 [
-  { 
-    path : '', 
-    component : UserComponent,
-  },
+  { path: '', redirectTo: '/lokal', pathMatch: 'full' },
+  { path: 'lokal', loadChildren: () => import('./pages/user/user.module').then(m => m.UserModule) },
+  { path: 'admin', loadChildren: () => import('./pages/admin/admin.module').then(m => m.AdminModule) },
   { 
     path: 'not-found', component: NotFoundComponent 
   },
+  
 ];
 
 @NgModule({
