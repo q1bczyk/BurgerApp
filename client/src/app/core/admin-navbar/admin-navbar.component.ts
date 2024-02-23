@@ -8,8 +8,6 @@ import { AdminService } from 'src/app/pages/admin/services/admin.service';
 })
 export class AdminNavbarComponent {
 
-  constructor(private admisService : AdminService){}
-
   isMenuVisible : boolean = true;
   windowWidth?: number;
 
@@ -29,11 +27,6 @@ export class AdminNavbarComponent {
       return
     }
     this.isMenuVisible = !this.isMenuVisible;    
-  }
-
-  logOut()
-  {
-    this.admisService.logOut();
   }
 
 }

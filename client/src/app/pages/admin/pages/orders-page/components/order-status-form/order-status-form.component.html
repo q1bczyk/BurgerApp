@@ -1,0 +1,26 @@
+<div class="wrapper" (click)="closeForm()">
+     <div class="container" (click)="stopPropagation($event)">
+        <div class="waiting-time" *ngIf="formSettings && formSettings.orderStatus === 'realizowane'">
+            <h2>Ustal czas oczekiwania</h2>
+            <div class="buttons">
+                <div (click)="submitOrder(15)">15 minut</div>
+                <div (click)="submitOrder(30)">30 minut</div>
+                <div (click)="submitOrder(45)">45 minut</div>
+                <div (click)="submitOrder(60)">1 godzina</div>
+                <div (click)="submitOrder(90)">1,5 godziny</div>
+                <div (click)="submitOrder(120)">2 godziny</div>
+            </div>
+        </div>
+        <div class="waiting-time" *ngIf="formSettings && formSettings.orderStatus === 'anulowane'">
+            <form class="form" [formGroup]="refusalReasonForm" (submit)="onSubmit()">
+                <label>Powód odmowy</label>
+                <textarea  
+                formControlName='refusalReason' 
+                    id="description" 
+                    wrap="soft"
+                    placeholder="tutaj opisz powód odmowy zamówienia"></textarea>
+                <button class="button" type="submit"><h3>Zatwierdź</h3></button>
+            </form>
+        </div>
+     </div>
+</div>

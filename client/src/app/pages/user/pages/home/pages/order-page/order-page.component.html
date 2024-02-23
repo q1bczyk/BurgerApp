@@ -8,5 +8,6 @@
         <app-canceled-order *ngIf="orderDetails.orderStatus === 'anulowane'"
             [refusalReason]="orderDetails.refusalReason"
         />
+        <h2 *ngIf="orderDetails.orderStatus === 'zrealizowane'">Zamówienie zostało zrealizowane</h2>
     </div>
 </div>

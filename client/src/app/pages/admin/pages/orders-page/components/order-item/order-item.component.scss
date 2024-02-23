@@ -1,0 +1,67 @@
+@use '../../../../../../../assets/styles/base';
+@use '../../../../../../../assets/styles/shared-styles';
+
+.card
+{
+    width: 300px;
+    background-color: base.$gray-color;
+    margin: 10px;
+    box-shadow: 7px 14px 10px -9px rgba(186, 186, 186, 1);
+    display: flex;
+    flex-direction: column;
+
+    >div
+    {
+        padding: 10px 20px;
+
+        p
+        {
+            margin-left: 10px;
+        }
+    }
+
+    h3
+    {
+        color : base.$third-color;
+    }
+
+    >h2
+    {
+        width: 100%;
+        padding: 10px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .price
+    {
+        font-size: 25px;
+    }
+}
+
+.options
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    >h4
+    {
+        margin-bottom: 20px;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-bottom: 20px;
+        margin-right: 10px;
+    }
+}
+
+.cancel
+{
+    background-color: red;
+}
+
+.submit
+{
+    background-color: base.$third-color;
+}

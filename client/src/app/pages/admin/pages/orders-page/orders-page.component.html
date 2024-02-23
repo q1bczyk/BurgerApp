@@ -1,1 +1,27 @@
-<p>orders-page works!</p>
+<ng-template appPlaceholder></ng-template>
+<div class="wrapper">
+    <app-loader *ngIf="isLoading"/>
+    <div class="nav">
+        <ul>
+            <li [ngClass]="{ 'active': orderStatus === 'nowe' }" (click)="setStatus('nowe')">Nowe</li>
+            <span></span>
+            <li [ngClass]="{ 'active': orderStatus === 'realizowane' }" (click)="setStatus('realizowane')">Realizowane</li>
+            <span></span>
+            <li [ngClass]="{ 'active': orderStatus === 'anulowane' }" (click)="setStatus('anulowane')">Anulowane</li>
+            <span></span>
+            <li [ngClass]="{ 'active': orderStatus === 'zrealizowane' }" (click)="setStatus('zrealizowane')">Zrealizowane</li>
+        </ul>
+    </div>
+    <h2 *ngIf="orders.length === 0">Brak zamówień</h2>
+    <div class="orders" *ngIf="orders.length > 0">
+        <app-order-item *ngFor="let order of orders"
+            [order]="order"
+            (optionEvent)="onChildButtonSubmit($event)"
+        />
+    </div>
+    <app-order-status-form *ngIf="formSettings && formSettings.isFormOpen"
+        [formSettings]="formSettings"
+        (closeFormEvent)="closeForm()"
+        (dataEvent)="handleOrder($event)"
+    />
+</div>
