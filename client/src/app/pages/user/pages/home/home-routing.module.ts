@@ -5,11 +5,12 @@ import { HomeComponent } from './home.component';
 import { HomeResolver } from './home.resolver';
 import { AboutUsComponent } from './pages/about-us/about-us.component';
 import { HomePageComponent } from './pages/home-page/home-page.component';
-import { MenuComponent } from './pages/menu/menu.component';
-import { MenuResolver } from './pages/menu/menu.resolver';
+import { MenuPageComponent } from './pages/menu-page/menu-page.component';
+import { MenuResolver } from '../../../../shared/ui/menu/menu.resolver';
 import { OrderPageComponent } from './pages/order-page/order-page.component';
 import { OrderResolver } from './pages/order-page/order-page.resolver';
 import { OrderSummaryComponent } from './pages/order-summary/order-summary.component';
+import { MenuGuard } from 'src/app/shared/ui/menu/menu.guard';
 
 const routes: Routes = 
 [
@@ -25,7 +26,8 @@ const routes: Routes =
       },
       {
         path: 'menu',
-        component: MenuComponent,
+        component: MenuPageComponent,
+        canActivate : [MenuGuard], 
         resolve : {products : MenuResolver},
       },
       {

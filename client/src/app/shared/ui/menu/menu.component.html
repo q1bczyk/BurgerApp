@@ -1,12 +1,16 @@
 <ng-template appPlaceholder></ng-template>
-<div class="wrapper">
+<div class="wrapper-child" [ngStyle]="admin !== true ? {'width.px': windowWidth} : {}">
     <div class="nav" #menu>
         <ul>
             <li [ngClass]="{ 'active': productType === 'burger' }" (click)="setType('burger')">Burgery</li>
             <span></span>
-            <li [ngClass]="{ 'active': productType === 'snack' }" (click)="setType('snack')">Przekąski</li>
+            <li [ngClass]="{ 'active': productType === 'przekaski' }" (click)="setType('przekaski')">Przekąski</li>
             <span></span>
-            <li [ngClass]="{ 'active': productType === 'drink' }" (click)="setType('drink')">Napoje</li>
+            <li [ngClass]="{ 'active': productType === 'napoje' }" (click)="setType('napoje')">Napoje</li>
+            <span *ngIf="admin"></span>
+            <li class="add-product" *ngIf="admin" [ngClass]="{ 'active': productType === 'drink' }" (click)="addProduct()">
+                <h4>Dodaj produkt</h4>
+            </li>
         </ul>
     </div>
     <div class="container">
@@ -16,7 +20,11 @@
             [product]="product"
             [index]="i"
             [marginTop]="true"
+            [admin]="admin"
             (alertEvent)="showAlert($event)"
+            (deleteProductEvent)="deleteProduct($event)"
         />
     </div>
 </div>
+
+

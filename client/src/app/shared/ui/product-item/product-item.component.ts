@@ -1,10 +1,11 @@
 import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { ProductInterface } from '../../models/product.interface';
-import { faCartShopping } from '@fortawesome/free-solid-svg-icons';
+import { faCartShopping, faEdit, faRemove } from '@fortawesome/free-solid-svg-icons';
 import { Store } from '@ngrx/store';
 import { CartInterface } from '../../store/cart-store/cart.state';
 import { addProduct } from '../../store/cart-store/cart.action';
 import { OrderPossibilityService } from '../../services/order-possibility.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-product-item',
@@ -14,14 +15,18 @@ import { OrderPossibilityService } from '../../services/order-possibility.servic
 export class ProductItemComponent {
 
   faCartShopping = faCartShopping;
+  faEdit = faEdit;
+  faRemove = faRemove;
 
   @Input() product : ProductInterface | null = null;
   @Input() index : number = 0;
   @Input() marginTop : boolean = false;
+  @Input() admin? : boolean;
   @Output() alertEvent : EventEmitter<string> = new EventEmitter();
+  @Output() deleteProductEvent : EventEmitter<string> = new EventEmitter();
   
 
-  constructor(private store : Store<{cartStorage : CartInterface}>, private orderPossibilityService : OrderPossibilityService){}
+  constructor(private store : Store<{cartStorage : CartInterface}>, private orderPossibilityService : OrderPossibilityService, private router : Router, private activatedRoute : ActivatedRoute){}
 
   addProductToCart(product : ProductInterface) : void
   {
@@ -34,6 +39,19 @@ export class ProductItemComponent {
     }
       
     this.store.dispatch(addProduct({product : product}));
+  }
+
+  onEditClick() : void
+  {
+    this.router.navigate([`edit/${this.product?.id}`], { relativeTo: this.activatedRoute});
+  }
+
+  onDeleteClick() : void
+  {
+    if(this.product)
+      this.deleteProductEvent.emit(this.product.id);
+
+    return;
   }
 
 }

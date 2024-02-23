@@ -1,11 +1,25 @@
 <div class="card" *ngIf="product" 
-    [ngClass]="{ 'margin-top': marginTop === true, 'first-card': !marginTop && index === 0 }">
+    [ngClass]="{ 'margin-top': marginTop === true, 'first-card': !marginTop && index === 0 }"
+    >
     <div class="img-box">
         <img src={{product.imgUrl}}>
     </div>
     <div class="description">
         <h2>{{product.name}}</h2>
         <p>{{product.ingredients | ingredientsPipe}}</p>
-        <div class="button" (click)="addProductToCart(product)"><div><fa-icon [icon]="faCartShopping"></fa-icon></div></div>
+        <div class="button" (click)="addProductToCart(product)" *ngIf="!admin">
+            <div class="edit">
+                <fa-icon [icon]="faCartShopping"></fa-icon>
+            </div>
+        </div>
+        <div class="button" (click)="addProductToCart(product)" *ngIf="admin">
+            <div class="edit" (click)="onEditClick()">
+                <fa-icon [icon]="faEdit"></fa-icon>
+            </div>
+            <div class="delete" (click)="onDeleteClick()">
+                <fa-icon [icon]="faRemove"></fa-icon>
+            </div>
+        </div>
     </div>
 </div>
+

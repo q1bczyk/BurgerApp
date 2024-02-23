@@ -1,0 +1,10 @@
+@use '../../../../../assets/styles/base';
+@use '../../../../../assets/styles/shared-styles';
+
+.wrapper
+{
+    @include shared-styles.admin-wrapper;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding: 10px;
+}

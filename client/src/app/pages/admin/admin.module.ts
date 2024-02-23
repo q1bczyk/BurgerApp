@@ -11,6 +11,9 @@ import { StoreModule } from '@ngrx/store';
 import { OrderItemComponent } from './pages/orders-page/components/order-item/order-item.component';
 import { OrderStatusFormComponent } from './pages/orders-page/components/order-status-form/order-status-form.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { MenuResolver } from './pages/orders-page/orders-page.resolver';
+import { ProductFormComponent } from './ui/product-form/product-form.component';
+import { AddProductPageComponent } from './pages/add-product-page/add-product-page.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +21,9 @@ import { ReactiveFormsModule } from '@angular/forms';
     ProductsPageComponent,
     AdminHomeComponent,
     OrderItemComponent,
-    OrderStatusFormComponent
+    OrderStatusFormComponent,
+    ProductFormComponent,
+    AddProductPageComponent
   ],
   imports: [
     CommonModule,
@@ -30,6 +35,7 @@ import { ReactiveFormsModule } from '@angular/forms';
   providers: [
     AuthGuard,
     DatePipe,
+    MenuResolver,
   ]
 })
 export class AdminModule { }

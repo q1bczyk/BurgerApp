@@ -1,21 +1,14 @@
-@use '../../../../../../../assets/styles/base';
-@use '../../../../../../../assets/styles/shared-styles.scss';
+@use '../../../../assets/styles/base';
+@use '../../../../assets/styles/shared-styles.scss';
 
-.wrapper
+.wrapper-child
 {
-    @include shared-styles.wrapper;
-    font-family: base.$header-font;
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: base.$gray-color;
-
-    h2
-    {
-        width: 100%;
-        text-align: center;
-    }
+    flex-direction: column;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .nav
@@ -71,6 +64,15 @@
     position: relative;
     flex-wrap: wrap;
     margin-bottom: 20px;
+}
+
+.add-product
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 5px 20px;
+    @include shared-styles.button;
 }
 
 @media(min-width : 1500px)

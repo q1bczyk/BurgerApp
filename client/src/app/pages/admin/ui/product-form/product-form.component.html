@@ -1,0 +1,9 @@
+<div class="wrapper">
+    <app-form *ngIf="productForm"
+        [formGroup]="productForm"
+        [formSettings]="productFormSettings"
+        [buttonLabel]="'Dodaj'"
+        (formEvent)="onSubmitForm($event)"
+        (optionEvent)="changeProductType($event)"
+    />
+</div>

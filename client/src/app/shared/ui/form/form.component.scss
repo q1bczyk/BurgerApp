@@ -60,9 +60,10 @@
         font-family: base.$header-font;
     }
 
-    .row {
+    .row 
+    {
         display: flex;
-        width: 50%;
+        width: 150px;
         max-width: 150px;
         justify-content: space-between;
         font-size: 15px;
@@ -70,14 +71,16 @@
         color: #00000088;
       }
       
-      .row input {
+      .row input 
+      {
         width: 11px;
         cursor: pointer;
-        background-color: #d1d3d1; /* Kolor szary */
       }
       
-      .row input:checked {
-        background-color: #ffa500; /* Kolor pomarańczowy po zaznaczeniu */
+      input[type="file"] 
+      {
+        background-color: white;
+        border: 0;
       }
 }
 
