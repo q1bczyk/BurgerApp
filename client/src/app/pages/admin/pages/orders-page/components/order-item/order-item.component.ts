@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { OrderDetailsIdInterface } from 'src/app/pages/admin/models/order-details-id.interface';
+import { OrderDetailsIdInterface } from 'src/app/pages/admin/shared/models/order-details-id.interface';
 
 @Component({
   selector: 'app-order-item',

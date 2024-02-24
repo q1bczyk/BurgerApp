@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { LocalInterface } from 'src/app/shared/models/local.interface';
-import { AdminService } from '../../services/admin.service';
-import { setActiveAdmin } from '../../store/admin.action';
+import { AdminService } from '../../shared/services/admin.service';
+import { setActiveAdmin } from '../../shared/store/admin.action';
 
 @Component({
   selector: 'app-admin-home',

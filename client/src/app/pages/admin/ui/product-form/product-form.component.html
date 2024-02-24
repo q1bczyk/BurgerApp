@@ -1,9 +1,30 @@
 <div class="wrapper">
-    <app-form *ngIf="productForm"
-        [formGroup]="productForm"
-        [formSettings]="productFormSettings"
-        [buttonLabel]="'Dodaj'"
-        (formEvent)="onSubmitForm($event)"
-        (optionEvent)="changeProductType($event)"
+    <div class="form">
+        <app-form *ngIf="productForm"
+            [formGroup]="productForm"
+            [formSettings]="productFormSettings"
+            [buttonLabel]="'Dodaj'"
+            (formEvent)="onSubmitForm($event)"
+            (optionEvent)="changeProductType($event)"
+            (fileEvent)="onFileSelect($event)"
+        />
+        <div class="photo">
+            <div *ngIf="!imageSrc"><fa-icon [icon]="faCamera"/></div>
+            <img *ngIf="imageSrc" src={{imageSrc}}>
+        </div>
+    </div>
+    <div class="ingredients">
+        <p>Składniki</p>
+        <div class="icon" (click)="openIngredientForm()">
+            <fa-icon [icon]="faPlus"/>
+        </div>
+        <div>
+            
+        </div>
+    </div>
+    <app-ingredients-form 
+        *ngIf="isIngredientFormOpen" 
+        [productIngredients]="productIngredients"
+        (closeFormEvent)="closeIngredientForm()"
     />
 </div>

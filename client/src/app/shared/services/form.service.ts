@@ -178,12 +178,6 @@ export class FormService
       required: true,
     },
     {
-      name : 'photo',
-      label : 'Zdjęcie',
-      type : 'file',
-      require : true,
-    },
-    {
       label : 'Typ produktu',
     },
     {
@@ -203,15 +197,21 @@ export class FormService
       label : 'Napój',
       type : 'radio',
       value : 'napoj'
-    }
+    },
+    {
+      name : 'photo',
+      label : 'Zdjęcie',
+      type : 'file',
+      require : true,
+    },
   ]
 
   productForm = this.fb.group(
     {
       name: ['', [Validators.required, Validators.minLength(2)]],
       price: ['1', [Validators.required, Validators.min(1)]],
-      photo: ['', Validators.required],
       productType : ['burger'],
+      photo: ['', Validators.required],
     })
     
 }

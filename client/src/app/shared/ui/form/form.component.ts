@@ -14,6 +14,7 @@ export class FormComponent{
   @Input() buttonLabel? : string;
   @Output() formEvent : EventEmitter<any> = new EventEmitter<any>;
   @Output() optionEvent : EventEmitter<string> = new EventEmitter<string>;
+  @Output() fileEvent : EventEmitter<File> = new EventEmitter<File>
 
   onSubmit()
   {
@@ -44,5 +45,11 @@ export class FormComponent{
     }
   }
 
+  fileSelected(event : any, fieldName : string) : void
+  {
+    const fileInput = event.target as HTMLInputElement;
+    const file = fileInput.files?.[0]
+    this.fileEvent.emit(file);
+  }
 
 }

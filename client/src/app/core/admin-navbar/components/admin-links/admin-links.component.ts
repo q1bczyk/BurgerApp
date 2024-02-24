@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { faCalendar, faBell, faBurger, faEgg, faClock, faPhone, faRankingStar, faSignOut } from '@fortawesome/free-solid-svg-icons';
-import { AdminService } from 'src/app/pages/admin/services/admin.service';
+import { AdminService } from 'src/app/pages/admin/shared/services/admin.service';
 
 @Component({
   selector: 'app-admin-links',

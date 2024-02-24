@@ -1,0 +1,27 @@
+<div class="wrapper" (click)="onCloseForm()">
+    <div class="container" (click)="stopPropagation($event)">
+        <form class="form">
+            <div>
+                <label>Nowy składnik</label>
+                <input 
+                    type="text"
+                    placeholder="nazwa składnika"   
+                >
+            </div>
+            <button type="submit"><h4>Dodaj</h4></button>
+        </form>
+        <div class="ingredients">
+            <label>Istniejące składniki</label>
+            <div class="ingredient-box">
+                <p *ngIf="existingIngredients.length === 0">brak składników</p>
+                <div 
+                [ngStyle]="{'background-color': ingredient.isMarked ? '#ffb600' : ''}"
+                (click)="ingredientMarker(ingredient.name)"
+                class="ingredient" 
+                *ngFor="let ingredient of existingIngredients">
+                    <p>{{ingredient.name}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
