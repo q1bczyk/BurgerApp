@@ -24,11 +24,18 @@ export class ProductFormComponent
       quantity: 1,
       isMarked : true,
       id : 'xd'
+    },
+    {
+      name : 'boczek',
+      price : 5,
+      quantity: 2,
+      isMarked : true,
+      id : 'xd'
     }
   ]
 
   imageSrc? : string ;
-  isIngredientFormOpen : boolean = true;
+  isIngredientFormOpen : boolean = false;
 
   onSubmitForm(value : any)
   {
@@ -53,6 +60,20 @@ export class ProductFormComponent
   changeProductType(value : string)
   {
     this.productForm?.get('productType')?.setValue(value);
+  }
+
+  changeIngredientQuantity(value : any)
+  {
+    const index = this.productIngredients.findIndex(ingredient => ingredient.name === value.ingredientName)
+
+    if(index >= 0)
+      this.productIngredients[index].quantity = value.value;
+    
+  }
+
+  removeIngredient(ingredientName : string)
+  {
+    this.productIngredients = this.productIngredients.filter(x => x.name !== ingredientName)
   }
 
 }

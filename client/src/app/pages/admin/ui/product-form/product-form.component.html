@@ -15,11 +15,15 @@
     </div>
     <div class="ingredients">
         <p>Składniki</p>
-        <div class="icon" (click)="openIngredientForm()">
-            <fa-icon [icon]="faPlus"/>
+        <div *ngFor="let ingredient of productIngredients">
+            <app-ingredients-item
+                (changeQuantityEvent)="changeIngredientQuantity($event)"
+                (removeItemEvent)="removeIngredient($event)"
+                [ingredient]="ingredient"
+            />
         </div>
-        <div>
-            
+        <div class="button" (click)="openIngredientForm()">
+            <p>Dodaj składnik</p>
         </div>
     </div>
     <app-ingredients-form 

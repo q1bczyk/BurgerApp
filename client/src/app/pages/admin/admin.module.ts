@@ -16,6 +16,7 @@ import { ProductFormComponent } from './ui/product-form/product-form.component';
 import { AddProductPageComponent } from './pages/add-product-page/add-product-page.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { IngredientsFormComponent } from './ui/product-form/components/ingredients-form/ingredients-form.component';
+import { IngredientsItemComponent } from './ui/product-form/components/ingredients-item/ingredients-item.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { IngredientsFormComponent } from './ui/product-form/components/ingredien
     OrderStatusFormComponent,
     ProductFormComponent,
     AddProductPageComponent,
-    IngredientsFormComponent
+    IngredientsFormComponent,
+    IngredientsItemComponent
   ],
   imports: [
     CommonModule,
