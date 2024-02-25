@@ -65,7 +65,7 @@ namespace api._Services
                 Resource = "b",
             };
 
-            sasBuilder.SetPermissions("r");
+            sasBuilder.SetPermissions("rw");
 
             var sasToken = blobClient.GenerateSasUri(sasBuilder);
             var publicUrl = sasToken.ToString();

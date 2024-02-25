@@ -18,5 +18,5 @@
         >
       </div>
   </div>
-  <button type="submit"><h4 *ngIf="buttonLabel">{{buttonLabel}}</h4></button>
+  <button [ngClass]="{'button-absolute': buttonAbsolute}" type="submit"><h4 *ngIf="buttonLabel">{{buttonLabel}}</h4></button>
 </form>

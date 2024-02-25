@@ -1,14 +1,25 @@
 <div class="wrapper" (click)="onCloseForm()">
     <div class="container" (click)="stopPropagation($event)">
-        <form class="form">
+        <form class="form" [formGroup]="ingredientForm" (ngSubmit)="onSubmit()">
             <div>
                 <label>Nowy składnik</label>
                 <input 
                     type="text"
-                    placeholder="nazwa składnika"   
+                    placeholder="nazwa składnika"
+                    formControlName='name' 
                 >
             </div>
-            <button type="submit"><h4>Dodaj</h4></button>
+            <div class="price">
+                <label>Cena składnika</label>
+                <input 
+                    type="number"
+                    placeholder="cena"
+                    formControlName='price'  
+                >
+            </div>
+            <button type="submit" (click)="stopPropagation($event)" >
+                <h4>Dodaj</h4>
+            </button>
         </form>
         <div class="ingredients">
             <label>Istniejące składniki</label>

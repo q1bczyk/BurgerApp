@@ -1,6 +1,9 @@
 import { Component, Input } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { faCamera, faPlus } from '@fortawesome/free-solid-svg-icons';
+import { ProductInterface } from 'src/app/shared/models/product.interface';
+import { ProductService } from 'src/app/shared/services/product.service';
+import { AlertService } from 'src/app/shared/ui/alert/service/alert.service';
 import { IngredientInterface } from '../../shared/models/ingredient.interface';
 
 @Component({
@@ -15,31 +18,48 @@ export class ProductFormComponent
  
   @Input() productForm? : FormGroup;
   @Input() productFormSettings : any;
+  @Input() product : ProductInterface =
+  {
+    id : '',
+    price : 1,
+    name : '',
+    type : '',
+    quantity : 1,
+    imgUrl : '',
+    ingredients : [],
+  }
 
-  productIngredients : IngredientInterface[] = 
-  [
-    {
-      name : 'bułka',
-      price : 5,
-      quantity: 1,
-      isMarked : true,
-      id : 'xd'
-    },
-    {
-      name : 'boczek',
-      price : 5,
-      quantity: 2,
-      isMarked : true,
-      id : 'xd'
-    }
-  ]
 
   imageSrc? : string ;
   isIngredientFormOpen : boolean = false;
+  file? : File;
 
-  onSubmitForm(value : any)
+  constructor(private productService : ProductService){}
+
+  onSubmitForm(value : any) : void
   {
-    console.log(value);
+    if(this.productForm?.invalid)
+      return
+
+    const newProduct = 
+    {
+      id : '',
+      price : value.price,
+      name : value.name,
+      type : this.productForm?.get('productType')?.value,
+      quantity : 0,
+      imgUrl : '',
+      ingredients : this.product.ingredients
+    }
+
+    if(this.file)
+    this.productService.AddProduct(newProduct, this.file)
+      .subscribe(res => {
+        console.log(res)
+      }, err => {
+        console.log(err);
+      })
+
   }
 
   openIngredientForm() : void
@@ -54,6 +74,7 @@ export class ProductFormComponent
 
   onFileSelect(file : File) : void 
   {
+    this.file = file;
     this.imageSrc = window.URL.createObjectURL(file);
   }
 
@@ -64,16 +85,21 @@ export class ProductFormComponent
 
   changeIngredientQuantity(value : any)
   {
-    const index = this.productIngredients.findIndex(ingredient => ingredient.name === value.ingredientName)
+    const index = this.product.ingredients.findIndex(ingredient => ingredient.name === value.ingredientName)
 
     if(index >= 0)
-      this.productIngredients[index].quantity = value.value;
+      this.product.ingredients[index].quantity = value.value;
     
   }
 
   removeIngredient(ingredientName : string)
   {
-    this.productIngredients = this.productIngredients.filter(x => x.name !== ingredientName)
+    this.product.ingredients = this.product.ingredients.filter(x => x.name !== ingredientName)
+  }
+
+  addIngredient(ingredient : IngredientInterface)
+  {
+    this.product.ingredients.push(ingredient);
   }
 
 }

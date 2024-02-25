@@ -68,6 +68,17 @@
     flex-direction: column;
     justify-content: flex-start;
 
+    .price
+    {
+        display: flex;
+        flex-direction: column;
+
+        input
+        {
+            width: 80px;
+        }
+    }
+
     span
     {
         color: red;

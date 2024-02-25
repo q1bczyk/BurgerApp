@@ -202,7 +202,7 @@ export class FormService
       name : 'photo',
       label : 'Zdjęcie',
       type : 'file',
-      require : true,
+      required : true,
     },
   ]
 

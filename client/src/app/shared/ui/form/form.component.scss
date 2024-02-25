@@ -58,8 +58,13 @@
         border: 0;
         padding: 10px 20px;
         font-family: base.$header-font;
-        position: absolute;
-        bottom: 0;
+    }
+
+    .button-absolute
+    {
+        position: fixed;
+        right: 5%;
+        bottom: 5%;
     }
 
     .row 

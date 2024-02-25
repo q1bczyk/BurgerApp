@@ -12,6 +12,7 @@ export class FormComponent{
   @Input() formGroup? : FormGroup;
   @Input() formSettings? : any;
   @Input() buttonLabel? : string;
+  @Input() buttonAbsolute? : boolean;
   @Output() formEvent : EventEmitter<any> = new EventEmitter<any>;
   @Output() optionEvent : EventEmitter<string> = new EventEmitter<string>;
   @Output() fileEvent : EventEmitter<File> = new EventEmitter<File>

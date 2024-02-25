@@ -1,34 +1,41 @@
 <div class="wrapper">
+    <h2>Dodaj produkt</h2>
     <div class="form">
-        <app-form *ngIf="productForm"
-            [formGroup]="productForm"
-            [formSettings]="productFormSettings"
-            [buttonLabel]="'Dodaj'"
-            (formEvent)="onSubmitForm($event)"
-            (optionEvent)="changeProductType($event)"
-            (fileEvent)="onFileSelect($event)"
-        />
-        <div class="photo">
-            <div *ngIf="!imageSrc"><fa-icon [icon]="faCamera"/></div>
-            <img *ngIf="imageSrc" src={{imageSrc}}>
-        </div>
-    </div>
-    <div class="ingredients">
-        <p>Składniki</p>
-        <div *ngFor="let ingredient of productIngredients">
-            <app-ingredients-item
-                (changeQuantityEvent)="changeIngredientQuantity($event)"
-                (removeItemEvent)="removeIngredient($event)"
-                [ingredient]="ingredient"
+            <div class="form-handler">
+                <app-form *ngIf="productForm"
+                [formGroup]="productForm"
+                [formSettings]="productFormSettings"
+                [buttonLabel]="'Dodaj produkt'"
+                [buttonAbsolute]="true"
+                (formEvent)="onSubmitForm($event)"
+                (optionEvent)="changeProductType($event)"
+                (fileEvent)="onFileSelect($event)"
             />
+            <div class="photo">
+                <div *ngIf="!imageSrc"><fa-icon [icon]="faCamera"/></div>
+                <img *ngIf="imageSrc" src={{imageSrc}}>
+            </div>
         </div>
-        <div class="button" (click)="openIngredientForm()">
-            <p>Dodaj składnik</p>
+        <div class="ingredients">
+            <p>Składniki</p>
+            <div *ngFor="let ingredient of product.ingredients">
+                <app-ingredients-item
+                    (changeQuantityEvent)="changeIngredientQuantity($event)"
+                    (removeItemEvent)="removeIngredient($event)"
+                    [ingredient]="ingredient"
+                />
+            </div>
+            <div class="button" (click)="openIngredientForm()">
+                <p>Dodaj składnik</p>
+            </div>
         </div>
     </div>
     <app-ingredients-form 
         *ngIf="isIngredientFormOpen" 
-        [productIngredients]="productIngredients"
+        [productIngredients]="product.ingredients"
         (closeFormEvent)="closeIngredientForm()"
+        (removeItemEvent)="removeIngredient($event)"
+        (addItemEvent)="addIngredient($event)"
+        (addNewItemEvent)="addIngredient($event)"
     />
 </div>
