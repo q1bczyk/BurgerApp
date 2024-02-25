@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
 import { ProductInterface } from '../models/product.interface';
+import { deleteProduct } from '../store/cart-store/cart.action';
 import { BaseApiService } from './base-api.service';
 
 @Injectable({
@@ -43,7 +44,15 @@ export class ProductService {
     formData.append('name', productData.name);
     formData.append('type', productData.type);
     formData.append('file', img);
-    formData.append('ingredients', JSON.stringify(productData.ingredients));
+    if(productData.ingredients.length < 1)
+      formData.append('ingredients', JSON.stringify(productData.ingredients))
+    for(let i = 0; i < productData.ingredients.length; i++)
+    {
+      const keyPrefix = `ingredients[${i.toString()}].`;
+      formData.append(keyPrefix + 'price', productData.ingredients[i].price.toString());
+      formData.append(keyPrefix + 'name', productData.ingredients[i].name);
+      formData.append(keyPrefix + 'quantity', productData.ingredients[i].quantity.toString());
+    }
 
     return this.http.post<ProductInterface>(this.url, formData, {headers : headers})
       .pipe(
@@ -52,6 +61,18 @@ export class ProductService {
         })
       )
    
+  }
+
+  deleteProduct(productId : string) : Observable<{message : string}>
+  {
+    const headers : HttpHeaders = this.baseApiService.setHeaders();
+
+    return this.http.delete<{message : string}>(this.url + `/${productId}`, {headers : headers })
+      .pipe(
+        map(res => {
+          return res;
+        })
+      )
   }
 
 }

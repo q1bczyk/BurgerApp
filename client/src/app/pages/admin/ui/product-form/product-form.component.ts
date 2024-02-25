@@ -1,8 +1,9 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ViewChild } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { faCamera, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { ProductInterface } from 'src/app/shared/models/product.interface';
 import { ProductService } from 'src/app/shared/services/product.service';
+import { PlaceholderDirective } from 'src/app/shared/ui/alert/directive/placeholder.directive';
 import { AlertService } from 'src/app/shared/ui/alert/service/alert.service';
 import { IngredientInterface } from '../../shared/models/ingredient.interface';
 
@@ -15,32 +16,28 @@ export class ProductFormComponent
 {
   faCamera = faCamera;
   faPlus = faPlus;
- 
+
+  @ViewChild(PlaceholderDirective, { static: true }) alertHost!: PlaceholderDirective;
+  
   @Input() productForm? : FormGroup;
   @Input() productFormSettings : any;
-  @Input() product : ProductInterface =
-  {
-    id : '',
-    price : 1,
-    name : '',
-    type : '',
-    quantity : 1,
-    imgUrl : '',
-    ingredients : [],
-  }
+  @Input() product : ProductInterface = this.initializeStartProduct();
 
 
   imageSrc? : string ;
   isIngredientFormOpen : boolean = false;
   file? : File;
+  isLoading : boolean = false;
 
-  constructor(private productService : ProductService){}
+  constructor(private productService : ProductService, private alertService : AlertService){}
 
   onSubmitForm(value : any) : void
   {
     if(this.productForm?.invalid)
       return
 
+    this.isLoading = true;
+    
     const newProduct = 
     {
       id : '',
@@ -55,8 +52,12 @@ export class ProductFormComponent
     if(this.file)
     this.productService.AddProduct(newProduct, this.file)
       .subscribe(res => {
-        console.log(res)
+        this.alertService.ShowAlert('Sukces', 'pomyslnie dodano produkt', '', this.alertHost)
+        this.isLoading = false;
+        this.product = this.initializeStartProduct();
       }, err => {
+        this.alertService.ShowAlert('Błąd', err.message, '', this.alertHost)
+        this.isLoading = false;
         console.log(err);
       })
 
@@ -100,6 +101,27 @@ export class ProductFormComponent
   addIngredient(ingredient : IngredientInterface)
   {
     this.product.ingredients.push(ingredient);
+  }
+
+  private initializeStartProduct() : ProductInterface
+  {
+    const product : ProductInterface =
+    {
+      id : '',
+      price : 1,
+      name : '',
+      type : '',
+      quantity : 1,
+      imgUrl : '',
+      ingredients : [],
+    }
+
+    this.imageSrc = undefined;
+    this.productForm?.get('productType')?.setValue('burger');
+    this.productForm?.get('name')?.setValue('');
+    this.productForm?.get('price')?.setValue(10);
+    
+    return product;
   }
 
 }

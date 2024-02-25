@@ -91,7 +91,16 @@ export class MenuComponent
 
   deleteProduct(productId : string) : void
   {
-    console.log(productId);
+    this.isLoading = true;
+    this.productService.deleteProduct(productId)
+      .subscribe(res  => {
+        this.products = this.products.filter(product => product.id !== productId);
+        this.isLoading = false;
+      }, err => {
+        console.log(err);
+        this.alertService.ShowAlert('Błąd', err.error, '', this.alertHost);
+        this.isLoading = false;
+      })
   }
 
   addProduct() : void
