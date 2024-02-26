@@ -2,17 +2,14 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
 import { ProductInterface } from '../models/product.interface';
-import { deleteProduct } from '../store/cart-store/cart.action';
 import { BaseApiService } from './base-api.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ProductService {
+export class ProductService extends  BaseApiService{
 
-  url : string = "https://localhost:5001/api/product"
-
-  constructor(private http : HttpClient, private baseApiService : BaseApiService){}
+  url : string = `${this.baseUrl}product`
 
   GetBestsellers() : Observable<ProductInterface[]>
   {
@@ -36,7 +33,7 @@ export class ProductService {
 
   getProduct(productId : string) : Observable<ProductInterface>
   {
-    const headers : HttpHeaders = this.baseApiService.setHeaders();
+    const headers : HttpHeaders = this.setHeaders();
 
     return this.http.get<ProductInterface>(`${this.url}/${productId}`, {headers : headers})
       .pipe(
@@ -48,7 +45,7 @@ export class ProductService {
 
   AddProduct(productData : ProductInterface, img : File) : Observable<ProductInterface>
   {
-    const headers : HttpHeaders = this.baseApiService.setHeaders();
+    const headers : HttpHeaders = this.setHeaders();
     const formData = this.setFormData(productData, img);
 
     return this.http.post<ProductInterface>(this.url, formData, {headers : headers})
@@ -62,7 +59,7 @@ export class ProductService {
 
   editProduct(productData : ProductInterface, img? : File) : Observable<ProductInterface>
   {
-    const headers : HttpHeaders = this.baseApiService.setHeaders();
+    const headers : HttpHeaders = this.setHeaders();
     headers.append('Content-Type', 'multipart/form-data');
     const formData = this.setFormData(productData, img);
 
@@ -76,7 +73,7 @@ export class ProductService {
 
   deleteProduct(productId : string) : Observable<{message : string}>
   {
-    const headers : HttpHeaders = this.baseApiService.setHeaders();
+    const headers : HttpHeaders = this.setHeaders();
 
     return this.http.delete<{message : string}>(this.url + `/${productId}`, {headers : headers })
       .pipe(

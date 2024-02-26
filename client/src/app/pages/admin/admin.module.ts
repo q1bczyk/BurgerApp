@@ -20,6 +20,8 @@ import { IngredientsItemComponent } from './ui/product-form/components/ingredien
 import { EditProductPageComponent } from './pages/edit-product-page/edit-product-page.component';
 import { EditProductResolver } from './pages/edit-product-page/edit-product.resolver';
 import { IngredientsPageComponent } from './pages/ingredients-page/ingredients-page.component';
+import { IngredientsPageResolver } from './pages/ingredients-page/ingredients-page.resolver';
+import { IngredientAdminItemComponent } from './pages/ingredients-page/components/ingredient-admin-item/ingredient-admin-item.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +35,8 @@ import { IngredientsPageComponent } from './pages/ingredients-page/ingredients-p
     IngredientsFormComponent,
     IngredientsItemComponent,
     EditProductPageComponent,
-    IngredientsPageComponent
+    IngredientsPageComponent,
+    IngredientAdminItemComponent
   ],
   imports: [
     CommonModule,
@@ -47,7 +50,8 @@ import { IngredientsPageComponent } from './pages/ingredients-page/ingredients-p
     AuthGuard,
     DatePipe,
     MenuResolver,
-    EditProductResolver
+    EditProductResolver,
+    IngredientsPageResolver,
   ]
 })
 export class AdminModule { }

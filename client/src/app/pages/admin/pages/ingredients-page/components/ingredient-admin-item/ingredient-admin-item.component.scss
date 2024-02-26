@@ -1,0 +1,21 @@
+@use '../../../../../../../assets/styles/base';
+
+.ingredient
+{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 10px 0;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    border-bottom: 1px solid #d3d3d3;
+
+    h4, p
+    {
+        padding: 0 10px;
+    }
+
+    
+}
