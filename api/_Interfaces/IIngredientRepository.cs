@@ -9,6 +9,7 @@ namespace api._Interfaces
         Task<string> DeleteIngredientByIdAsync(string ingredientId);
         Task<string> GetIngredientIdByNameAsync(string name);
         Task<Ingredient> GetIngredientByIdAsync(string ingredientId);
+        Task<List<Ingredient>> GetIngredientsAsync();
         Task<bool> SaveAllAsync();
     }
 }

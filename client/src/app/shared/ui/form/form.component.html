@@ -13,10 +13,10 @@
           *ngIf="getFormControl(field.name) as formControl"
           [formControl]="formControl"
           [checked]="field.value === getFormControl(field.name)?.value"
-          (change)="field.type === 'radio' ? changeOption(field.value) : null"
+          (change)="field.type === 'radio' ? changeOption(field.value) : (field.type === 'file' ? fileSelected($event, field.name) : null)"
           (keypress)="handleKeyPress($event, field.name)"
         >
       </div>
   </div>
-  <button type="submit"><h4 *ngIf="buttonLabel">{{buttonLabel}}</h4></button>
+  <button [ngClass]="{'button-absolute': buttonAbsolute}" type="submit"><h4 *ngIf="buttonLabel">{{buttonLabel}}</h4></button>
 </form>

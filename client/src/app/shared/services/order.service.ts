@@ -4,8 +4,8 @@ import { map, Observable } from 'rxjs';
 import { OrderRequestInterface } from '../models/order-request.interface';
 import { OrderConfirmInterface } from '../models/order-confirm.interface';
 import { OrderDetailsInterface } from '../models/order-details.interface';
-import { OrderDetailsIdInterface } from 'src/app/pages/admin/models/order-details-id.interface';
-import { OrderHandleInterface } from 'src/app/pages/admin/models/order-handle.interface';
+import { OrderDetailsIdInterface } from 'src/app/pages/admin/shared/models/order-details-id.interface';
+import { OrderHandleInterface } from 'src/app/pages/admin/shared/models/order-handle.interface';
 
 @Injectable({
   providedIn: 'root'

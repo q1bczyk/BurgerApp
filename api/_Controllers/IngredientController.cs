@@ -21,6 +21,14 @@ namespace api._Controllers
             this.mapper = mapper;
         }
 
+        [HttpGet]
+        public async Task<ActionResult<List<IngredientGetDTO>>> GetIngredients()
+        {
+            var ingredients = await ingredientRepository.GetIngredientsAsync();
+
+            return Ok(mapper.Map<List<IngredientGetDTO>>(ingredients));
+        }
+
         [HttpGet("{ingredientId}")]
         public async Task<ActionResult<IngredientGetDTO>> GetIngredient(string ingredientId)
         {
@@ -59,7 +67,7 @@ namespace api._Controllers
 
             ingredient.Name = ingredientPostDTO.Name;
             ingredient.Price = ingredientPostDTO.Price;
-            ingredient.Quantity = ingredientPostDTO.Quantity;
+            ingredient.Quantity = 1;
 
             ingredientRepository.Update(ingredient);
             await ingredientRepository.SaveAllAsync();

@@ -43,7 +43,6 @@ export class OrderStatusFormComponent
       this.dataEvent.emit({orderId : this.formSettings?.orderId, orderStatus : 'anulowane', refusalReason : refusalReasonValue});
     }
       
-
     return
   }
 

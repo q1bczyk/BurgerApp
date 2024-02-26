@@ -5,8 +5,8 @@ import { LocalInterface } from 'src/app/shared/models/local.interface';
 import { OrderService } from 'src/app/shared/services/order.service';
 import { PlaceholderDirective } from 'src/app/shared/ui/alert/directive/placeholder.directive';
 import { AlertService } from 'src/app/shared/ui/alert/service/alert.service';
-import { OrderDetailsIdInterface } from '../../models/order-details-id.interface';
-import { OrderHandleInterface } from '../../models/order-handle.interface';
+import { OrderDetailsIdInterface } from '../../shared/models/order-details-id.interface';
+import { OrderHandleInterface } from '../../shared/models/order-handle.interface';
 
 @Component({
   selector: 'app-orders-page',

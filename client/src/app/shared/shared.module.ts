@@ -10,6 +10,7 @@ import { FormComponent } from './ui/form/form.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AlertComponent } from './ui/alert/alert.component';
 import { PlaceholderDirective } from './ui/alert/directive/placeholder.directive';
+import { MenuComponent } from './ui/menu/menu.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { PlaceholderDirective } from './ui/alert/directive/placeholder.directive
     FormComponent,
     AlertComponent,
     PlaceholderDirective,
+    MenuComponent,
   ],
   imports: [
     CommonModule,
@@ -35,6 +37,7 @@ import { PlaceholderDirective } from './ui/alert/directive/placeholder.directive
     FormComponent,
     AlertComponent,
     PlaceholderDirective,
+    MenuComponent,
   ]
 })
 export class SharedModule { }

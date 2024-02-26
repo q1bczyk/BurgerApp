@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { faCalendar, faBell, faBurger, faEgg, faClock, faPhone, faRankingStar, faSignOut } from '@fortawesome/free-solid-svg-icons';
-import { AdminService } from 'src/app/pages/admin/services/admin.service';
+import { AdminService } from 'src/app/pages/admin/shared/services/admin.service';
 
 @Component({
   selector: 'app-admin-links',
@@ -21,9 +21,10 @@ export class AdminLinksComponent {
 
   constructor(private router : Router, private activatedRoute : ActivatedRoute, private admisService : AdminService){}
 
-  navigate(orderStatus: string): void 
+  navigate(queryParams: string, value: string, path: string): void 
   {
-    this.router.navigate(['zamowienia'], { relativeTo: this.activatedRoute, queryParams: { 'order-status': orderStatus } });
+    const queryParamsObj = { [queryParams]: value };
+    this.router.navigate([path], { relativeTo: this.activatedRoute, queryParams: queryParamsObj });
   }
 
   logOut()

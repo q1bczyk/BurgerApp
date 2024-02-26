@@ -46,6 +46,11 @@ namespace api._Repositories
             else return ingredient.Id;
         }
 
+        public async Task<List<Ingredient>> GetIngredientsAsync()
+        {
+            return await context.Ingredients.ToListAsync();
+        }
+
         public async Task<bool> SaveAllAsync()
         {
             return await context.SaveChangesAsync() > 0;

@@ -57,7 +57,7 @@ namespace api._Controllers
             foreach(IngredientPostDTO ingredinentDTO in productPostDTO.Ingredients)
             {
                 if(ingredinentDTO.Quantity > 1)
-                    ingredinentDTO.Name = ingredinentDTO.Name + 'x' + ingredinentDTO.Quantity;
+                    ingredinentDTO.Name = ingredinentDTO.Name + " x" + ingredinentDTO.Quantity;
 
                 var ingredientId = await ingredientRepository.GetIngredientIdByNameAsync(ingredinentDTO.Name);
 
@@ -67,7 +67,7 @@ namespace api._Controllers
                     {
                         Price = ingredinentDTO.Price,
                         Name = ingredinentDTO.Name,
-                        Quantity = ingredinentDTO.Quantity,
+                        Quantity = 1,
                     };
 
                     await ingredientRepository.AddIngredientAsync(newIngredient);
@@ -96,7 +96,7 @@ namespace api._Controllers
             await ingredientProductRepository.DeleteProductByIdAsync(product.Id);
             await fileService.DeleteFileAsync(product.ImgUrl);
 
-            return Ok("Deleted succesfull!");
+            return Ok(new { message = "Deleted successful!" });
         }
 
         [AllowAnonymous]
@@ -120,6 +120,8 @@ namespace api._Controllers
             
             if(product == null)
                 return NotFound("Product doesn't exist!");
+
+            product.ImgUrl = await fileService.GeneratePublicLink(product.ImgUrl);
 
             return Ok(mapper.Map<ProductGetDTO>(product));
         }
@@ -153,7 +155,7 @@ namespace api._Controllers
             foreach(IngredientPostDTO ingredinentDTO in productPutDTO.Ingredients)
             {
                 if(ingredinentDTO.Quantity > 1)
-                    ingredinentDTO.Name = ingredinentDTO.Name + 'x' + ingredinentDTO.Quantity;
+                    ingredinentDTO.Name = ingredinentDTO.Name + " x" + ingredinentDTO.Quantity;
 
                 var ingredientId = await ingredientRepository.GetIngredientIdByNameAsync(ingredinentDTO.Name);
 

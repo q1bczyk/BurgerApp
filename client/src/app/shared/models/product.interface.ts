@@ -1,4 +1,4 @@
-import { IngredientResponseInterface } from "./ingredient-response.interface";
+import { IngredientInterface } from "src/app/pages/admin/shared/models/ingredient.interface";
 
 export interface ProductInterface
 {
@@ -8,5 +8,5 @@ export interface ProductInterface
     type : string;
     quantity : number;
     imgUrl : string;
-    ingredients : IngredientResponseInterface[];
+    ingredients : IngredientInterface[];
 }

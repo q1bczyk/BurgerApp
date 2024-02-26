@@ -162,5 +162,64 @@ export class FormService
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(8)]]
     })
+
+    productFormSettings : any = 
+  [
+    {
+      name : "name",
+      label : 'Nazwa',
+      type : 'text',
+      required: true,
+    },
+    {
+      name : "price",
+      label : 'Cena',
+      type : 'number',
+      required: true,
+    },
+    {
+      label : 'Typ produktu',
+    },
+    {
+      name : "productType",
+      label : 'Burger',
+      type : 'radio',
+      value : 'burger'
+    },
+    {
+      name : "productType",
+      label : 'Przekąska',
+      type : 'radio',
+      value : 'przekaska'
+    },
+    {
+      name : "productType",
+      label : 'Napój',
+      type : 'radio',
+      value : 'napoj'
+    },
+    {
+      name : 'photo',
+      label : 'Zdjęcie',
+      type : 'file',
+      required : true,
+    },
+  ]
+
+  productForm = this.fb.group(
+    {
+      name: ['', [Validators.required, Validators.minLength(2)]],
+      price: ['1', [Validators.required, Validators.min(1)]],
+      productType : ['burger'],
+      photo: ['', Validators.required],
+    })
+
+    editProductForm = this.fb.group(
+      {
+        name: ['', [Validators.required, Validators.minLength(2)]],
+        price: ['1', [Validators.required, Validators.min(1)]],
+        productType : ['burger'],
+        photo: [''],
+      })
     
 }
