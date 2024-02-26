@@ -213,5 +213,13 @@ export class FormService
       productType : ['burger'],
       photo: ['', Validators.required],
     })
+
+    editProductForm = this.fb.group(
+      {
+        name: ['', [Validators.required, Validators.minLength(2)]],
+        price: ['1', [Validators.required, Validators.min(1)]],
+        productType : ['burger'],
+        photo: [''],
+      })
     
 }

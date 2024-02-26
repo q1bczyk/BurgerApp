@@ -34,25 +34,22 @@ export class ProductService {
       )
   }
 
-  AddProduct(productData : ProductInterface, img : File) : Observable<ProductInterface>
+  getProduct(productId : string) : Observable<ProductInterface>
   {
     const headers : HttpHeaders = this.baseApiService.setHeaders();
 
-    const formData = new FormData();
+    return this.http.get<ProductInterface>(`${this.url}/${productId}`, {headers : headers})
+      .pipe(
+        map(resData => {
+          return resData;
+        })
+      )
+  }
 
-    formData.append('price', productData.price.toString());
-    formData.append('name', productData.name);
-    formData.append('type', productData.type);
-    formData.append('file', img);
-    if(productData.ingredients.length < 1)
-      formData.append('ingredients', JSON.stringify(productData.ingredients))
-    for(let i = 0; i < productData.ingredients.length; i++)
-    {
-      const keyPrefix = `ingredients[${i.toString()}].`;
-      formData.append(keyPrefix + 'price', productData.ingredients[i].price.toString());
-      formData.append(keyPrefix + 'name', productData.ingredients[i].name);
-      formData.append(keyPrefix + 'quantity', productData.ingredients[i].quantity.toString());
-    }
+  AddProduct(productData : ProductInterface, img : File) : Observable<ProductInterface>
+  {
+    const headers : HttpHeaders = this.baseApiService.setHeaders();
+    const formData = this.setFormData(productData, img);
 
     return this.http.post<ProductInterface>(this.url, formData, {headers : headers})
       .pipe(
@@ -61,6 +58,20 @@ export class ProductService {
         })
       )
    
+  }
+
+  editProduct(productData : ProductInterface, img? : File) : Observable<ProductInterface>
+  {
+    const headers : HttpHeaders = this.baseApiService.setHeaders();
+    headers.append('Content-Type', 'multipart/form-data');
+    const formData = this.setFormData(productData, img);
+
+    return this.http.put<ProductInterface>(`${this.url}/${productData.id}`, formData, {headers : headers})
+      .pipe(
+        map(resData => {
+          return resData;
+        })
+      )
   }
 
   deleteProduct(productId : string) : Observable<{message : string}>
@@ -73,6 +84,31 @@ export class ProductService {
           return res;
         })
       )
+  }
+
+  setFormData(productData : ProductInterface, img? : File) : FormData
+  {
+    const formData = new FormData();
+
+    formData.append('price', productData.price.toString());
+    formData.append('name', productData.name);
+    formData.append('type', productData.type);
+
+    if(img)
+      formData.append('file', img);
+
+    if(productData.ingredients.length < 1)
+      formData.append('ingredients', JSON.stringify(productData.ingredients))
+
+    for(let i = 0; i < productData.ingredients.length; i++)
+    {
+      const keyPrefix = `ingredients[${i.toString()}].`;
+      formData.append(keyPrefix + 'price', productData.ingredients[i].price.toString());
+      formData.append(keyPrefix + 'name', productData.ingredients[i].name);
+      formData.append(keyPrefix + 'quantity', productData.ingredients[i].quantity.toString());
+    }
+
+    return formData;
   }
 
 }

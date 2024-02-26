@@ -1,4 +1,4 @@
-import { Component, Input, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { faCamera, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { ProductInterface } from 'src/app/shared/models/product.interface';
@@ -12,7 +12,7 @@ import { IngredientInterface } from '../../shared/models/ingredient.interface';
   templateUrl: './product-form.component.html',
   styleUrls: ['./product-form.component.scss']
 })
-export class ProductFormComponent 
+export class ProductFormComponent implements OnInit 
 {
   faCamera = faCamera;
   faPlus = faPlus;
@@ -22,6 +22,7 @@ export class ProductFormComponent
   @Input() productForm? : FormGroup;
   @Input() productFormSettings : any;
   @Input() product : ProductInterface = this.initializeStartProduct();
+  @Input() editMode? : boolean;
 
 
   imageSrc? : string ;
@@ -31,6 +32,12 @@ export class ProductFormComponent
 
   constructor(private productService : ProductService, private alertService : AlertService){}
 
+  ngOnInit(): void 
+  {
+    if(this.editMode)
+      this.imageSrc = this.product.imgUrl;
+  }
+
   onSubmitForm(value : any) : void
   {
     if(this.productForm?.invalid)
@@ -38,9 +45,9 @@ export class ProductFormComponent
 
     this.isLoading = true;
     
-    const newProduct = 
+    const newProduct : ProductInterface = 
     {
-      id : '',
+      id : this.product.id,
       price : value.price,
       name : value.name,
       type : this.productForm?.get('productType')?.value,
@@ -49,17 +56,11 @@ export class ProductFormComponent
       ingredients : this.product.ingredients
     }
 
-    if(this.file)
-    this.productService.AddProduct(newProduct, this.file)
-      .subscribe(res => {
-        this.alertService.ShowAlert('Sukces', 'pomyslnie dodano produkt', '', this.alertHost)
-        this.isLoading = false;
-        this.product = this.initializeStartProduct();
-      }, err => {
-        this.alertService.ShowAlert('Błąd', err.message, '', this.alertHost)
-        this.isLoading = false;
-        console.log(err);
-      })
+    if(!this.editMode)
+      this.addProduct(newProduct);
+    
+    else
+      this.editProduct(newProduct);
 
   }
 
@@ -122,6 +123,35 @@ export class ProductFormComponent
     this.productForm?.get('price')?.setValue(10);
     
     return product;
+  }
+
+  private addProduct(newProduct : ProductInterface) : void
+  {
+    if(this.file)
+    this.productService.AddProduct(newProduct, this.file)
+      .subscribe(res => {
+        this.alertService.ShowAlert('Sukces', 'pomyslnie dodano produkt', '', this.alertHost)
+        this.isLoading = false;
+        this.product = this.initializeStartProduct();
+      }, err => {
+        this.alertService.ShowAlert('Błąd', err.message, '', this.alertHost)
+        this.isLoading = false;
+        console.log(err);
+      })
+  }
+
+  private editProduct(editedProduct : ProductInterface)
+  {
+    this.productService.editProduct(editedProduct, this.file)
+      .subscribe(res => {
+        this.alertService.ShowAlert('Sukces', 'pomyslnie zedytowano produkt', '', this.alertHost)
+        this.isLoading = false;
+        this.product = this.initializeStartProduct();
+      }, err => {
+        this.alertService.ShowAlert('Błąd', err.message, '', this.alertHost)
+        this.isLoading = false;
+        console.log(err);
+      })
   }
 
 }

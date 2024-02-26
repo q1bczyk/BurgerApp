@@ -67,7 +67,7 @@ namespace api._Controllers
 
             ingredient.Name = ingredientPostDTO.Name;
             ingredient.Price = ingredientPostDTO.Price;
-            ingredient.Quantity = ingredientPostDTO.Quantity;
+            ingredient.Quantity = 1;
 
             ingredientRepository.Update(ingredient);
             await ingredientRepository.SaveAllAsync();

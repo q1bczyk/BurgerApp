@@ -4,6 +4,9 @@ import { AdminComponent } from './admin.component';
 import { AuthGuard } from './auth.guard';
 import { AddProductPageComponent } from './pages/add-product-page/add-product-page.component';
 import { AdminHomeComponent } from './pages/admin-home/admin-home.component';
+import { EditProductPageComponent } from './pages/edit-product-page/edit-product-page.component';
+import { EditProductResolver } from './pages/edit-product-page/edit-product.resolver';
+import { IngredientsPageComponent } from './pages/ingredients-page/ingredients-page.component';
 import { OrdersPageComponent } from './pages/orders-page/orders-page.component';
 import { MenuResolver } from './pages/orders-page/orders-page.resolver';
 import { ProductsPageComponent } from './pages/products-page/products-page.component';
@@ -32,6 +35,20 @@ const routes: Routes =
       {
         path : 'produkty/dodaj',
         component : AddProductPageComponent,
+      },
+      {
+        path : 'produkty/edytuj/:productId',
+        component : EditProductPageComponent,
+        resolve : {product : EditProductResolver}
+      },
+      {
+        path : 'skladniki',
+        component : IngredientsPageComponent,
+      },
+      {
+        path : 'skladniki/:ingredientId',
+        component : EditProductPageComponent,
+        resolve : {product : EditProductResolver}
       },
     ]
   }

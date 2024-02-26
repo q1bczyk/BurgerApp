@@ -17,6 +17,9 @@ import { AddProductPageComponent } from './pages/add-product-page/add-product-pa
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { IngredientsFormComponent } from './ui/product-form/components/ingredients-form/ingredients-form.component';
 import { IngredientsItemComponent } from './ui/product-form/components/ingredients-item/ingredients-item.component';
+import { EditProductPageComponent } from './pages/edit-product-page/edit-product-page.component';
+import { EditProductResolver } from './pages/edit-product-page/edit-product.resolver';
+import { IngredientsPageComponent } from './pages/ingredients-page/ingredients-page.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +31,9 @@ import { IngredientsItemComponent } from './ui/product-form/components/ingredien
     ProductFormComponent,
     AddProductPageComponent,
     IngredientsFormComponent,
-    IngredientsItemComponent
+    IngredientsItemComponent,
+    EditProductPageComponent,
+    IngredientsPageComponent
   ],
   imports: [
     CommonModule,
@@ -42,6 +47,7 @@ import { IngredientsItemComponent } from './ui/product-form/components/ingredien
     AuthGuard,
     DatePipe,
     MenuResolver,
+    EditProductResolver
   ]
 })
 export class AdminModule { }

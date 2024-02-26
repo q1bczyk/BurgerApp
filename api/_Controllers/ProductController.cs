@@ -67,7 +67,7 @@ namespace api._Controllers
                     {
                         Price = ingredinentDTO.Price,
                         Name = ingredinentDTO.Name,
-                        Quantity = ingredinentDTO.Quantity,
+                        Quantity = 1,
                     };
 
                     await ingredientRepository.AddIngredientAsync(newIngredient);
@@ -120,6 +120,8 @@ namespace api._Controllers
             
             if(product == null)
                 return NotFound("Product doesn't exist!");
+
+            product.ImgUrl = await fileService.GeneratePublicLink(product.ImgUrl);
 
             return Ok(mapper.Map<ProductGetDTO>(product));
         }

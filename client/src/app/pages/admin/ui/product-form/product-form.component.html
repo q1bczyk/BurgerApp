@@ -1,13 +1,14 @@
 <app-loader *ngIf="isLoading"/>
 <ng-template appPlaceholder></ng-template>
 <div class="wrapper">
-    <h2>Dodaj produkt</h2>
+    <h2 *ngIf="!editMode">Dodaj produkt</h2>
+    <h2 *ngIf="editMode">Edytuj produkt</h2>
     <div class="form">
             <div class="form-handler">
                 <app-form *ngIf="productForm"
                 [formGroup]="productForm"
                 [formSettings]="productFormSettings"
-                [buttonLabel]="'Dodaj produkt'"
+                [buttonLabel]="editMode ? 'Edytuj produkt' : 'Dodaj produkt'"
                 [buttonAbsolute]="true"
                 (formEvent)="onSubmitForm($event)"
                 (optionEvent)="changeProductType($event)"

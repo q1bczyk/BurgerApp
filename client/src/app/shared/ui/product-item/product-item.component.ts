@@ -24,6 +24,7 @@ export class ProductItemComponent {
   @Input() admin? : boolean;
   @Output() alertEvent : EventEmitter<string> = new EventEmitter();
   @Output() deleteProductEvent : EventEmitter<string> = new EventEmitter();
+  @Output() editProductEvent : EventEmitter<string> = new EventEmitter();
   
 
   constructor(private store : Store<{cartStorage : CartInterface}>, private orderPossibilityService : OrderPossibilityService, private router : Router, private activatedRoute : ActivatedRoute){}
@@ -43,7 +44,7 @@ export class ProductItemComponent {
 
   onEditClick() : void
   {
-    this.router.navigate([`edit/${this.product?.id}`], { relativeTo: this.activatedRoute});
+    this.router.navigate([`edytuj/${this.product?.id}`], { relativeTo: this.activatedRoute});
   }
 
   onDeleteClick() : void
