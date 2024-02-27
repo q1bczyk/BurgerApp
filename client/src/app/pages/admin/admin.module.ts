@@ -6,8 +6,6 @@ import { ProductsPageComponent } from './pages/products-page/products-page.compo
 import { AuthGuard } from './auth.guard';
 import { AdminHomeComponent } from './pages/admin-home/admin-home.component';
 import { SharedModule } from 'src/app/shared/shared.module';
-import { adminFeautureKey, adminReducer } from './shared/store/admin.reducer';
-import { StoreModule } from '@ngrx/store';
 import { OrderItemComponent } from './pages/orders-page/components/order-item/order-item.component';
 import { OrderStatusFormComponent } from './pages/orders-page/components/order-status-form/order-status-form.component';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -24,6 +22,11 @@ import { IngredientsPageResolver } from './pages/ingredients-page/ingredients-pa
 import { IngredientAdminItemComponent } from './pages/ingredients-page/components/ingredient-admin-item/ingredient-admin-item.component';
 import { IngredientEditPageComponent } from './pages/ingredient-edit-page/ingredient-edit-page.component';
 import { EditIngredientResolver } from './pages/ingredient-edit-page/ingredient-edit-page.resolver';
+import { OpeningHoursPageComponent } from './pages/opening-hours-page/opening-hours-page.component';
+import { OpeningHoursItemComponent } from './pages/opening-hours-page/components/opening-hours-item/opening-hours-item.component';
+import { OpeningHoursEditComponent } from './pages/opening-hours-edit/opening-hours-edit.component';
+import { OpeningHoursResolver } from './pages/opening-hours-edit/opening-hours.resolver';
+import { TimeConvertService } from './pages/opening-hours-edit/services/time-convert.service';
 
 @NgModule({
   declarations: [
@@ -39,7 +42,10 @@ import { EditIngredientResolver } from './pages/ingredient-edit-page/ingredient-
     EditProductPageComponent,
     IngredientsPageComponent,
     IngredientAdminItemComponent,
-    IngredientEditPageComponent
+    IngredientEditPageComponent,
+    OpeningHoursPageComponent,
+    OpeningHoursItemComponent,
+    OpeningHoursEditComponent
   ],
   imports: [
     CommonModule,
@@ -47,7 +53,6 @@ import { EditIngredientResolver } from './pages/ingredient-edit-page/ingredient-
     SharedModule,
     ReactiveFormsModule,
     FontAwesomeModule,
-    StoreModule.forFeature(adminFeautureKey, adminReducer)
   ],
   providers: [
     AuthGuard,
@@ -56,6 +61,8 @@ import { EditIngredientResolver } from './pages/ingredient-edit-page/ingredient-
     EditProductResolver,
     IngredientsPageResolver,
     EditIngredientResolver,
+    OpeningHoursResolver,
+    TimeConvertService
   ]
 })
 export class AdminModule { }

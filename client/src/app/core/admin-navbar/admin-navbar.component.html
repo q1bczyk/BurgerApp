@@ -8,7 +8,7 @@
 <div class="wrapper" [ngStyle]="{ 'transform': isMenuVisible ? 'translateX(0)' : 'translateX(-102%)' }">
     <div class="container">
         <div class="logo">
-            <app-logo/>
+            <a [routerLink]="['/admin']"><app-logo/></a>
         </div>
         <app-admin-links/>
     </div>

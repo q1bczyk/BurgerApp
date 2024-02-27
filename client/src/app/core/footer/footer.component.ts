@@ -1,6 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { Observable, Subscription } from 'rxjs';
+import { Component, OnInit } from '@angular/core';
 import { ContactResponseInterface } from 'src/app/shared/models/contact-response.interface';
 import { LocalInterface } from 'src/app/shared/models/local.interface';
 import { OpeningHourResponseInterface } from 'src/app/shared/models/opening-hour-response.interface';

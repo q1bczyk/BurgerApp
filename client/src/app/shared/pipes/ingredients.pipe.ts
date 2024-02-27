@@ -6,8 +6,8 @@ import { IngredientResponseInterface } from '../models/ingredient-response.inter
 })
 export class IngredientsPipe implements PipeTransform {
 
-  transform(ingredients : IngredientResponseInterface[]): string {
-    
+  transform(ingredients : IngredientResponseInterface[]) : string 
+  {
     let ingredientString : string = '';
     ingredients.forEach((ingredient, index) => {
         if(index == 0 || index == ingredientString.length)

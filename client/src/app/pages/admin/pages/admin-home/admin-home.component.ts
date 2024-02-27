@@ -1,8 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { LocalInterface } from 'src/app/shared/models/local.interface';
 import { AdminService } from '../../shared/services/admin.service';
-import { setActiveAdmin } from '../../shared/store/admin.action';
 
 @Component({
   selector: 'app-admin-home',
@@ -15,7 +12,7 @@ export class AdminHomeComponent implements OnInit
   localName : string = '';
   isLoading : boolean = true; 
 
-  constructor(private adminService : AdminService, private store : Store<{adminStorage : LocalInterface}>){}
+  constructor(private adminService : AdminService){}
 
   ngOnInit(): void 
   {
@@ -23,7 +20,7 @@ export class AdminHomeComponent implements OnInit
       .subscribe(res => {
         this.localName = res.name
         this.isLoading = false;
-        this.store.dispatch(setActiveAdmin({data : res}));
+        localStorage.setItem('activeAdminData', JSON.stringify(res));
       }, err => {
         console.log(err),
         this.isLoading = false;
