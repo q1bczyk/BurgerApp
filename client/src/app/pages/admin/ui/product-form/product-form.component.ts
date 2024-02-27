@@ -136,7 +136,6 @@ export class ProductFormComponent implements OnInit
       }, err => {
         this.alertService.ShowAlert('Błąd', err.message, '', this.alertHost)
         this.isLoading = false;
-        console.log(err);
       })
   }
 
@@ -150,7 +149,6 @@ export class ProductFormComponent implements OnInit
       }, err => {
         this.alertService.ShowAlert('Błąd', err.message, '', this.alertHost)
         this.isLoading = false;
-        console.log(err);
       })
   }
 

@@ -1,0 +1,11 @@
+<div class="wrapper">
+    <ng-template appPlaceholder></ng-template>
+    <app-loader *ngIf=isLoading/>
+    <h2>Edytuj składnik</h2>
+    <app-form
+        [formGroup]="form"
+        [formSettings]="formSettings"
+        [buttonLabel]="'Edytuj'"
+        (formEvent)="editIngredient($event)"
+    />
+</div>

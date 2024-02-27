@@ -1,0 +1,15 @@
+<div class="ingredient" *ngIf="index && ingredient" [ngStyle]="{'background-color': index % 2 === 0 ? '#e6e6e6' : 'white'}">
+    <div>
+        <h4>{{ingredient.name}}</h4>
+        <div class="icons">
+            <p class="delete">
+                <fa-icon [icon]="faRemove" (click)="onRemoveClick()"></fa-icon>
+            </p>
+            <p class="edit" (click)="onEditClick()">
+                <fa-icon [icon]="faEdit"></fa-icon>
+            </p>
+        </div>
+    </div>
+    <p>{{ingredient.price}}zł</p>
+</div>
+

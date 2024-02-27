@@ -221,5 +221,27 @@ export class FormService
         productType : ['burger'],
         photo: [''],
       })
+
+      ingredientFormSettings : any = 
+      [
+        {
+          name : "name",
+          label : 'Nazwa',
+          type : 'text',
+          required: true,
+        },
+        {
+          name : "price",
+          label : 'cena',
+          type : 'number',
+          required: true,
+        },
+      ]
+
+      ingredientForm = this.fb.group(
+        {
+          name: ['', [Validators.required, Validators.minLength(2)]],
+          price: ['1', [Validators.required, Validators.min(1)]],
+        })
     
 }
