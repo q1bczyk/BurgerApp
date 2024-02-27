@@ -50,7 +50,7 @@ namespace api._Controllers
             
             await ingredientProductRepository.DeleteIngredientByIdAsync(ingredientToDeleteId);
 
-            return Ok("Deleted succesful!");
+            return Ok(new { message = "Deleted successful!" });
 
         }
 

@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { ActivatedRouteSnapshot, Resolve, Router, RouterStateSnapshot } from "@angular/router";
-import { catchError, map, Observable, of } from "rxjs";
+import { catchError, Observable, of } from "rxjs";
 import { ProductInterface } from "src/app/shared/models/product.interface";
 import { ProductService } from "src/app/shared/services/product.service";
 

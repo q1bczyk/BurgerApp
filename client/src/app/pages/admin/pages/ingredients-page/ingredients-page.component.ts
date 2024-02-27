@@ -1,6 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { PlaceholderDirective } from 'src/app/shared/ui/alert/directive/placeholder.directive';
+import { AlertService } from 'src/app/shared/ui/alert/service/alert.service';
 import { IngredientInterface } from '../../shared/models/ingredient.interface';
+import { IngredientService } from './services/ingredients-page.service';
 
 @Component({
   selector: 'app-ingredients-page',
@@ -9,10 +12,13 @@ import { IngredientInterface } from '../../shared/models/ingredient.interface';
 })
 export class IngredientsPageComponent implements OnInit
 {
-  
-  ingredients : IngredientInterface[] = [];
 
-  constructor(private route : ActivatedRoute){}
+  @ViewChild(PlaceholderDirective, { static: true }) alertHost!: PlaceholderDirective;
+
+  ingredients : IngredientInterface[] = [];
+  isLoading : boolean = false
+
+  constructor(private route : ActivatedRoute, private ingredientService : IngredientService, private alertService : AlertService){}
 
   ngOnInit(): void 
   {
@@ -21,6 +27,19 @@ export class IngredientsPageComponent implements OnInit
         this.ingredients = data['ingredients']
       }, err => {
         console.log(err)
+      })
+  }
+
+  deleteIngredient(ingredientId : string)
+  {
+    this.isLoading = true;
+    this.ingredientService.deleteIngredient(ingredientId)
+      .subscribe(res => {
+        this.ingredients = this.ingredients.filter(ingredient => ingredient.id !== ingredientId);
+        this.isLoading = false;
+      }, err => {
+        this.alertService.ShowAlert('Błąd', err.message, '', this.alertHost)
+        this.isLoading = false;
       })
   }
 

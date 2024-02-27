@@ -12,10 +12,35 @@
     margin-right: auto;
     border-bottom: 1px solid #d3d3d3;
 
-    h4, p
+    >div
+    {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    h4, >p
     {
         padding: 0 10px;
     }
-
     
+}
+
+.icons
+{
+    display: flex;
+    align-items: center;
+
+    p
+    {
+        padding: 0 3px;
+        cursor: pointer;
+    }
+
+    .delete
+    {
+        color: red;
+        font-size: 20px;
+    }
+
 }

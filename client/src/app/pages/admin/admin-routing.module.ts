@@ -6,6 +6,8 @@ import { AddProductPageComponent } from './pages/add-product-page/add-product-pa
 import { AdminHomeComponent } from './pages/admin-home/admin-home.component';
 import { EditProductPageComponent } from './pages/edit-product-page/edit-product-page.component';
 import { EditProductResolver } from './pages/edit-product-page/edit-product.resolver';
+import { IngredientEditPageComponent } from './pages/ingredient-edit-page/ingredient-edit-page.component';
+import { EditIngredientResolver } from './pages/ingredient-edit-page/ingredient-edit-page.resolver';
 import { IngredientsPageComponent } from './pages/ingredients-page/ingredients-page.component';
 import { IngredientsPageResolver } from './pages/ingredients-page/ingredients-page.resolver';
 import { OrdersPageComponent } from './pages/orders-page/orders-page.component';
@@ -49,8 +51,8 @@ const routes: Routes =
       },
       {
         path : 'skladniki/:ingredientId',
-        component : EditProductPageComponent,
-        resolve : {product : EditProductResolver}
+        component : IngredientEditPageComponent,
+        resolve : {ingredient : EditIngredientResolver}
       },
     ]
   }

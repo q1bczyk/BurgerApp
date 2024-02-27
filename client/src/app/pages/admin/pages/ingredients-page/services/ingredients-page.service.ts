@@ -19,4 +19,34 @@ export class IngredientService extends BaseApiService
                 })
             )
     }
+
+    deleteIngredient(ingredientId : string) : Observable<{message : string}>
+    {
+        return this.http.delete<{message : string}>(`${this.url}/${ingredientId}`, { headers : this.setHeaders()})
+            .pipe(
+                map(res => {
+                    return res
+                })
+            )
+    }
+
+    fetchIngredient(ingredientId : string) : Observable<IngredientInterface>
+    {
+        return this.http.get<IngredientInterface>(`${this.url}/${ingredientId}`, {headers : this.setHeaders()})
+            .pipe(
+                map(res => {
+                    return res
+                })
+            )
+    }
+
+    editIngredient(ingredient : IngredientInterface) : Observable<IngredientInterface>
+    {
+        return this.http.put<IngredientInterface>(`${this.url}/${ingredient.id}`, ingredient, {headers : this.setHeaders()})
+            .pipe(
+                map(res => {
+                    return res
+                })
+            )
+    }
 }
