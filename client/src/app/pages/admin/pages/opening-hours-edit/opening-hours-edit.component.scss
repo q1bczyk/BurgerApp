@@ -1,0 +1,107 @@
+@use '../../../../../assets/styles/shared-styles.scss';
+@use '../../../../../assets/styles/base';
+
+.wrapper
+{
+    @include shared-styles.admin-wrapper;
+    flex-direction: column;
+
+    label
+    {
+        color: base.$third-color;
+    }
+
+    button
+    {
+        @include shared-styles.button;
+        padding: 10px 30px;
+        border: 0;
+        margin-top: 20px;
+    }
+
+    h1
+    {
+        padding: 20px 0;
+    }
+
+    form
+    {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+    }
+
+    input[type="text"]
+    {
+        width: 50px;
+        height: 50px;
+        border-radius: 5px;
+        border: 0;
+        background-color: #e2e2e2;
+        text-align: center;
+        font-size: 25px;
+        cursor: pointer;
+    }
+
+    span
+    {
+        padding: 10px;
+        text-align: center;
+        font-size: 50px;
+        margin-top: 10px;
+    }
+}
+
+.hours
+{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+
+    >div
+    {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        margin: 20px 50px;
+
+        >div
+        {
+            display: flex;
+
+            >div
+            {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+            }
+        }
+    }
+}
+
+.day-off
+{
+    margin-top: 10px;
+
+    h2
+    {
+        margin-bottom: 10px;
+    }
+
+    >div
+    {
+        display: flex;
+        align-items: center;
+        width: 50px;
+        justify-content: space-between;
+
+        input
+        {
+            cursor: pointer;
+        }
+    }
+}

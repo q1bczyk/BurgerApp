@@ -24,7 +24,7 @@
             <div>
                 <div *ngFor="let openingHour of openingHours">
                     <div class="day">{{openingHour.day}}</div>
-                    <div class="time" *ngIf="openingHour.isDayOff == false">{{openingHour.opened}} <span>-</span> {{openingHour.closed}}</div>
+                    <div class="time" *ngIf="openingHour.isDayOff == false">{{openingHour.opened | openingHoursPipe}} <span>-</span> {{openingHour.closed | openingHoursPipe}}</div>
                     <div class="time" *ngIf="openingHour.isDayOff == true"><span>zamknięte</span></div>
                 </div>
             </div>

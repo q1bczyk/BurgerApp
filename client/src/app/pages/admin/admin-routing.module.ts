@@ -10,6 +10,9 @@ import { IngredientEditPageComponent } from './pages/ingredient-edit-page/ingred
 import { EditIngredientResolver } from './pages/ingredient-edit-page/ingredient-edit-page.resolver';
 import { IngredientsPageComponent } from './pages/ingredients-page/ingredients-page.component';
 import { IngredientsPageResolver } from './pages/ingredients-page/ingredients-page.resolver';
+import { OpeningHoursEditComponent } from './pages/opening-hours-edit/opening-hours-edit.component';
+import { OpeningHoursResolver } from './pages/opening-hours-edit/opening-hours.resolver';
+import { OpeningHoursPageComponent } from './pages/opening-hours-page/opening-hours-page.component';
 import { OrdersPageComponent } from './pages/orders-page/orders-page.component';
 import { MenuResolver } from './pages/orders-page/orders-page.resolver';
 import { ProductsPageComponent } from './pages/products-page/products-page.component';
@@ -53,6 +56,15 @@ const routes: Routes =
         path : 'skladniki/:ingredientId',
         component : IngredientEditPageComponent,
         resolve : {ingredient : EditIngredientResolver}
+      },
+      {
+        path : 'godziny-otwarcia',
+        component : OpeningHoursPageComponent,
+      },
+      {
+        path : 'godziny-otwarcia/:openingHourId',
+        component : OpeningHoursEditComponent,
+        resolve : {openingHour : OpeningHoursResolver},
       },
     ]
   }

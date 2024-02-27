@@ -28,8 +28,9 @@ namespace api._Controllers
         [AllowAnonymous]
         [HttpGet("")]
 
+        [Authorize]
         [HttpGet("{id}")]
-        public async Task<ActionResult<OpeningHourGetDTO>> GetOpeningHour(string id,   OpeningHourPostDTO openingHourPostDTO)
+        public async Task<ActionResult<OpeningHourGetDTO>> GetOpeningHour(string id)
         {
             var localId = HttpContext.User.FindFirst(JwtRegisteredClaimNames.Name)?.Value;
 
@@ -41,11 +42,11 @@ namespace api._Controllers
             return Ok(mapper.Map<OpeningHourGetDTO>(openingHour));
         }
 
+        [Authorize]
         [HttpPut("{id}")]
         public async Task<ActionResult<OpeningHourGetDTO>> EditOpeningHour(string id, OpeningHourPostDTO openingHourPostDTO)
         {
             var localId = HttpContext.User.FindFirst(JwtRegisteredClaimNames.Name)?.Value;
-            
             
             var openingHour = await openingHourLocalRepository.GetOpeningHourLocalByIdAsync(id, localId);
 
@@ -57,7 +58,7 @@ namespace api._Controllers
             openingHour.IsDayOff = openingHourPostDTO.IsDayOff;
 
             openingHourRepository.Update(openingHour);
-            openingHourRepository.SaveAllAsync();
+            await openingHourRepository.SaveAllAsync();
 
             return Ok(mapper.Map<OpeningHourGetDTO>(openingHour)); 
         }

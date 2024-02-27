@@ -11,6 +11,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { AlertComponent } from './ui/alert/alert.component';
 import { PlaceholderDirective } from './ui/alert/directive/placeholder.directive';
 import { MenuComponent } from './ui/menu/menu.component';
+import { OpeningHourPipe } from './pipes/opening-hours.pipe';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { MenuComponent } from './ui/menu/menu.component';
     LoaderComponent,
     NotFoundComponent,
     IngredientsPipe,
+    OpeningHourPipe,
     ProductItemComponent,
     FormComponent,
     AlertComponent,
@@ -33,6 +35,7 @@ import { MenuComponent } from './ui/menu/menu.component';
     LogoComponent,
     LoaderComponent,
     IngredientsPipe,
+    OpeningHourPipe,
     ProductItemComponent,
     FormComponent,
     AlertComponent,
