@@ -15,7 +15,7 @@ namespace api._Repositories
         public async Task<DayOff> AddDayOff(DayOff dayOff)
         {
             await context.DayOffs.AddAsync(dayOff);
-            SaveAllAsync();
+            await SaveAllAsync();
             return dayOff;
         }
 
