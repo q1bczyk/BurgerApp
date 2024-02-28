@@ -1,0 +1,19 @@
+@use '../../../../../assets/styles/shared-styles.scss';
+
+.wrapper
+{
+    @include shared-styles.admin-wrapper;
+    padding: 20px;
+    flex-direction: column;
+    
+    h1
+    {
+        margin-bottom: 20px;
+    }
+}
+
+.container
+{
+    width: 80%;
+    cursor: pointer;
+}

@@ -27,6 +27,9 @@ import { OpeningHoursItemComponent } from './pages/opening-hours-page/components
 import { OpeningHoursEditComponent } from './pages/opening-hours-edit/opening-hours-edit.component';
 import { OpeningHoursResolver } from './pages/opening-hours-edit/opening-hours.resolver';
 import { TimeConvertService } from './pages/opening-hours-edit/services/time-convert.service';
+import { DayOffsPageComponent } from './pages/day-offs-page/day-offs-page.component';
+import { FullCalendarModule } from '@fullcalendar/angular';
+
 
 @NgModule({
   declarations: [
@@ -45,7 +48,8 @@ import { TimeConvertService } from './pages/opening-hours-edit/services/time-con
     IngredientEditPageComponent,
     OpeningHoursPageComponent,
     OpeningHoursItemComponent,
-    OpeningHoursEditComponent
+    OpeningHoursEditComponent,
+    DayOffsPageComponent
   ],
   imports: [
     CommonModule,
@@ -53,6 +57,7 @@ import { TimeConvertService } from './pages/opening-hours-edit/services/time-con
     SharedModule,
     ReactiveFormsModule,
     FontAwesomeModule,
+    FullCalendarModule
   ],
   providers: [
     AuthGuard,

@@ -4,6 +4,7 @@ import { AdminComponent } from './admin.component';
 import { AuthGuard } from './auth.guard';
 import { AddProductPageComponent } from './pages/add-product-page/add-product-page.component';
 import { AdminHomeComponent } from './pages/admin-home/admin-home.component';
+import { DayOffsPageComponent } from './pages/day-offs-page/day-offs-page.component';
 import { EditProductPageComponent } from './pages/edit-product-page/edit-product-page.component';
 import { EditProductResolver } from './pages/edit-product-page/edit-product.resolver';
 import { IngredientEditPageComponent } from './pages/ingredient-edit-page/ingredient-edit-page.component';
@@ -65,6 +66,10 @@ const routes: Routes =
         path : 'godziny-otwarcia/:openingHourId',
         component : OpeningHoursEditComponent,
         resolve : {openingHour : OpeningHoursResolver},
+      },
+      {
+        path : 'dni-wolne',
+        component : DayOffsPageComponent,
       },
     ]
   }

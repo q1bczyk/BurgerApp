@@ -73,9 +73,9 @@ public class DayOffController : BaseApiController
             return NotFound("Day offs with this id doesn't exist");
             
         if(dayOffsToDelete.Count == 1)
-            await this.dayOffRepository.DeleteDayOffById(dayOffId);
+            await dayOffRepository.DeleteDayOffById(dayOffId);
 
-        return Ok("Day off deleted!");
+        return Ok(new { message = "Deleted successful!" });
     }
 
     [HttpGet]
