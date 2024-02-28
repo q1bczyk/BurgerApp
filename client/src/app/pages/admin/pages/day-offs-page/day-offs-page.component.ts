@@ -6,7 +6,6 @@ import { AlertService } from 'src/app/shared/ui/alert/service/alert.service';
 import { PlaceholderDirective } from 'src/app/shared/ui/alert/directive/placeholder.directive';
 import { DayOffService } from '../../shared/services/day-off.service';
 import { DayOffResponseInterface } from 'src/app/shared/models/dayoff-response.interface';
-import { parse, isAfter, isBefore, isEqual } from 'date-fns';
 
 @Component({
   selector: 'app-day-offs-page',
@@ -20,7 +19,7 @@ export class DayOffsPageComponent implements OnInit
 
   calendarOptions? : CalendarOptions;
   dayOffs : DayOffResponseInterface[] = [];
-  events : {date : string, display : string}[] = [];
+  events : {title : string, date : string, display : string}[] = [];
 
   constructor(private alertService : AlertService, private dayOffService : DayOffService){}
   
@@ -73,7 +72,7 @@ export class DayOffsPageComponent implements OnInit
   private initializeCalendar()
   {
     this.dayOffs.forEach(element => {
-        this.events.push({date : this.dateToCalendarConventer(element.date), display : 'background'})
+        this.events.push({title : 'dzień wolny', date : this.dateToCalendarConventer(element.date), display : 'background'})
     });
 
     this.calendarOptions = 

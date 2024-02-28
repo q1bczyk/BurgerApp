@@ -4,6 +4,7 @@ import { AdminComponent } from './admin.component';
 import { AuthGuard } from './auth.guard';
 import { AddProductPageComponent } from './pages/add-product-page/add-product-page.component';
 import { AdminHomeComponent } from './pages/admin-home/admin-home.component';
+import { ContactPageComponent } from './pages/contact-page/contact-page.component';
 import { DayOffsPageComponent } from './pages/day-offs-page/day-offs-page.component';
 import { EditProductPageComponent } from './pages/edit-product-page/edit-product-page.component';
 import { EditProductResolver } from './pages/edit-product-page/edit-product.resolver';
@@ -70,6 +71,10 @@ const routes: Routes =
       {
         path : 'dni-wolne',
         component : DayOffsPageComponent,
+      },
+      {
+        path : 'kontakt',
+        component : ContactPageComponent,
       },
     ]
   }
