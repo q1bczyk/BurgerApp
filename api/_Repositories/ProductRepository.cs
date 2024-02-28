@@ -64,6 +64,14 @@ namespace api._Repositories
                 .ToListAsync();
         }
 
+        public async Task<List<Product>> GetRankingAsync(string type)
+        {
+             return await context.Products  
+                .Where(p => p.Type.ToLower() == "burger")
+                .OrderByDescending(p => p.OrderCount)
+                .ToListAsync();
+        }
+
         public async Task<bool> SaveAllAsync()
         {
             return await context.SaveChangesAsync() > 0;

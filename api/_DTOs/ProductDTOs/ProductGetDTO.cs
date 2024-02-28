@@ -9,6 +9,7 @@ namespace api._DTOs.ProductDTOs
         public string Name { get; set; }
         public string Type { get; set; }
         public string ImgUrl{ get; set; }
+        public int OrderCount { get; set; }
         public List<IngredientGetDTO> Ingredients { get; set; }
     }
 }

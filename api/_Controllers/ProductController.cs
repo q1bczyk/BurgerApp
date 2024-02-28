@@ -202,7 +202,7 @@ namespace api._Controllers
         [HttpGet("ranking")]
         public async Task<ActionResult<List<ProductGetDTO>>> GetRanking([FromQuery] string searchTerm)
         {
-            var products = await productRepository.GetProductsAsync(searchTerm);
+            var products = await productRepository.GetRankingAsync(searchTerm);
 
             return Ok(mapper.Map<List<ProductGetDTO>>(products));
         }
