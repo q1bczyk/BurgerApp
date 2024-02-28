@@ -232,16 +232,66 @@ export class FormService
         },
         {
           name : "price",
-          label : 'cena',
+          label : 'Cena',
           type : 'number',
           required: true,
         },
       ]
 
-      ingredientForm = this.fb.group(
+        ingredientForm = this.fb.group(
+          {
+            name: ['', [Validators.required, Validators.minLength(2)]],
+            price: ['1', [Validators.required, Validators.min(1)]],
+          })
+    
+          adminContactForm = this.fb.group(
         {
           name: ['', [Validators.required, Validators.minLength(2)]],
-          price: ['1', [Validators.required, Validators.min(1)]],
+          postalCode: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(5)]],
+          street : ['', [Validators.required, Validators.minLength(2)]],
+          streetNumber : ['', [Validators.required, Validators.minLength(1)]],
+          email : ['', [Validators.required, Validators.email]],
+          phoneNumber : [Validators.required, Validators.minLength(9), Validators.maxLength(9)]
         })
-    
+
+        adminContactFormSettings : any = 
+        [
+          {
+            name : "city",
+            label : 'Miasto',
+            type : 'text',
+            required: true,
+          },
+          {
+            name : "postalCode",
+            label : 'Kod pocztowy',
+            type : 'text',
+            required: true,
+          },
+          {
+            name : "street",
+            label : 'Ulica',
+            type : 'text',
+            required: true,
+          },
+          {
+            name : "streetNumber",
+            label : 'Numer domu',
+            type : 'text',
+            required: true,
+          },
+          {
+            name : "email",
+            label : 'Email',
+            type : 'text',
+            required: true,
+          },
+          {
+            name : "phoneNumber",
+            label : 'Number telefonu',
+            type : 'text',
+            required: true,
+          },
+        ]
+  
 }
