@@ -1,0 +1,31 @@
+@use '../../../../../assets/styles/base';
+@use '../../../../../assets/styles/shared-styles.scss';
+
+.wrapper
+{
+    @include shared-styles.admin-wrapper;
+    flex-direction: column;
+
+    >h2
+    {
+        padding: 20px;
+    }
+}
+
+.container
+{
+    width: 90%;
+    max-width: 600px;
+    display: flex;
+    flex-direction: column;
+ 
+    >div
+    {
+        display: flex;
+        justify-content: space-between;
+        padding: 10px;
+        background-color: #e6e6e6;
+        border-bottom: 1px solid #d3d3d3;
+    }
+
+}

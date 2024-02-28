@@ -1,0 +1,13 @@
+<div class="wrapper">
+    <h2>Ranking</h2>
+    <div class="container">
+        <div>
+            <h4>produkt</h4>
+            <h4>zamówiono</h4>
+        </div>
+        <app-ranking-item *ngFor="let item of ranking; let i = index"
+        [item]="item"
+        [index]="i"
+    />
+    </div>
+</div>

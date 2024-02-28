@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
+import { RankingProductInterface } from 'src/app/pages/admin/shared/models/ranking-product.interface';
 import { ProductInterface } from '../models/product.interface';
 import { BaseApiService } from './base-api.service';
 
@@ -39,6 +40,16 @@ export class ProductService extends  BaseApiService{
       .pipe(
         map(resData => {
           return resData;
+        })
+      )
+  }
+
+  getRanking() : Observable<RankingProductInterface[]>
+  {
+    return this.http.get<RankingProductInterface[]>(`${this.url}/ranking`, { headers : this.setHeaders() })
+      .pipe(
+        map(res => {
+          return res;
         })
       )
   }
