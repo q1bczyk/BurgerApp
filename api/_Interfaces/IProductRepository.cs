@@ -8,7 +8,7 @@ namespace api._Interfaces
         void Update(Product product);
         Task<Product> AddProductAsync(Product product);
         Task<List<Product>> GetProductsAsync(string type);
-        Task<List<Product>> GetRankingAsync(string type);
+        Task<List<Product>> GetRankingAsync();
         Task<List<Product>> GetBestsellersAsync();
         Task<Product> GetProductByIdAsync(string id);
         Task<bool> FingProductByNameAsync(string name);

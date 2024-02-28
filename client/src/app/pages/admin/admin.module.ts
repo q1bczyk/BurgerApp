@@ -30,6 +30,9 @@ import { TimeConvertService } from './pages/opening-hours-edit/services/time-con
 import { DayOffsPageComponent } from './pages/day-offs-page/day-offs-page.component';
 import { FullCalendarModule } from '@fullcalendar/angular';
 import { ContactPageComponent } from './pages/contact-page/contact-page.component';
+import { RankingPageComponent } from './pages/ranking-page/ranking-page.component';
+import { RankingResolver } from './pages/ranking-page/ranking-page.resolver';
+import { RankingItemComponent } from './pages/ranking-page/components/ranking-item/ranking-item.component';
 
 
 @NgModule({
@@ -51,7 +54,9 @@ import { ContactPageComponent } from './pages/contact-page/contact-page.componen
     OpeningHoursItemComponent,
     OpeningHoursEditComponent,
     DayOffsPageComponent,
-    ContactPageComponent
+    ContactPageComponent,
+    RankingPageComponent,
+    RankingItemComponent
   ],
   imports: [
     CommonModule,
@@ -69,6 +74,7 @@ import { ContactPageComponent } from './pages/contact-page/contact-page.componen
     IngredientsPageResolver,
     EditIngredientResolver,
     OpeningHoursResolver,
+    RankingResolver,
     TimeConvertService
   ]
 })

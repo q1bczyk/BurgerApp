@@ -18,6 +18,8 @@ import { OpeningHoursPageComponent } from './pages/opening-hours-page/opening-ho
 import { OrdersPageComponent } from './pages/orders-page/orders-page.component';
 import { MenuResolver } from './pages/orders-page/orders-page.resolver';
 import { ProductsPageComponent } from './pages/products-page/products-page.component';
+import { RankingPageComponent } from './pages/ranking-page/ranking-page.component';
+import { RankingResolver } from './pages/ranking-page/ranking-page.resolver';
 
 const routes: Routes = 
 [
@@ -47,12 +49,12 @@ const routes: Routes =
       {
         path : 'produkty/edytuj/:productId',
         component : EditProductPageComponent,
-        resolve : {product : EditProductResolver}
+        resolve : { product : EditProductResolver }
       },
       {
         path : 'skladniki',
         component : IngredientsPageComponent,
-        resolve : {ingredients : IngredientsPageResolver}
+        resolve : { ingredients : IngredientsPageResolver }
       },
       {
         path : 'skladniki/:ingredientId',
@@ -66,7 +68,7 @@ const routes: Routes =
       {
         path : 'godziny-otwarcia/:openingHourId',
         component : OpeningHoursEditComponent,
-        resolve : {openingHour : OpeningHoursResolver},
+        resolve : { openingHour : OpeningHoursResolver },
       },
       {
         path : 'dni-wolne',
@@ -75,6 +77,11 @@ const routes: Routes =
       {
         path : 'kontakt',
         component : ContactPageComponent,
+      },
+      {
+        path : 'ranking',
+        component : RankingPageComponent,
+        resolve : { ranking : RankingResolver }
       },
     ]
   }

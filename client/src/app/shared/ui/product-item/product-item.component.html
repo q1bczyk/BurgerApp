@@ -6,6 +6,7 @@
     </div>
     <div class="description">
         <h2>{{product.name}}</h2>
+        <h2 class="price">{{product.price}}zł</h2>
         <p>{{product.ingredients | ingredientsPipe}}</p>
         <div class="button" (click)="addProductToCart(product)" *ngIf="!admin">
             <div class="edit">

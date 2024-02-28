@@ -64,10 +64,9 @@ namespace api._Repositories
                 .ToListAsync();
         }
 
-        public async Task<List<Product>> GetRankingAsync(string type)
+        public async Task<List<Product>> GetRankingAsync()
         {
              return await context.Products  
-                .Where(p => p.Type.ToLower() == "burger")
                 .OrderByDescending(p => p.OrderCount)
                 .ToListAsync();
         }
