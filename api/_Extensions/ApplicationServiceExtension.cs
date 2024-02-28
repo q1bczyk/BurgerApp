@@ -47,6 +47,7 @@ namespace api._Extensions
             services.AddScoped<IClientContactRepository, ClientContactRepository>();
             services.AddScoped<IDeliveryDetailsRepository, DeliveryDetailsRepository>();
             services.AddScoped<IPaymentRepository, PaymentRepository>();
+            services.AddSignalR();
             
             return services;
         }
