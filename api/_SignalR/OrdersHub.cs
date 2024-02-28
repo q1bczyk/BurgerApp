@@ -4,9 +4,9 @@ namespace api._SignalR
 {
     public class OrdersHub : Hub
     {
-        // public override async Task UpdateOrderStatus(int orderId)
+        // public Task JoinToLocal(string localId)
         // {
-        //     await Clients.Group($"order_{orderId}").SendAsync("ReceiveOrderStatusUpdate");
+
         // }
     }
 }
