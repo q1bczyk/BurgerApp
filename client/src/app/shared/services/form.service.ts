@@ -244,14 +244,14 @@ export class FormService
             price: ['1', [Validators.required, Validators.min(1)]],
           })
     
-          adminContactForm = this.fb.group(
+        adminContactForm = this.fb.group(
         {
-          name: ['', [Validators.required, Validators.minLength(2)]],
-          postalCode: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(5)]],
+          city: ['', [Validators.required, Validators.minLength(2)]],
+          postalCode: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(6)]],
           street : ['', [Validators.required, Validators.minLength(2)]],
           streetNumber : ['', [Validators.required, Validators.minLength(1)]],
           email : ['', [Validators.required, Validators.email]],
-          phoneNumber : [Validators.required, Validators.minLength(9), Validators.maxLength(9)]
+          phoneNumber : ['', [Validators.required, Validators.minLength(9), Validators.maxLength(9)]]
         })
 
         adminContactFormSettings : any = 
@@ -288,7 +288,7 @@ export class FormService
           },
           {
             name : "phoneNumber",
-            label : 'Number telefonu',
+            label : 'Numer telefonu',
             type : 'text',
             required: true,
           },

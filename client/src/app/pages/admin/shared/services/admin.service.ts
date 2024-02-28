@@ -3,16 +3,21 @@ import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
 import { map, Observable } from "rxjs";
 import { LocalInterface } from "src/app/shared/models/local.interface";
+import { BaseApiService } from "src/app/shared/services/base-api.service";
+import { AdminContactInterface } from "../models/admin-contact.interface";
 
 @Injectable({
     providedIn: 'root'
 })
 
-export class AdminService
+export class AdminService extends BaseApiService
 {
-    url : string = "https://localhost:5001/api/admin";
+    url : string = this.baseUrl + 'admin';
 
-    constructor(private http : HttpClient, private router : Router){}
+    constructor(protected override http: HttpClient, private router: Router) 
+    {
+        super(http);
+    }
 
     login(data : {email : string, password : string}) : Observable<any>
     {
@@ -26,12 +31,27 @@ export class AdminService
 
     getLocalData() : Observable<LocalInterface>
     {
-        const token = localStorage.getItem('token');
-        const headers = new HttpHeaders({
-        'Authorization': `Bearer ${token}`
-        });
+        return this.http.get<LocalInterface>(this.url + '/local', {headers : this.setHeaders()})
+            .pipe(
+                map(res => {
+                    return res;
+                })
+            )
+    }
 
-        return this.http.get<LocalInterface>(this.url + '/local', {headers : headers})
+    getAdminContact() : Observable<AdminContactInterface>
+    {
+        return this.http.get<AdminContactInterface>(this.url + '/contact', { headers : this.setHeaders()})
+            .pipe(
+                map(res => {
+                    return res;
+                })
+            )
+    }
+
+    editData(data : AdminContactInterface) : Observable<AdminContactInterface>
+    {
+        return this.http.put<AdminContactInterface>(this.url + '/contact', data, { headers : this.setHeaders()})
             .pipe(
                 map(res => {
                     return res;

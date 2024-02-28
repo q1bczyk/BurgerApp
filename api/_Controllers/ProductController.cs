@@ -198,5 +198,15 @@ namespace api._Controllers
 
             return Ok(mapper.Map<List<ProductGetDTO>>(bestsellers));
         }
+
+        [HttpGet("ranking")]
+        public async Task<ActionResult<List<ProductGetDTO>>> GetRanking([FromQuery] string searchTerm)
+        {
+            var products = await productRepository.GetProductsAsync(searchTerm);
+
+            return Ok(mapper.Map<List<ProductGetDTO>>(products));
+        }
+
+
     }
 }

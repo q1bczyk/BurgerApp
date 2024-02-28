@@ -1,3 +1,10 @@
 <div class="wrapper">
-    <p>contact-page works!</p>
+    <ng-template appPlaceholder></ng-template>
+    <app-loader *ngIf="isLoading"/>
+    <app-form
+        [formSettings]="formSettings"
+        [formGroup]="form"
+        [buttonLabel]="'Zatwierdź zmiany'"
+        (formEvent)="onSubmit($event)"
+    />
 </div>
