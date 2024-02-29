@@ -1,5 +1,6 @@
 using api._Extensions;
 using api._Middleware;
+using api._SignalR;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,9 +13,11 @@ builder.Services.AddIdentityServices(builder.Configuration);
 var app = builder.Build();
 
 app.UseCors(builder => builder
+    .WithOrigins("http://localhost:4200")
     .AllowAnyHeader()
     .AllowAnyMethod()
-    .WithOrigins("http://localhost:4200"));
+    .AllowCredentials());
+    
 
 app.UseMiddleware<ExceptionMiddleware>();
 app.UseHttpsRedirection();
@@ -22,5 +25,6 @@ app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
+app.MapHub<OrdersHub>("hubs/orders");
 
 app.Run();
