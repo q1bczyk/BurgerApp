@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { OrderHubService } from 'src/app/shared/services/order-hub.service';
 import { AdminService } from '../../shared/services/admin.service';
 
 @Component({
@@ -12,12 +13,13 @@ export class AdminHomeComponent implements OnInit
   localName : string = '';
   isLoading : boolean = true; 
 
-  constructor(private adminService : AdminService){}
+  constructor(private adminService : AdminService, private orderHubservice : OrderHubService){}
 
   ngOnInit(): void 
   {
     this.adminService.getLocalData()
       .subscribe(res => {
+        this.orderHubservice.createHubConnection();
         this.localName = res.name
         this.isLoading = false;
         localStorage.setItem('activeAdminData', JSON.stringify(res));
@@ -25,6 +27,7 @@ export class AdminHomeComponent implements OnInit
         console.log(err),
         this.isLoading = false;
       })
+
   }
   
 }

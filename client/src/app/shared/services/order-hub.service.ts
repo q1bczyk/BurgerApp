@@ -11,14 +11,19 @@ export class OrderHubService
     hubUrl : string = env.hubUrl;
     private hubConnection? : HubConnection;
 
-    createHubConnection(localId : string)
+    createHubConnection()
     {
         this.hubConnection = new HubConnectionBuilder()
             .withUrl(this.hubUrl)
             .withAutomaticReconnect()
             .build();
-
+        
         this.hubConnection.start()
-            .catch(err => console.log(err));    
+
+        this.hubConnection.on("WelcomeMessage", message => {
+            console.log(message);
+        });
     }
+
+
 }

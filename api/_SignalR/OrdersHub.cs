@@ -4,9 +4,11 @@ namespace api._SignalR
 {
     public class OrdersHub : Hub
     {
-        // public Task JoinToLocal(string localId)
-        // {
+        public async Task WelcomeMessage()
+        {
+            Console.WriteLine("WelcomeMessage method called");
+           await Clients.Others.SendAsync("WelcomeMessage", "xd");             
+        }
 
-        // }
     }
 }
