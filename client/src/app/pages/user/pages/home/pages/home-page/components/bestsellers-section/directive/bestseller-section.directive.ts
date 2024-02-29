@@ -7,7 +7,7 @@ export class BestsellerSectionDirective implements OnInit{
 
   @Input() appBestsellerDirective : number = 0;
   @Output() maxPageEvent: EventEmitter<number> = new EventEmitter<number>();
-
+  @Output() canScrollRightEvent : EventEmitter<boolean> = new EventEmitter<boolean>();
 
   constructor(private el: ElementRef, private renderer: Renderer2) { }
  
@@ -18,7 +18,7 @@ export class BestsellerSectionDirective implements OnInit{
 
   ngOnInit(): void 
   {
-    this.maxPageEvent.emit(Math.round(this.carouselWidth / this.containerWidth));
+      this.maxPageEvent.emit(Math.round(this.carouselWidth / this.containerWidth));
   }
 
   @HostListener('window:resize', ['$event'])
@@ -26,7 +26,10 @@ export class BestsellerSectionDirective implements OnInit{
   {
     this.containerWidth = window.innerWidth * 80 / 100;
     this.maxCarouselPosition = this.carouselWidth - this.containerWidth + 3 * 35;
+
     this.maxPageEvent.emit(Math.round(this.carouselWidth / this.containerWidth));
+    this.canScrollRightEvent.emit(true);
+    
   }
 
   ngOnChanges(changes: SimpleChanges) : void 
@@ -40,7 +43,6 @@ export class BestsellerSectionDirective implements OnInit{
   {
     this.calcPosition();
     this.renderer.setStyle(this.el.nativeElement, 'transform', 'translateX(' + -this.carouselPosition + 'px)');
-   
   }
 
   private calcPosition() : void
@@ -51,7 +53,16 @@ export class BestsellerSectionDirective implements OnInit{
     this.carouselPosition = this.appBestsellerDirective * 310;
 
     if(this.carouselPosition > this.maxCarouselPosition)
-      this.carouselPosition = this.maxCarouselPosition;    
+    {
+      this.canScrollRightEvent.emit(false);
+      this.carouselPosition = this.maxCarouselPosition;
+    }
+
+    else
+    {
+      this.canScrollRightEvent.emit(true);
+    }
+
   }
 
 }

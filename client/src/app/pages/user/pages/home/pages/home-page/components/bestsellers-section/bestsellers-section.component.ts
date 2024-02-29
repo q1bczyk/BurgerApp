@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { ProductInterface } from 'src/app/shared/models/product.interface';
 import { IngredientsPipe } from 'src/app/shared/pipes/ingredients.pipe';
 import { ProductService } from 'src/app/shared/services/product.service';
@@ -22,14 +22,16 @@ export class BestsellersSectionComponent implements OnInit{
   bestsellers : ProductInterface[] = [];
   currentPage : number = 0;
   maxPage : number = 0;
+  canScrollRightState : boolean = true;
 
-  constructor(private productService : ProductService, private ingredientsPipe : IngredientsPipe, private alertService : AlertService){}
+  constructor(private productService : ProductService, private ingredientsPipe : IngredientsPipe, private alertService : AlertService, private cdr: ChangeDetectorRef){}
 
   ngOnInit(): void 
   {
     this.productService.getBestsellers()
       .subscribe(res => {
         this.bestsellers = res;
+        this.cdr.detectChanges();
       }, err => {
         console.log(err);
       })
@@ -39,6 +41,10 @@ export class BestsellersSectionComponent implements OnInit{
   {
     if(this.currentPage <= 0 && value < 0)
       return
+
+    if(value > 0 && this.canScrollRightState === false)
+      return
+
     this.currentPage += value;
   }
 
@@ -51,4 +57,14 @@ export class BestsellersSectionComponent implements OnInit{
   {
     this.alertService.ShowAlert('Nie można dodać produktu', '', message, this.alertHost);
   }
+
+  canScrollRight(value: boolean): void 
+  {
+    console.log(value);
+    setTimeout(() => {
+      this.canScrollRightState = value;
+      this.cdr.detectChanges(); // Ręczne sprawdzenie zmian
+    });
+  }
 }
+
