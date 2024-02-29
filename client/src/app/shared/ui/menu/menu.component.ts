@@ -72,7 +72,7 @@ export class MenuComponent
       queryParamsHandling: 'merge', 
     });
     
-    this.productService.GetProducts(this.productType)
+    this.productService.getProducts(this.productType)
       .subscribe(data => {
         this.products = data;
         this.isLoading = false;

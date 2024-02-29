@@ -11,7 +11,7 @@ export class MenuResolver implements Resolve<ProductInterface[] | null>
 
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): ProductInterface[] | Observable<ProductInterface[] | null> | Promise<ProductInterface[] | ProductInterface[]> 
     {
-        return this.productServie.GetProducts(route.queryParams['product-type'])
+        return this.productServie.getProducts(route.queryParams['product-type'])
             .pipe(
                 map(resData => {
                     return resData;

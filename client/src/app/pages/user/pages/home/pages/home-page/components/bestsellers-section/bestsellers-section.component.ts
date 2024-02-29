@@ -27,7 +27,7 @@ export class BestsellersSectionComponent implements OnInit{
 
   ngOnInit(): void 
   {
-    this.productService.GetBestsellers()
+    this.productService.getBestsellers()
       .subscribe(res => {
         this.bestsellers = res;
       }, err => {

@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
 import { RankingProductInterface } from 'src/app/pages/admin/shared/models/ranking-product.interface';
@@ -12,7 +12,7 @@ export class ProductService extends  BaseApiService{
 
   url : string = `${this.baseUrl}product`
 
-  GetBestsellers() : Observable<ProductInterface[]>
+  getBestsellers() : Observable<ProductInterface[]>
   {
     return this.http.get<ProductInterface[]>(`${this.url}/bestsellers`)
       .pipe(
@@ -22,7 +22,7 @@ export class ProductService extends  BaseApiService{
       )
   }
 
-  GetProducts(prodcutType : string) : Observable<ProductInterface[]>
+  getProducts(prodcutType : string) : Observable<ProductInterface[]>
   {
     return this.http.get<ProductInterface[]>(`${this.url}?searchTerm=${prodcutType.toLowerCase()}`)
       .pipe(
@@ -54,7 +54,7 @@ export class ProductService extends  BaseApiService{
       )
   }
 
-  AddProduct(productData : ProductInterface, img : File) : Observable<ProductInterface>
+  addProduct(productData : ProductInterface, img : File) : Observable<ProductInterface>
   {
     const headers : HttpHeaders = this.setHeaders();
     const formData = this.setFormData(productData, img);

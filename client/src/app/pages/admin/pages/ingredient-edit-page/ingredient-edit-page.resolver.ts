@@ -1,15 +1,13 @@
 import { Injectable } from "@angular/core";
 import { ActivatedRouteSnapshot, Resolve, Router, RouterStateSnapshot } from "@angular/router";
-import { catchError, map, Observable, of } from "rxjs";
-import { ProductInterface } from "src/app/shared/models/product.interface";
-import { ProductService } from "src/app/shared/services/product.service";
+import { catchError, Observable, of } from "rxjs";
 import { IngredientInterface } from "../../shared/models/ingredient.interface";
-import { IngredientService } from "../ingredients-page/services/ingredients-page.service";
+import { IngredientsService } from "../../shared/services/ingredients.service";
 
 @Injectable()
 export class EditIngredientResolver implements Resolve<IngredientInterface | null>
 {
-    constructor(private ingredientService : IngredientService, private router : Router){}
+    constructor(private ingredientService : IngredientsService, private router : Router){}
 
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): IngredientInterface | Observable<IngredientInterface | null> | Promise<IngredientInterface | null> | null 
     {

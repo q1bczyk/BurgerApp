@@ -6,17 +6,16 @@ import { OrderConfirmInterface } from '../models/order-confirm.interface';
 import { OrderDetailsInterface } from '../models/order-details.interface';
 import { OrderDetailsIdInterface } from 'src/app/pages/admin/shared/models/order-details-id.interface';
 import { OrderHandleInterface } from 'src/app/pages/admin/shared/models/order-handle.interface';
+import { BaseApiService } from './base-api.service';
 
 @Injectable({
   providedIn: 'root'
 })
 
-export class OrderService 
+export class OrderService extends BaseApiService
 {
 
-  url : string = "https://localhost:5001/api/order"
-
-  constructor(private http : HttpClient){}
+  url : string = this.baseUrl + "order"
 
   placeOrder(data : OrderRequestInterface) : Observable<OrderConfirmInterface>
   {

@@ -5,7 +5,7 @@ import { FormService } from 'src/app/shared/services/form.service';
 import { PlaceholderDirective } from 'src/app/shared/ui/alert/directive/placeholder.directive';
 import { AlertService } from 'src/app/shared/ui/alert/service/alert.service';
 import { IngredientInterface } from '../../shared/models/ingredient.interface';
-import { IngredientService } from '../ingredients-page/services/ingredients-page.service';
+import { IngredientsService } from '../../shared/services/ingredients.service';
 
 @Component({
   selector: 'app-ingredient-edit-page',
@@ -22,7 +22,7 @@ export class IngredientEditPageComponent implements OnInit
   formSettings : any = this.formService.ingredientFormSettings;
   isLoading : boolean = false;
 
-  constructor(private route : ActivatedRoute, private ingredientService : IngredientService, private alertService : AlertService, private formService : FormService){}
+  constructor(private route : ActivatedRoute, private ingredientService : IngredientsService, private alertService : AlertService, private formService : FormService){}
 
   ngOnInit(): void 
   {

@@ -128,7 +128,7 @@ export class ProductFormComponent implements OnInit
   private addProduct(newProduct : ProductInterface) : void
   {
     if(this.file)
-    this.productService.AddProduct(newProduct, this.file)
+    this.productService.addProduct(newProduct, this.file)
       .subscribe(res => {
         this.alertService.ShowAlert('Sukces', 'pomyslnie dodano produkt', '', this.alertHost)
         this.isLoading = false;

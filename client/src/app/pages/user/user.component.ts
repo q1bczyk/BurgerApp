@@ -23,7 +23,7 @@ export class UserComponent implements OnInit{
   
   ngOnInit(): void 
   {
-    this.localService.FetchLocals()
+    this.localService.fetchLocals()
       .subscribe(data => {
         this.isLoading = false;
         this.locals = data;

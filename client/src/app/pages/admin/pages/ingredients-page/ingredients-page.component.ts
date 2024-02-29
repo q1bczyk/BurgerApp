@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { PlaceholderDirective } from 'src/app/shared/ui/alert/directive/placeholder.directive';
 import { AlertService } from 'src/app/shared/ui/alert/service/alert.service';
 import { IngredientInterface } from '../../shared/models/ingredient.interface';
-import { IngredientService } from './services/ingredients-page.service';
+import { IngredientsService } from '../../shared/services/ingredients.service';
 
 @Component({
   selector: 'app-ingredients-page',
@@ -18,7 +18,7 @@ export class IngredientsPageComponent implements OnInit
   ingredients : IngredientInterface[] = [];
   isLoading : boolean = false
 
-  constructor(private route : ActivatedRoute, private ingredientService : IngredientService, private alertService : AlertService){}
+  constructor(private route : ActivatedRoute, private ingredientService : IngredientsService, private alertService : AlertService){}
 
   ngOnInit(): void 
   {

@@ -15,7 +15,7 @@ export class HomeResolver implements Resolve<LocalInterface | null>
 
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): LocalInterface | Observable<LocalInterface | null> | Promise<LocalInterface | LocalInterface> 
     {
-        return this.localService.FetchLocal(route.params['slug'])
+        return this.localService.fetchLocal(route.params['slug'])
             .pipe(
                 map(resData => {
                     localStorage.setItem('activeLocal', JSON.stringify(resData));

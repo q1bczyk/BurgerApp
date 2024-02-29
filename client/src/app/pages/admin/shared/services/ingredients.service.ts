@@ -1,23 +1,20 @@
-import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { map, Observable } from "rxjs";
+import { BaseApiService } from "src/app/shared/services/base-api.service";
 import { IngredientInterface } from "../models/ingredient.interface";
 
 @Injectable({
     providedIn: 'root'
 })
 
-export class IngredientsService
+export class IngredientsService extends BaseApiService
 {
-    url : string = "https://localhost:5001/api/ingredient";
-
-    constructor(private http : HttpClient){}
+    url : string = this.baseUrl + 'ingredient'
 
     fetchIngredients() : Observable<IngredientInterface[]>
     {
-        const headers : HttpHeaders = this.setHeaders();
-
-        return this.http.get<IngredientInterface[]>(this.url, {headers : headers})
+        return this.http.get<IngredientInterface[]>(this.url, {headers : this.setHeaders()})
             .pipe(
                 map(res => {
                     return res;
@@ -25,11 +22,34 @@ export class IngredientsService
             )
     }
 
-    private setHeaders() : HttpHeaders
+    deleteIngredient(ingredientId : string) : Observable<{message : string}>
     {
-        const token = localStorage.getItem('token');
-        return new HttpHeaders({
-            'Authorization': `Bearer ${token}`
-        });
-    } 
+        return this.http.delete<{message : string}>(`${this.url}/${ingredientId}`, { headers : this.setHeaders()})
+            .pipe(
+                map(res => {
+                    return res
+                })
+            )
+    }
+
+    fetchIngredient(ingredientId : string) : Observable<IngredientInterface>
+    {
+        return this.http.get<IngredientInterface>(`${this.url}/${ingredientId}`, {headers : this.setHeaders()})
+            .pipe(
+                map(res => {
+                    return res
+                })
+            )
+    }
+
+    editIngredient(ingredient : IngredientInterface) : Observable<IngredientInterface>
+    {
+        return this.http.put<IngredientInterface>(`${this.url}/${ingredient.id}`, ingredient, {headers : this.setHeaders()})
+            .pipe(
+                map(res => {
+                    return res
+                })
+            )
+    }
+
 }
