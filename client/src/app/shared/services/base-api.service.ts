@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { environment } from 'src/environments/environment.development';
 
 
 @Injectable({
@@ -9,7 +10,7 @@ export class BaseApiService {
 
   constructor(protected http : HttpClient){}
 
-  protected baseUrl : string = "https://localhost:5001/api/";
+  protected baseUrl : string = environment.apiUrl;
 
   protected setHeaders() : HttpHeaders
   {
