@@ -11,6 +11,7 @@ using api.Controllers;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace api._Controllers
@@ -28,9 +29,10 @@ namespace api._Controllers
         private readonly IPaymentService paymentService;
         private readonly IPaymentRepository paymentRepository;
         private readonly IProductRepository productRepository;
+        private readonly ISendEmailService sendEmailService;
         private readonly IMapper mapper;
 
-        public OrderController(IOrderRepository orderRepository, IOrderProductRepository orderProductRepository, IClientContactRepository clientContactRepository, IDeliveryDetailsRepository deliveryDetailsRepository, IDayOffLocalRepository dayOffLocalRepository, IOpeningHourLocalRepository openingHourLocalRepository, IPaymentService paymentService, IPaymentRepository paymentRepository, IMapper mapper, IProductRepository productRepository, ILocalRepository localRepository)
+        public OrderController(IOrderRepository orderRepository, IOrderProductRepository orderProductRepository, IClientContactRepository clientContactRepository, IDeliveryDetailsRepository deliveryDetailsRepository, IDayOffLocalRepository dayOffLocalRepository, IOpeningHourLocalRepository openingHourLocalRepository, IPaymentService paymentService, IPaymentRepository paymentRepository, IMapper mapper, IProductRepository productRepository, ILocalRepository localRepository, ISendEmailService sendEmailService)
         {
             this.orderRepository = orderRepository;
             this.orderProductRepository = orderProductRepository;
@@ -43,6 +45,7 @@ namespace api._Controllers
             this.mapper = mapper;
             this.productRepository = productRepository;
             this.localRepository = localRepository;
+            this.sendEmailService = sendEmailService;
         }
 
         [AllowAnonymous]
@@ -195,29 +198,11 @@ namespace api._Controllers
 
            if(orderPutDTO.OrderStatus == "anulowane" || orderPutDTO.OrderStatus == "realizowane")
            {
-                var link = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}/potwierdzenie/{order.Id}";
-
-                string senderEmail = "bartekkubik7@gmail.com";
-                string senderPassword = "hheu ddos enwx ykuv";
-                string recipientEmail = order.ClientsContact.Email;
+                var local = await localRepository.GetLocalById(localId);
 
                 ServicePointManager.ServerCertificateValidationCallback = (sender, certificate, chain, sslPolicyErrors) => true;
 
-                var smtpClient = new SmtpClient("smtp.gmail.com")
-                {
-                    Port = 587 ,
-                    UseDefaultCredentials = false,
-                    Credentials = new NetworkCredential(senderEmail, senderPassword),
-                    EnableSsl = true,
-                };
-
-                MailMessage mailMessage = new MailMessage(senderEmail, recipientEmail)
-                {
-                    Subject = "ItBurger - status zamówienia",
-                    Body = "Kliknij w link aby wejść na stronę ze swoim zamówieniem: " + link
-                };
-
-                smtpClient.Send(mailMessage); 
+                await sendEmailService.SendConfirmOrderEmailAsync(local.Slug, order.Id, order.ClientsContact.Email);
            }
 
             return Ok(mapper.Map<OrderGetDTO>(order));

@@ -22,8 +22,9 @@ public class AdminController : BaseApiController
     private readonly IMapper mapper;
     private readonly ITokenservice tokenService;
     private readonly UserManager<Admin> userMenager;
+    private readonly ISendEmailService sendEmailService;
 
-    public AdminController(ILocalRepository localRepository, IContactRepository contactRepository, IAdminRepository adminRepository, IMapper mapper, ITokenservice tokenService, UserManager<Admin> userMenager)
+    public AdminController(ILocalRepository localRepository, IContactRepository contactRepository, IAdminRepository adminRepository, IMapper mapper, ITokenservice tokenService, UserManager<Admin> userMenager, ISendEmailService sendEmailService)
     {
         this.localRepository = localRepository;
         this.contactRepository = contactRepository;
@@ -31,6 +32,7 @@ public class AdminController : BaseApiController
         this.mapper = mapper;
         this.tokenService = tokenService;
         this.userMenager = userMenager;
+        this.sendEmailService = sendEmailService;
     }
 
     [HttpPost("login")]
@@ -72,27 +74,10 @@ public class AdminController : BaseApiController
         var token = await userMenager.GeneratePasswordResetTokenAsync(admin);
         var resetLink = Url.Action("PasswordReset", "Admin", new { token, email = contact.Email }, Request.Scheme, Request.Host.ToUriComponent());
 
+        string recipientEmail = contact.Email;
         ServicePointManager.ServerCertificateValidationCallback = (sender, certificate, chain, sslPolicyErrors) => true;
 
-        string senderEmail = "bartekkubik7@gmail.com";
-        string senderPassword = "nbmw atok pztp wbjn";
-        string recipientEmail = contact.Email;
-
-        var smtpClient = new SmtpClient("smtp.gmail.com")
-        {
-            Port = 587 ,
-            UseDefaultCredentials = false,
-            Credentials = new NetworkCredential(senderEmail, senderPassword),
-            EnableSsl = true,
-        };
-
-        MailMessage mailMessage = new MailMessage(senderEmail, recipientEmail)
-        {
-            Subject = "ItBurger - Resetowanie hasła",
-            Body = resetLink
-        };
-
-        smtpClient.Send(mailMessage); 
+        await sendEmailService.SendPasswordResetEmailAsync(contact.Email, resetLink);
 
         return Ok($"Password Changed request is sent on Email {recipientEmail}");
 

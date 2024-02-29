@@ -20,6 +20,8 @@ namespace api._Extensions
 
             services.Configure<PaymentsSettings>(config.GetSection("PaymentsSettings"));
 
+            services.Configure<EmailSenderSettings>(config.GetSection("EmailSettings"));
+
             services.Configure<DataProtectionTokenProviderOptions>(opt => opt.TokenLifespan = TimeSpan.FromHours(1));
             
             services.AddIdentity<Admin, IdentityRole>()
@@ -32,6 +34,7 @@ namespace api._Extensions
             services.AddScoped<ITokenservice, TokenService>();
             services.AddScoped<IFileService, FileService>();
             services.AddScoped<IPaymentService, PaymentService>();
+            services.AddScoped<ISendEmailService, SendEmailService>();
             services.AddScoped<IAdminRepository, AdminRepository>();
             services.AddScoped<IContactRepository, ContactRepository>();
             services.AddScoped<ILocalRepository, LocalRepository>();
