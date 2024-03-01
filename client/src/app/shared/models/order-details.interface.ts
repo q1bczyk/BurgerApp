@@ -2,6 +2,7 @@ import { ClientContactInterface, DeliveryDetailsInterface } from "./client-conta
 
 export interface OrderDetailsInterface
 {
+    id : string,
     orderStatus : string,
     waitingTime? : string,
     refusalReason? : string,

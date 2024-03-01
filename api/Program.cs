@@ -26,5 +26,6 @@ app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
 app.MapHub<OrderNotificationHub>("hubs/new-order");
+app.MapHub<ChangeOrderStatusHub>("hubs/order-status");
 
 app.Run();

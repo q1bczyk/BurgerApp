@@ -16,6 +16,7 @@ export class OrderResolver implements Resolve<OrderDetailsInterface | null>
                 map(resData => {
                     const orderDetails: OrderDetailsInterface = 
                     {
+                        id : resData.id,
                         orderStatus: resData.orderStatus,
                         waitingTime: resData.waitingTime,
                         refusalReason: resData.refusalReason,

@@ -10,8 +10,6 @@ using api._SignalR;
 using api.Controllers;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http.HttpResults;
-using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
 
@@ -32,6 +30,7 @@ namespace api._Controllers
         private readonly IProductRepository productRepository;
         private readonly ISendEmailService sendEmailService;
         private readonly IHubContext<OrderNotificationHub> orderNotificationHub;
+        private readonly IHubContext<ChangeOrderStatusHub> changeOrderStatusHub;
         private readonly IMapper mapper;
 
         public OrderController(
@@ -44,7 +43,8 @@ namespace api._Controllers
             IProductRepository productRepository, 
             ILocalRepository localRepository, 
             ISendEmailService sendEmailService, 
-            IHubContext<OrderNotificationHub> orderNotificationHub)
+            IHubContext<OrderNotificationHub> orderNotificationHub,
+            IHubContext<ChangeOrderStatusHub> changeOrderStatusHub)
         {
             this.orderRepository = orderRepository;
             this.orderProductRepository = orderProductRepository;
@@ -59,6 +59,7 @@ namespace api._Controllers
             this.localRepository = localRepository;
             this.sendEmailService = sendEmailService;
             this.orderNotificationHub = orderNotificationHub;
+            this.changeOrderStatusHub = changeOrderStatusHub;
         }
 
         [AllowAnonymous]
@@ -223,6 +224,10 @@ namespace api._Controllers
 
                 await sendEmailService.SendConfirmOrderEmailAsync(local.Slug, order.Id, order.ClientsContact.Email);
            }
+
+            await changeOrderStatusHub.Clients
+                    .Group(order.Id)
+                    .SendAsync("ChangeOrderStatusNotification", orderId);
 
             return Ok(mapper.Map<OrderGetDTO>(order));
         }
