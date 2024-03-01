@@ -25,6 +25,6 @@ app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
-app.MapHub<OrdersHub>("hubs/orders");
+app.MapHub<OrderNotificationHub>("hubs/new-order");
 
 app.Run();

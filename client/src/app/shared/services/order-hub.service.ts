@@ -1,6 +1,6 @@
-import { Injectable } from "@angular/core";
-import { env } from "src/assets/env/env.development";
+import { EventEmitter, Injectable } from "@angular/core";
 import { HubConnection, HubConnectionBuilder } from '@microsoft/signalr';
+import { environment } from "src/environments/environment.development";
 
 @Injectable({
     providedIn : 'root'
@@ -8,10 +8,11 @@ import { HubConnection, HubConnectionBuilder } from '@microsoft/signalr';
 
 export class OrderHubService
 {
-    hubUrl : string = env.hubUrl;
+    hubUrl : string = environment.hubUrl + 'new-order';
     private hubConnection? : HubConnection;
+    newOrderReceived  = new EventEmitter<string>();
 
-    createHubConnection()
+    createHubConnection(localId : string)
     {
         this.hubConnection = new HubConnectionBuilder()
             .withUrl(this.hubUrl)
@@ -19,11 +20,28 @@ export class OrderHubService
             .build();
         
         this.hubConnection.start()
+            .then(() => {
+                this.joinGroup(localId);             
+            })
+            .catch(err => {
+                console.log(err)
+            })
 
-        this.hubConnection.on("WelcomeMessage", message => {
-            console.log(message);
-        });
+        this.hubConnection.on("NewOrderNotification", (orderId: string) => {
+            this.newOrderReceived.emit(orderId);
+        });       
     }
 
+    private joinGroup(localId: string) 
+    {
+        if (this.hubConnection?.state === "Connected") 
+            this.hubConnection.invoke("JoinGroup", localId)
+                .catch(error => {
+                    console.error("Error while joining group:", error);
+                });
+        else 
+            console.warn("Connection is not established. Cannot join group.");
+          
+    }
 
 }

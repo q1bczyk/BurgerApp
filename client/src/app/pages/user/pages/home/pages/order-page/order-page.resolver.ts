@@ -19,7 +19,8 @@ export class OrderResolver implements Resolve<OrderDetailsInterface | null>
                         orderStatus: resData.orderStatus,
                         waitingTime: resData.waitingTime,
                         refusalReason: resData.refusalReason,
-                        clientsContact: resData.clientsContact
+                        clientsContact: resData.clientsContact,
+                        localId : resData.localId,
                       };
                       return orderDetails;
                 }),

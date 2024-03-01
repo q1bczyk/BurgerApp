@@ -2,12 +2,15 @@ using Microsoft.AspNetCore.SignalR;
 
 namespace api._SignalR
 {
-    public class OrdersHub : Hub
+    public class OrderNotificationHub : Hub
     {
-        public async Task WelcomeMessage()
+        public async Task JoinGroup(string localId)
         {
-            Console.WriteLine("WelcomeMessage method called");
-           await Clients.Others.SendAsync("WelcomeMessage", "xd");             
+            await Groups.AddToGroupAsync(Context.ConnectionId, localId);
+        }
+        public async Task NewOrderNotification(string localId, string orderId)
+        {
+            await Clients.Group(localId).SendAsync("NewOrderNotification", orderId);       
         }
 
     }

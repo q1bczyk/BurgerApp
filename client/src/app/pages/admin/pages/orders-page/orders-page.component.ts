@@ -1,7 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Store } from '@ngrx/store';
-import { LocalInterface } from 'src/app/shared/models/local.interface';
+import { OrderHubService } from 'src/app/shared/services/order-hub.service';
 import { OrderService } from 'src/app/shared/services/order.service';
 import { PlaceholderDirective } from 'src/app/shared/ui/alert/directive/placeholder.directive';
 import { AlertService } from 'src/app/shared/ui/alert/service/alert.service';
@@ -22,10 +21,24 @@ export class OrdersPageComponent implements OnInit{
   orders : OrderDetailsIdInterface[] = [];
   formSettings? : {orderId : string, orderStatus : string, isFormOpen : boolean}
 
-  constructor(private orderService : OrderService, private route : ActivatedRoute, private store : Store<{adminStorage : LocalInterface}>, private router : Router, private alertService : AlertService){}
+  readonly audio = new Audio('assets/audio/audio.mp4');
+
+  constructor(
+    private orderService : OrderService, 
+    private route : ActivatedRoute, 
+    private router : Router, 
+    private alertService : AlertService, 
+    private orderHubService : OrderHubService
+    ){}
   
   ngOnInit() 
   {
+    const localId = this.getLocalId();
+    this.orderHubService.createHubConnection(localId);
+    this.orderHubService.newOrderReceived.subscribe((orderId: string) => {
+      this.handleNotification();
+    });
+
     this.route.queryParams.subscribe(params => {
     this.orderStatus = params['order-status'];
 
@@ -34,7 +47,7 @@ export class OrdersPageComponent implements OnInit{
         this.orders = res;
         this.isLoading = false;
       })
-  });
+    });
   }
 
   setStatus(status : string) : void
@@ -121,6 +134,32 @@ export class OrdersPageComponent implements OnInit{
           this.alertService.ShowAlert('Błąd', err.message, 'spróbuj ponownie później', this.alertHost);
           this.isLoading = false;
         })
+  }
+  
+  private getLocalId() : string
+  {
+    const dataToParse = localStorage.getItem('activeAdminData');
+    if(dataToParse)
+    {
+      const data : any = JSON.parse(dataToParse);
+      return data.id;
+    }
+
+    return '';
+  }
+
+  handleNotification() : void
+  {
+    this.audio.play();
+      if(this.route.snapshot.queryParams['order-status'] !== 'nowe')
+        this.router.navigate([], {
+          relativeTo: this.route,
+          queryParams: { 'order-status': 'nowe'},
+          queryParamsHandling: 'merge',
+        });
+        
+        else 
+          location.reload();
   }
 
 }

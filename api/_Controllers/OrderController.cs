@@ -1,18 +1,19 @@
 using System.IdentityModel.Tokens.Jwt;
 using System.Net;
-using System.Net.Mail;
 using api._DTOs.OrderDTOs;
 using api._DTOs.OrderProductDTOs;
 using api._DTOs.PaymentsDTOs;
 using api._Entieties;
 using api._Extensions;
 using api._Interfaces;
+using api._SignalR;
 using api.Controllers;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 
 namespace api._Controllers
 {
@@ -30,9 +31,20 @@ namespace api._Controllers
         private readonly IPaymentRepository paymentRepository;
         private readonly IProductRepository productRepository;
         private readonly ISendEmailService sendEmailService;
+        private readonly IHubContext<OrderNotificationHub> orderNotificationHub;
         private readonly IMapper mapper;
 
-        public OrderController(IOrderRepository orderRepository, IOrderProductRepository orderProductRepository, IClientContactRepository clientContactRepository, IDeliveryDetailsRepository deliveryDetailsRepository, IDayOffLocalRepository dayOffLocalRepository, IOpeningHourLocalRepository openingHourLocalRepository, IPaymentService paymentService, IPaymentRepository paymentRepository, IMapper mapper, IProductRepository productRepository, ILocalRepository localRepository, ISendEmailService sendEmailService)
+        public OrderController(
+            IOrderRepository orderRepository, 
+            IOrderProductRepository orderProductRepository, 
+            IClientContactRepository clientContactRepository, IDeliveryDetailsRepository deliveryDetailsRepository, IDayOffLocalRepository dayOffLocalRepository, 
+            IOpeningHourLocalRepository openingHourLocalRepository, 
+            IPaymentService paymentService, 
+            IPaymentRepository paymentRepository, IMapper mapper, 
+            IProductRepository productRepository, 
+            ILocalRepository localRepository, 
+            ISendEmailService sendEmailService, 
+            IHubContext<OrderNotificationHub> orderNotificationHub)
         {
             this.orderRepository = orderRepository;
             this.orderProductRepository = orderProductRepository;
@@ -46,6 +58,7 @@ namespace api._Controllers
             this.productRepository = productRepository;
             this.localRepository = localRepository;
             this.sendEmailService = sendEmailService;
+            this.orderNotificationHub = orderNotificationHub;
         }
 
         [AllowAnonymous]
@@ -147,8 +160,14 @@ namespace api._Controllers
                 orderSummary.token = paymentResponse.Data.Token;
             }
 
+            if(orderPostDTO.IsPaymentOnline == false)
+            {
+                await orderNotificationHub.Clients
+                    .Group(orderPostDTO.LocalId)
+                    .SendAsync("NewOrderNotification", orderPostDTO.LocalId, "orderId");
+            }
+                
             return Ok(orderSummary);
-
         }
 
         [HttpGet]

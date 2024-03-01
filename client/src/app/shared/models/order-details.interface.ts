@@ -5,5 +5,6 @@ export interface OrderDetailsInterface
     orderStatus : string,
     waitingTime? : string,
     refusalReason? : string,
-    clientsContact : ClientContactInterface
+    clientsContact : ClientContactInterface,
+    localId : string,
 }

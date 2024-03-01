@@ -13,13 +13,12 @@ export class AdminHomeComponent implements OnInit
   localName : string = '';
   isLoading : boolean = true; 
 
-  constructor(private adminService : AdminService, private orderHubservice : OrderHubService){}
+  constructor(private adminService : AdminService){}
 
   ngOnInit(): void 
   {
     this.adminService.getLocalData()
       .subscribe(res => {
-        this.orderHubservice.createHubConnection();
         this.localName = res.name
         this.isLoading = false;
         localStorage.setItem('activeAdminData', JSON.stringify(res));
