@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { FormService } from 'src/app/shared/services/form.service';
 import { PlaceholderDirective } from 'src/app/shared/ui/alert/directive/placeholder.directive';
@@ -22,7 +23,15 @@ export class IngredientEditPageComponent implements OnInit
   formSettings : any = this.formService.ingredientFormSettings;
   isLoading : boolean = false;
 
-  constructor(private route : ActivatedRoute, private ingredientService : IngredientsService, private alertService : AlertService, private formService : FormService){}
+  constructor(private route : ActivatedRoute, private ingredientService : IngredientsService, private alertService : AlertService, private formService : FormService, private title : Title)
+  {
+    const dataToParse = localStorage.getItem('activeAdminData');
+    if(dataToParse)
+    {
+      const data = JSON.parse(dataToParse);
+      this.title.setTitle(`${data.name} | Edytuj Składnik`);
+    }
+  }
 
   ngOnInit(): void 
   {

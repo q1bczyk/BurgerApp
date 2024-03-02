@@ -3,6 +3,7 @@ import { LocalInterface } from 'src/app/shared/models/local.interface';
 import { LocalService } from './services/local.service';
 import { faLocationDot, faEnvelope, faPhone } from '@fortawesome/free-solid-svg-icons';
 import { Router } from '@angular/router';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-user',
@@ -19,10 +20,13 @@ export class UserComponent implements OnInit{
   faEnvelope = faEnvelope;
   faPhone = faPhone;
 
-  constructor(private localService : LocalService, private router : Router){}
+  constructor(private localService : LocalService, private router : Router, private title : Title){
+    this.title.setTitle("Witamy w It Burgers");
+  }
   
   ngOnInit(): void 
   {
+    
     this.localService.fetchLocals()
       .subscribe(data => {
         this.isLoading = false;

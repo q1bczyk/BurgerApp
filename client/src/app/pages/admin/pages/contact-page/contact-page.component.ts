@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { Title } from '@angular/platform-browser';
 import { FormService } from 'src/app/shared/services/form.service';
 import { PlaceholderDirective } from 'src/app/shared/ui/alert/directive/placeholder.directive';
 import { AlertService } from 'src/app/shared/ui/alert/service/alert.service';
@@ -20,7 +21,15 @@ export class ContactPageComponent implements OnInit
   form : FormGroup = this.formService.adminContactForm;
   isLoading : boolean = true;
 
-  constructor(private alertService : AlertService, private adminService : AdminService, private formService : FormService){}
+  constructor(private alertService : AlertService, private adminService : AdminService, private formService : FormService, private title : Title)
+  {
+    const dataToParse = localStorage.getItem('activeAdminData');
+    if(dataToParse)
+    {
+      const data = JSON.parse(dataToParse);
+      this.title.setTitle(`${data.name} | Kontakt`);
+    }
+  }
   
   ngOnInit(): void 
   {

@@ -1,4 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { AdminService } from 'src/app/pages/admin/shared/services/admin.service';
 import { FormService } from 'src/app/shared/services/form.service';
@@ -18,10 +19,17 @@ export class LoginPageComponent {
   loginFormSettings : any;
   isLoading : boolean = false;
 
-  constructor(private formService : FormService, private adminService : AdminService, private router : Router, private alertService : AlertService)
+  constructor(private formService : FormService, private adminService : AdminService, private router : Router, private alertService : AlertService, private title : Title)
   {
     this.loginForm = formService.loginForm;
     this.loginFormSettings = formService.loginFormSettings;
+
+    const dataToParse = localStorage.getItem('activeLocal');
+    if(dataToParse)
+    {
+      const data = JSON.parse(dataToParse);
+      this.title.setTitle(`It Burgers | Logowanie`);
+    }
   }
 
   onSubmit(data : any)

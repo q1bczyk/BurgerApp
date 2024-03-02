@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { OrderHubService } from 'src/app/shared/services/order-hub.service';
 import { AdminService } from '../../shared/services/admin.service';
 
@@ -13,7 +14,15 @@ export class AdminHomeComponent implements OnInit
   localName : string = '';
   isLoading : boolean = true; 
 
-  constructor(private adminService : AdminService){}
+  constructor(private adminService : AdminService, private title : Title)
+  {
+    const dataToParse = localStorage.getItem('activeAdminData');
+    if(dataToParse)
+    {
+      const data = JSON.parse(dataToParse);
+      this.title.setTitle(`${data.name} | Admin`);
+    }
+  }
 
   ngOnInit(): void 
   {

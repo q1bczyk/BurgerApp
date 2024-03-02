@@ -1,7 +1,6 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { Subscription, Observable } from 'rxjs';
 import { LocalInterface } from 'src/app/shared/models/local.interface';
 
 @Component({
@@ -10,6 +9,8 @@ import { LocalInterface } from 'src/app/shared/models/local.interface';
   styleUrls: ['./links.component.scss']
 })
 export class LinksComponent implements OnInit{
+
+  @Output() linkClickedEvent : EventEmitter<void> = new EventEmitter<void>();
 
   dynamicPath :string = '';
 
@@ -28,6 +29,17 @@ export class LinksComponent implements OnInit{
   navigate(productType: string): void 
   {
     this.router.navigate(['menu'], { relativeTo: this.activatedRoute, queryParams: { 'product-type': productType } });
+  }
+
+  scrollToBottom() : void
+  {
+    window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+    this.onLinkClicked();
+  }
+
+  onLinkClicked() : void
+  {
+    this.linkClickedEvent.emit();
   }
 
 }

@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { PlaceholderDirective } from 'src/app/shared/ui/alert/directive/placeholder.directive';
 import { AlertService } from 'src/app/shared/ui/alert/service/alert.service';
@@ -18,7 +19,15 @@ export class IngredientsPageComponent implements OnInit
   ingredients : IngredientInterface[] = [];
   isLoading : boolean = false
 
-  constructor(private route : ActivatedRoute, private ingredientService : IngredientsService, private alertService : AlertService){}
+  constructor(private route : ActivatedRoute, private ingredientService : IngredientsService, private alertService : AlertService, private title : Title)
+  {
+    const dataToParse = localStorage.getItem('activeAdminData');
+    if(dataToParse)
+    {
+      const data = JSON.parse(dataToParse);
+      this.title.setTitle(`${data.name} | Składniki`);
+    }
+  }
 
   ngOnInit(): void 
   {

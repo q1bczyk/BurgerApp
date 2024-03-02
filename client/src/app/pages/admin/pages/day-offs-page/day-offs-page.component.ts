@@ -6,6 +6,7 @@ import { AlertService } from 'src/app/shared/ui/alert/service/alert.service';
 import { PlaceholderDirective } from 'src/app/shared/ui/alert/directive/placeholder.directive';
 import { DayOffService } from '../../shared/services/day-off.service';
 import { DayOffResponseInterface } from 'src/app/shared/models/dayoff-response.interface';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-day-offs-page',
@@ -21,7 +22,15 @@ export class DayOffsPageComponent implements OnInit
   dayOffs : DayOffResponseInterface[] = [];
   events : {title : string, date : string, display : string}[] = [];
 
-  constructor(private alertService : AlertService, private dayOffService : DayOffService){}
+  constructor(private alertService : AlertService, private dayOffService : DayOffService, private title : Title)
+  {
+    const dataToParse = localStorage.getItem('activeAdminData');
+    if(dataToParse)
+    {
+      const data = JSON.parse(dataToParse);
+      this.title.setTitle(`${data.name} | Dni Wolne`);
+    }
+  }
   
   ngOnInit(): void 
   {

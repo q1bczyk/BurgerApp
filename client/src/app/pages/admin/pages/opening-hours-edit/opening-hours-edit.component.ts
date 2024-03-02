@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild} from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { OpeningHourResponseInterface } from 'src/app/shared/models/opening-hour-response.interface';
 import { PlaceholderDirective } from 'src/app/shared/ui/alert/directive/placeholder.directive';
@@ -30,7 +31,15 @@ export class OpeningHoursEditComponent implements OnInit
     isDayOff : [],
   })
  
-  constructor(private route : ActivatedRoute, private fb : FormBuilder, private timeConvertSerivce : TimeConvertService, private alertService : AlertService, private openingHoursService : OpeningHoursService){}
+  constructor(private route : ActivatedRoute, private fb : FormBuilder, private timeConvertSerivce : TimeConvertService, private alertService : AlertService, private openingHoursService : OpeningHoursService, private title : Title)
+  {
+    const dataToParse = localStorage.getItem('activeAdminData');
+    if(dataToParse)
+    {
+      const data = JSON.parse(dataToParse);
+      this.title.setTitle(`${data.name} | Edytuj Godziny Otwarcia`);
+    }
+  }
 
   ngOnInit(): void
   {

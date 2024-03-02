@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { LocalInterface } from 'src/app/shared/models/local.interface';
 import { OpeningHourResponseInterface } from 'src/app/shared/models/opening-hour-response.interface';
 
@@ -12,6 +13,8 @@ export class OpeningHoursPageComponent implements OnInit
 
   openingHours : OpeningHourResponseInterface[] = [];
 
+  constructor(private title : Title){}
+
   ngOnInit(): void 
   {
     const dataToParse = localStorage.getItem('activeAdminData');
@@ -19,6 +22,7 @@ export class OpeningHoursPageComponent implements OnInit
     {
       const data : LocalInterface = JSON.parse(dataToParse)
       this.openingHours = data.openingHours;
+      this.title.setTitle(`${data.name} | Godziny Otwarcia`);
     }
   }
   

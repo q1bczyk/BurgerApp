@@ -1,14 +1,14 @@
 <ul class="links">
-    <li>
+    <li (click)="onLinkClicked()">
         <a [routerLinkActive]="'active'" [routerLinkActiveOptions]="{ exact: true }" [routerLink]="dynamicPath">Strona główna</a>
     </li>
-    <li>
+    <li (click)="onLinkClicked()">
         <a [routerLinkActive]="'active'" [routerLink]="['o-nas']">O nas</a>
     </li>
-    <li>
+    <li (click)="onLinkClicked()">
         <a [routerLinkActive]="'active'" [routerLink]="['menu']" (click)="navigate('burger')">Menu</a>
     </li>
-    <li>
+    <li (click)="scrollToBottom()">
         <a style="cursor: pointer;">Kontakt</a>
     </li>
 </ul>

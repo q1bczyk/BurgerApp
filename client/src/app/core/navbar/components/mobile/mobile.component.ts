@@ -17,4 +17,9 @@ export class MobileComponent {
     this.isMenuActive = value;
   }
 
+  onLinkClicked() : void
+  {
+    this.isMenuActive = false;
+  }
+
 }

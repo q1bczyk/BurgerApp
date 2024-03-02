@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { OrderHubService } from 'src/app/shared/services/order-hub.service';
 import { OrderService } from 'src/app/shared/services/order.service';
@@ -28,8 +29,17 @@ export class OrdersPageComponent implements OnInit{
     private route : ActivatedRoute, 
     private router : Router, 
     private alertService : AlertService, 
-    private orderHubService : OrderHubService
-    ){}
+    private orderHubService : OrderHubService,
+    private title : Title,
+    )
+    {
+      const dataToParse = localStorage.getItem('activeAdminData');
+      if(dataToParse)
+      {
+        const data = JSON.parse(dataToParse);
+        this.title.setTitle(`${data.name} | Zamówienia`);
+      }
+    }
   
   ngOnInit() 
   {
