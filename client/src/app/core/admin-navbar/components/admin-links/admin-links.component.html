@@ -1,0 +1,26 @@
+<ul class="links">
+    <li (click)="navigate('order-status', 'nowe', 'zamowienia')">
+        <a class="link" [routerLinkActive]="'active'" [routerLink]="['zamowienia']"><span><fa-icon [icon]="faBell"/></span>Zamówienia</a>
+    </li>
+    <li (click)="navigate('product-type', 'burger', 'produkty')">
+        <a class="link" [routerLinkActive]="'active'" [routerLink]="['produkty']"><span><fa-icon [icon]="faBurger"/></span>Produkty</a>
+    </li>
+    <li>
+        <a class="link" [routerLinkActive]="'active'" [routerLink]="['skladniki']"><span><fa-icon [icon]="faEgg"/></span>Składniki</a>
+    </li>
+    <li>
+        <a class="link" [routerLinkActive]="'active'" [routerLink]="['godziny-otwarcia']"><span><fa-icon [icon]="faClock"/></span>Godziny otwarcia</a>
+    </li>
+    <li>
+        <a class="link" [routerLinkActive]="'active'" [routerLink]="['dni-wolne']"><span><fa-icon [icon]="faCalendar"/></span>Dni wolne</a>
+    </li>
+    <li>
+        <a class="link" [routerLinkActive]="'active'" [routerLink]="['kontakt']"><span><fa-icon [icon]="faPhone"/></span>Kontakt</a>
+    </li>
+    <li>
+        <a class="link" [routerLinkActive]="'active'" [routerLink]="['ranking']"><span><fa-icon [icon]="faRankingStar"/></span>Ranking</a>
+    </li>
+    <li (click)="logOut()">
+        <a class="link" (click)="logOut()" [routerLinkActive]="'active'" [routerLink]="['/logowanie']"><span><fa-icon [icon]="faSignOut"/></span>Wyloguj się</a>
+    </li>
+</ul>

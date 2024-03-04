@@ -1,0 +1,12 @@
+<div class="wrapper" *ngIf="product">
+    <div class="product">
+        <h4><span>{{index + 1}}</span>{{product.name}}</h4>
+        <p>{{product.price * product.quantity}}zł</p>
+    </div>
+    <div class="quantity">
+        <div (click)="decrementProduct()">-</div>
+        <p>{{product.quantity}}</p>
+        <div (click)="incrementProduct()">+</div>
+    </div>
+    <span *ngIf="index > 0"></span>
+</div>

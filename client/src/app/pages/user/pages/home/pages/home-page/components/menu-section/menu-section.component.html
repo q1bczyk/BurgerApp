@@ -1,0 +1,28 @@
+<div class="wrapper">
+    <div class="box">
+        <div class="card">
+            <div class="icon"><fa-icon [icon]="faBurger"></fa-icon></div>
+            <div class="description">
+                <h2>Burgery</h2>
+                <p>przekonaj się sam, że w naszej restauracji burgery to prawdziwa uczta dla podniebienia!</p>
+                <h4 (click)="navigate('burger')">Sprawdź</h4>
+            </div>
+        </div>
+        <div class="card">
+            <div class="icon"><fa-icon [icon]="faDrumstickBite"></fa-icon></div>
+            <div class="description">
+                <h2>Przekąski</h2>
+                <p>oprócz burgerów oferujemy także przekąski, które są równie dopieszczone jak nasze kanapki</p>
+                <h4 (click)="navigate('przekaska')">Sprawdź</h4>
+            </div>
+        </div>
+        <div class="card">
+            <div class="icon"><fa-icon [icon]="faWineBottle"></fa-icon></div>
+            <div class="description">
+                <h2>Napoje</h2>
+                <p>w oferecie znajdują się również zimne napoje bezalkoholowe</p>
+            </div>
+            <h4 (click)="navigate('napoj')">Sprawdź</h4>
+        </div>
+    </div>
+</div>

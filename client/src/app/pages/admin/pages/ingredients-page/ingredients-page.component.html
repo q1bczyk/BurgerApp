@@ -1,0 +1,12 @@
+<div class="wrapper">
+    <ng-template appPlaceholder></ng-template>
+    <app-loader *ngIf="isLoading"/>
+    <div>
+        <app-ingredient-admin-item
+        *ngFor="let ingredient of ingredients; let i = index"
+        [ingredient]="ingredient"
+        [index]="i"
+        (deleteItemEvent)="deleteIngredient($event)"
+        />
+    </div>
+</div>

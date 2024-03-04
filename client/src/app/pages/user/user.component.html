@@ -1,0 +1,32 @@
+<div class="wrapper">
+    <div class="overly"></div>
+    <div class="logo">
+        <app-logo/>
+    </div>
+    <app-loader *ngIf="isLoading"/>
+    <h2 *ngIf="error">{{error}}</h2>
+    <h2 *ngIf="!isLoading && !error">Wybierz lokal</h2>
+    <div class="locals" *ngIf="!isLoading">
+        <div class="local" *ngFor="let local of locals; let i = index" (click)="onNavigate(i)">
+            <h5 class="name">{{local.name}}</h5>
+            <h5>
+                <span>
+                    <fa-icon [icon]="faLocationDot"></fa-icon>
+                </span>
+                {{getAddress(i)}}
+            </h5>
+            <h5>
+                <span>
+                    <fa-icon [icon]="faEnvelope"></fa-icon>
+                </span>
+                {{local.contact.email}}
+            </h5>
+            <h5>
+                <span>
+                    <fa-icon [icon]="faPhone"></fa-icon>
+                </span>
+                {{local.contact.phoneNumber}}
+            </h5>
+        </div>
+    </div>
+</div>

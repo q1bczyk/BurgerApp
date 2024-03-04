@@ -1,0 +1,81 @@
+<ng-template appPlaceholder></ng-template>
+<div class="wrapper" *ngIf="openingHour">
+    <app-loader *ngIf="isLoading"/>
+    <h1>{{openingHour.day}}</h1>
+    <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+        <div class="hours">
+            <div>
+                <h2>Godzina otwarcia</h2>
+                <div>
+                    <div>
+                        <label>godziny</label>
+                        <input 
+                            type="text"
+                            formControlName='openedHour'
+                            (keypress)="handleKeyPress($event, 'openedHour')" 
+                            (change)="onHourChange('openedHour')" 
+                        >
+                    </div>
+                    <span>:</span>
+                    <div>
+                        <label>minuty</label>
+                        <input 
+                            type="text"
+                            formControlName='openedMinutes'
+                            (keypress)="handleKeyPress($event, 'openedMinutes')"
+                            (change)="onMinutesChange('openedMinutes', 'openedHour')"   
+                        >
+                    </div>
+                </div>
+            </div>
+            <div>
+                <h2>Godzina zamknięcia</h2>
+                <div>
+                    <div>
+                        <label>godziny</label>
+                        <input 
+                            type="text"
+                            formControlName='closedHour'
+                            (keypress)="handleKeyPress($event, 'closedHour')"
+                            (change)="onHourChange('closedHour')"   
+                        >
+                    </div>
+                    <span>:</span>
+                    <div>
+                        <label>minuty</label>
+                        <input 
+                            type="text"
+                            formControlName='closedMinutes'
+                            (keypress)="handleKeyPress($event, 'closedMinutes')"
+                            (change)="onMinutesChange('closedMinutes', 'closedHour')"   
+                        >
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="day-off">
+            <h2>Dzień wolny</h2>
+            <div>
+                <label>Tak</label>
+                <input 
+                    type="radio"
+                    value="true"
+                    formControlName="isDayOff"
+                    name="isDayOff"
+                    [checked]="formGroup.get('isDayOff')?.value === true"
+                >
+            </div>
+            <div>
+                <label>Nie</label>
+                <input 
+                    type="radio"
+                    value="false"
+                    formControlName="isDayOff"
+                    name="isDayOff"
+                    [checked]="formGroup.get('isDayOff')?.value === false"
+                >
+            </div>
+        </div>
+        <button type="submit"><h4>Zatwierdź</h4></button>
+    </form>
+</div>

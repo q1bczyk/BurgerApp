@@ -1,0 +1,13 @@
+<div class="container" *ngIf="ingredient">
+    <p>{{ingredient.name}}</p>
+    <div>
+        <div class="quantity">
+            <p (click)="onChangeQuantity(-1)"><fa-icon [icon]="faMinus"></fa-icon></p>
+            <div>{{ingredient.quantity}}</div>
+            <p (click)="onChangeQuantity(1)"><fa-icon [icon]="faPlus"></fa-icon></p>
+        </div>
+        <div class="icon" (click)="onRemoveItem(ingredient.name)">
+            <fa-icon [icon]="faRemove"></fa-icon>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,150 @@
+@use '../../../assets/styles/shared-styles.scss';
+@use '../../../assets/styles/base';
+
+.wrapper
+{
+    @include shared-styles.section-wrapper;
+    width: 100%;
+    min-height: 300px;
+    background-color: #272727;
+    font-family: base.$header-font;
+    color: white;
+}
+
+.container
+{
+    width: 90%;
+    height: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    position: relative;
+    
+    > span
+    {
+        width: 1px;
+        height: 300px;
+        background-color: #ffffff17;
+        border-radius: 10px;
+    }
+
+    h2
+    {
+        position: absolute;
+        top: 0;
+    }
+}
+
+.contact
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 50%;
+
+    h3
+    {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        width: 250px;
+        padding: 5px 0;
+    }
+
+    span
+    {
+        color: base.$third-color;
+        margin-right: 10px;
+    }
+}
+
+.opening-hours
+{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+    margin-top: 20px;
+
+    > div
+    {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        
+        > div
+        {
+            text-align: center;
+            padding: 15px;
+        }
+    }
+
+    span
+    {
+        color: base.$third-color;
+    }
+}
+
+.logo
+{
+    width: 200px;
+    display: none;
+}
+
+@media(max-width : base.$medium)
+{
+    .container
+    {
+        flex-direction: column-reverse;
+        width: 100%;
+
+        > span
+        {
+            display: none;
+        }
+
+        h2
+        {
+            position: relative;
+        }
+    }
+
+    .contact
+    {
+        width: 100%;
+        background-color: #0a0a0a;
+        padding: 40px;
+        flex-direction: row;
+        justify-content: space-around;
+
+        h2
+        {
+            text-align: center;
+            padding: 10px;
+        }
+    }
+
+    .opening-hours
+    {
+        width: 90%;
+        margin: 0;
+        padding: 20px;
+    }
+
+    .wrapper
+    {
+        padding: 0;
+    }
+
+    .logo
+    {
+        display: block;
+    }
+}

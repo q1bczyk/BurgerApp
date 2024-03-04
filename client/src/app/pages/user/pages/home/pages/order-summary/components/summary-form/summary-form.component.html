@@ -1,0 +1,11 @@
+<ng-template appPlaceholder></ng-template>
+<div class="container">
+    <app-loader *ngIf="isLoading"/>
+    <app-form
+        [formGroup]="contactForm"
+        [formSettings]="formSettings"
+        [buttonLabel]=" 'Złóż zamówienie' "
+        (optionEvent)="changePaymentMethod($event)"
+        (formEvent)="onSubmitForm($event)"
+    />
+</div>

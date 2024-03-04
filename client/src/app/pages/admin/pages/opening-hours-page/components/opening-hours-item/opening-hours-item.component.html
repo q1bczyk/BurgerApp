@@ -1,0 +1,8 @@
+<div class="container" *ngIf="openingHour">
+    <h4>{{openingHour.day}}</h4>
+    <p *ngIf="!openingHour.isDayOff">{{openingHour.opened}} - {{openingHour.closed}}</p>
+    <p *ngIf="openingHour.isDayOff">zamknięte</p>
+    <div (click)="navigate()">
+        <h4>Edytuj</h4>
+    </div>
+</div>

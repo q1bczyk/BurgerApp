@@ -1,0 +1,84 @@
+@use '../../../../assets/styles/base';
+@use '../../../../assets/styles/shared-styles.scss';
+
+.wrapper-child
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.nav
+{
+    width: 90%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+
+    ul
+    {
+        list-style: none;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    li
+    {
+        font-size: 20px;
+        position: relative;
+        color: #0000009a;
+        cursor: pointer;
+    }
+
+    span
+    {
+        width: 1px;
+        height: 30px;
+        background-color: base.$third-color;
+        border-radius: 10px;
+        margin: 10px;
+    }
+
+    li:hover
+    {
+        color: black;
+    }
+
+    .active
+    {
+        color: black;
+    }
+}
+
+.container
+{
+    width: 90%;
+    min-height: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}
+
+.add-product
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 5px 20px;
+    @include shared-styles.button;
+}
+
+@media(min-width : 1500px)
+{
+    .container
+    {
+        justify-content: flex-start;
+    }
+}

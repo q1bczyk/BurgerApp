@@ -1,0 +1,8 @@
+@use '../../../../../assets/styles/shared-styles.scss';
+
+.wrapper
+{
+    @include shared-styles.admin-wrapper;
+    display: flex;
+    flex-direction: column;
+}

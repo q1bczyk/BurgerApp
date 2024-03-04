@@ -1,0 +1,6 @@
+<div class="container" *ngIf="index && item" [ngStyle]="{'background-color': index % 2 === 0 ? '#e6e6e6' : 'white'}">
+    <div>
+        <h4>{{item.name}}</h4>
+        <h4>x{{item.orderCount}}</h4>
+    </div>
+</div>

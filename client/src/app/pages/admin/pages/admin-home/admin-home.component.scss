@@ -1,0 +1,18 @@
+@use '../../../../../assets/styles/shared-styles.scss';
+@use '../../../../../assets/styles/base.scss';
+
+.wrapper
+{
+    @include shared-styles.admin-wrapper;
+    flex-direction: column;
+    span
+    {
+        color: base.$third-color;
+    }
+
+    h1 h4
+    {
+        padding: 0 20px;
+        text-align: center;
+    }
+}

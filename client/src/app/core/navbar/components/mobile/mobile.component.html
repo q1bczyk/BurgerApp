@@ -1,0 +1,8 @@
+<div class="wrapper" [ngStyle]="{'transform': isMenuActive ? 'translateX(0)' : 'translateX(100%)'}">
+    <div class="icon" (click)="menuState(false)"><fa-icon [icon]="faRemove"></fa-icon></div>
+    <div class="container">
+        <div class="logo"><app-logo/></div>
+        <div class="links"><app-links (linkClickedEvent)="onLinkClicked()"/></div>
+        <span></span>
+    </div>
+</div>

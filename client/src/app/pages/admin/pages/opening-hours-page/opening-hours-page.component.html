@@ -1,0 +1,8 @@
+<div class="wrapper">
+    <h2>Godziny otwarcia</h2>
+    <div class="container">
+        <app-opening-hours-item *ngFor="let openingHour of openingHours"
+            [openingHour]="openingHour"
+        />
+    </div>
+</div>

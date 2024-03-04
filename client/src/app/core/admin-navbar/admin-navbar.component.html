@@ -1,0 +1,15 @@
+<div class="controls">
+    <div class="burger" (click)="showNavbar()">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+</div>
+<div class="wrapper" [ngStyle]="{ 'transform': isMenuVisible ? 'translateX(0)' : 'translateX(-102%)' }">
+    <div class="container">
+        <div class="logo">
+            <a [routerLink]="['/admin']"><app-logo/></a>
+        </div>
+        <app-admin-links/>
+    </div>
+</div>

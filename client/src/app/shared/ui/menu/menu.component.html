@@ -1,0 +1,30 @@
+<ng-template appPlaceholder></ng-template>
+<div class="wrapper-child" [ngStyle]="admin !== true ? {'width.px': windowWidth} : {}">
+    <div class="nav" #menu>
+        <ul>
+            <li [ngClass]="{ 'active': productType === 'burger' }" (click)="setType('burger')">Burgery</li>
+            <span></span>
+            <li [ngClass]="{ 'active': productType === 'przekaska' }" (click)="setType('przekaska')">Przekąski</li>
+            <span></span>
+            <li [ngClass]="{ 'active': productType === 'napoj' }" (click)="setType('napoj')">Napoje</li>
+            <span *ngIf="admin"></span>
+            <li class="add-product" *ngIf="admin" [ngClass]="{ 'active': productType === 'drink' }" (click)="addProduct()">
+                <h4>Dodaj produkt</h4>
+            </li>
+        </ul>
+    </div>
+    <div class="container">
+        <app-loader *ngIf="isLoading"/>
+        <h2 *ngIf="products.length == 0 && !isLoading">Brak produktów</h2>
+        <app-product-item *ngFor="let product of products; let i = index"
+            [product]="product"
+            [index]="i"
+            [marginTop]="true"
+            [admin]="admin"
+            (alertEvent)="showAlert($event)"
+            (deleteProductEvent)="deleteProduct($event)"
+        />
+    </div>
+</div>
+
+

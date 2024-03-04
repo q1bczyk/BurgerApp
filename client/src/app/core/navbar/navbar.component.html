@@ -1,0 +1,30 @@
+<div class="wrapper">
+    <div class="container">
+        <app-mobile/>
+    <app-cart-summary/>
+    <div class="cart-icon" *ngIf="cart && cart.productsQuantity > 0 && cartVisible()" (click)="showCart()">
+        <fa-icon [icon]="faBasketShopping "></fa-icon>
+        <h5>{{cart.productsQuantity}}</h5>
+    </div>
+    <div class="overly"></div>
+    <div class="navbar">
+        <div class="box">
+            <div class="logo"><app-logo/></div>
+                <app-links appNavbar/>
+            <div class="burger" (click)="openMenu()">
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+            <span></span>
+        </div>
+    </div>
+    <div class="header">
+            <h2>Odkryj Nasze Wyjątkowe Burgery</h2>
+            <p>Nasze burgery to doświadczenie pełne intensywnych i wyjątkowych smaków oraz gwarancja najwyższej jakości składników. Każdy kęs to podróż po zmysłach!</p>
+            <div class="button">
+                <h3 (click)="navigate()">Sprawdź menu</h3>
+            </div>
+    </div>
+    </div>
+</div>

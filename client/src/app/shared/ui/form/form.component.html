@@ -1,0 +1,22 @@
+<form class="form" *ngIf="formGroup && formSettings" [formGroup]="formGroup" (submit)="onSubmit()">
+  <div class="field" *ngFor="let field of formSettings; let i = index">
+      <div [ngClass]="{'row': field.type === 'radio'}">
+        <label>{{field.label}}
+          <span *ngIf="field.required"> * </span>
+        </label>
+        <input [ngClass]="{
+          'ng-invalid': getFormControl(field.name)?.invalid && getFormControl(field.name)?.touched,
+          'ng-untoched': !getFormControl(field.name)?.touched
+        }"
+          [type]="field.type"
+          [placeholder]="field.label"
+          *ngIf="getFormControl(field.name) as formControl"
+          [formControl]="formControl"
+          [checked]="field.value === getFormControl(field.name)?.value"
+          (change)="field.type === 'radio' ? changeOption(field.value) : (field.type === 'file' ? fileSelected($event, field.name) : null)"
+          (keypress)="handleKeyPress($event, field.name)"
+        >
+      </div>
+  </div>
+  <button [ngClass]="{'button-absolute': buttonAbsolute}" type="submit"><h4 *ngIf="buttonLabel">{{buttonLabel}}</h4></button>
+</form>
