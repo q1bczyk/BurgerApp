@@ -8,11 +8,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
-namespace api.Migrations
+namespace api._Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20240207143245_paymentUpdate2")]
-    partial class paymentUpdate2
+    [Migration("20240304152453_PostgresInitial")]
+    partial class PostgresInitial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -178,6 +178,9 @@ namespace api.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<string>("Slug")
+                        .HasColumnType("text");
+
                     b.HasKey("Id");
 
                     b.ToTable("Locals");
@@ -204,6 +207,9 @@ namespace api.Migrations
                     b.Property<string>("Opened")
                         .IsRequired()
                         .HasColumnType("text");
+
+                    b.Property<int>("Order")
+                        .HasColumnType("integer");
 
                     b.HasKey("Id");
 
@@ -347,17 +353,11 @@ namespace api.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<bool?>("PaymentSuccess")
-                        .HasColumnType("boolean");
-
                     b.Property<float>("Price")
                         .HasColumnType("real");
 
                     b.Property<string>("RefusalReason")
                         .HasColumnType("text");
-
-                    b.Property<int?>("SessionId")
-                        .HasColumnType("integer");
 
                     b.Property<string>("WaitingTime")
                         .HasColumnType("text");
@@ -377,11 +377,40 @@ namespace api.Migrations
                     b.Property<string>("ProductId")
                         .HasColumnType("character varying(36)");
 
+                    b.Property<int>("Quantity")
+                        .HasColumnType("integer");
+
                     b.HasKey("OrderId", "ProductId");
 
                     b.HasIndex("ProductId");
 
                     b.ToTable("OrderProducts");
+                });
+
+            modelBuilder.Entity("api._Entieties.PaymentsDetails", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(36)
+                        .HasColumnType("character varying(36)");
+
+                    b.Property<bool>("IsPaymentDone")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("OrderId")
+                        .IsRequired()
+                        .HasColumnType("character varying(36)");
+
+                    b.Property<string>("SessionId")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OrderId")
+                        .IsUnique();
+
+                    b.ToTable("PaymentsDetails");
                 });
 
             modelBuilder.Entity("api._Entieties.Product", b =>
@@ -529,7 +558,7 @@ namespace api.Migrations
             modelBuilder.Entity("api._Entieties.OrderProduct", b =>
                 {
                     b.HasOne("api._Entieties.Order", "Order")
-                        .WithMany()
+                        .WithMany("OrderProducts")
                         .HasForeignKey("OrderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -543,6 +572,17 @@ namespace api.Migrations
                     b.Navigation("Order");
 
                     b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("api._Entieties.PaymentsDetails", b =>
+                {
+                    b.HasOne("api._Entieties.Order", "Order")
+                        .WithOne("PaymentsDetails")
+                        .HasForeignKey("api._Entieties.PaymentsDetails", "OrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Order");
                 });
 
             modelBuilder.Entity("DayOff", b =>
@@ -582,6 +622,10 @@ namespace api.Migrations
                 {
                     b.Navigation("ClientsContact")
                         .IsRequired();
+
+                    b.Navigation("OrderProducts");
+
+                    b.Navigation("PaymentsDetails");
                 });
 
             modelBuilder.Entity("api._Entieties.Product", b =>
