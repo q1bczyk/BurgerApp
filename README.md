@@ -10,8 +10,11 @@ Aplikacja zawiera rownież rozbudowany panel administratora, który pozwala obs�
 edytować godziny otwarcia oraz planować dni wolne. 
 
 Dane do logowania:
+
 ścieżka: /admin
+
 email: it-burger-krakow@onet.pl lub it-burger-szcz@onet.pl
+
 hasło: testowehaslo
 
 ## Zastosowane technologie
