@@ -17,12 +17,12 @@ email: it-burger-krakow@onet.pl lub it-burger-szcz@onet.pl
 
 hasło: testowehaslo
 
+Link do strony: https://it-burgers.fly.dev/
 ## Zastosowane technologie
 
 <div align="left">
-  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" height="40" alt="java logo"  />
   <img width="12" />
-  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/spring/spring-original.svg" height="40" alt="spring logo"  />
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/dotnetcore/dotnetcore-original.svg" />
   <img width="12" />
   <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" height="40" alt="typescript logo"  />
   <img width="12" />
@@ -37,27 +37,5 @@ hasło: testowehaslo
   <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" height="40" alt="html5 logo"  />
 </div>
 
-## Uruchomienie aplikacji
-
-#### 1. Zainstaluj (jeśli nie masz) następujące narzędzia:
-
-###### -Node.js 
-###### -npm 
-###### -Java Development Kit (JDK) (zalecana wersja 8 lub nowsza)
-###### -Maven
-
-#### 2. Otwórz terminal i przejdź do katalogu fiszki-server:
-###### wpisz komende - mvn spring-boot:run
-
-#### 3. Otwórz nowe okno terminala i przejdź do katalogu fiszki-client:
-###### wpisz komende - npm start
-
-#### 4. Uruchom aplikacje 
-###### wpisz komende - ng serve
-
-#### 5. Włącz przeglądarke i wejdź na adres 'http://localhost:4200'
-
-## Autorzy:
-Kamil Dereń oraz Michał Polak - po stronie serwera
-
-Bartosz Kubik - po stronie klienta
+## Autor:
+Bartosz Kubik
