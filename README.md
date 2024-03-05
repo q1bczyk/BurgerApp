@@ -2,7 +2,7 @@
 
 It Burgers to aplikacja do zamawiania posiłków. Klient może wybrać jedną z dwóch restauracji dostępnych w róźnych lokalizacjach. 
 
-It Burgers to aplikacja czasu rzeczywistego, gdy administrator znajduje się 
+Jest to aplikacja czasu rzeczywistego, gdy administrator znajduje się 
 na scieżce admin/zamowienia a klient złoży zamówienie do danej restauracji strona sama się odświeży i zostanie odtworzony dźwięk. Klient za pomocą maila zostanie poinformowany o zmianie statusu zamówienia,
 gdy tylko zostanie ono obsłużone. Możliwe są płatności online za pomocą Przelewy24. 
 
@@ -13,11 +13,8 @@ Dane do logowania:
 
 ścieżka: /admin
 
-email: it-burger-krakow@onet.pl
+email: it-burger-krakow@onet.pl lub it-burger-szcz@onet.pl
 
-       it-burger-szcz@onet.pl
-
-       
 hasło: testowehaslo
 
 ## Zastosowane technologie
