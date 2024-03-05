@@ -17,7 +17,7 @@ email: it-burger-krakow@onet.pl lub it-burger-szcz@onet.pl
 
 hasło: testowehaslo
 
-<a href="https://it-burgers.fly.dev/" target="_blank">Przejdź do strony<a/>
+Link do strony: https://it-burgers.fly.dev/
 ## Zastosowane technologie
 
 <div align="left">
